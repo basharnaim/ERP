@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Suppliers.SupplierViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "SupplierList";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/APanel/Home/Reports" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Supplier List Information</h4>
+    </div>
+</div>
+@using (Html.BeginForm("SupplierList", "Supplier", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Category</label>
+                @Html.SimpleDropDown("supplierCategoryId", "/APanel/SupplierCategory/GetSupplierCategoryList/", new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-bg">Show</button>
+                @Html.ActionLink("Report", "RdlcReportSupplierList", "Customer", new { target = "_blank", id = "btnReport", @class = "btn btn-bg pull-middle" })
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Sequence</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Sequence)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Code)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address1)
+                                        </td>
+                                        <td>
+                                            @Html.YesNoFor(modelItem => item.Active)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+        });
+
+        $("#btnReport").click(function () {
+            var supplierCategoryId = $('#supplierCategoryId').val();
+            this.href = this.href.split('?')[0] + '?supplierCategoryId=' + supplierCategoryId;
+        });
+    </script>
+}

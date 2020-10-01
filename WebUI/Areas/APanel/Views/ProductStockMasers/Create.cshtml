@@ -1,0 +1,303 @@
+﻿@model IEnumerable<ERP.WebUI.Models.ViewModels.VmProductStockMaster>
+@using ERP.WebUI.Html
+
+@{
+    ViewBag.Title = "Product";
+}
+
+
+@using (Html.BeginForm("Create", "ProductStockMasers", FormMethod.Get))
+{
+    <div class="form-horizontal">
+        <h4> Product Opening Stock </h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row ">
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-header User_tittle h4 bg-info">Opening Balance Product Add</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label   mendatory">Company</label>
+                                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                                            @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label   ">Branch</label>
+                                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Category</label>
+                                            @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Sub Category</label>
+                                            @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Product</label>
+                                            @Html.SimpleDropDown("productId", "/APanel/ProductMaster/GetProductList", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Supplier</label>
+                                            @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Bar Code</label>
+                                            <input id="productcode" name="productcode" class="form-control" type="text" />
+                                            @*<input id="productids" name="productids" value="@ViewBag.ids" class="form-control" type="text" />*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-10 mt-4">
+                                            <input id="btnAdd" type="submit" value="Add" class="btn btn-bg " />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*@using (Html.BeginForm("GetItem", "ProductStockMasers", FormMethod.Post))
+    {*@
+<a href="/ProductStockMasers/GetItem"></a>
+@*@Html.AntiForgeryToken()*@
+<div class="row ">
+    <div class="col-12">
+        <div class="card ">
+            <div class="card-header User_tittle h4 bg-info">Opening Balance Product List</div>
+            <div class="card-body">
+                <table id="tblCustomers" class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProdcutDescription)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.UOMName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReceiveQty)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReceiveValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentStock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SalesRate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SalesValue)
+                        </th>
+                        <th> Action </th>
+                    </tr>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProdcutDescription)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CompanyName)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UOMName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveQty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveValue)
+                                </td>
+                                <td>
+                                    <input type="number" id="txtName" name="@item.ProductID" value="@String.Format("{0:0.00}", item.CurrentStock)" class="single-line" min="0" max="100000" />
+                                    @*@Html.EditorFor(modelItem => item.CurrentStock, new { @name="222", @min = "0", @class = "quantity form-control", Value = String.Format("{0:0.00}", item.CurrentStock),style = "text-align:center;width: 50px;"})*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesValue)
+                                </td>
+                                <td>
+                                    <div class="col-md-offset-2 col-10 mt-4">
+                                        <input id="btnRemove" name="@item.ProductID" type="submit" value="Remove" class="btn btn-info btn-sm " />
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-offset-10 col-12 ">
+            <input id="btnSaveAll" type="submit" value="Save" class="btn btn-bg " />
+        </div>
+    </div>
+</div>
+@*}*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var stuff = new Array();;
+        $(document).ready(function () {
+            
+            var data = JSON.parse(localStorage.getItem("stock"));
+            var stuff = data; //localStorage.getItem("stock");
+            $.each(stuff, function (i, element) {
+                $('#' + element.pid).val(element.qty);
+            })
+        });
+
+        var stuff = new Array();
+        $('.single-line').blur((event) => {
+            var pid = event.target.name;
+            var qty = event.target.value;
+            localStorage.clear();
+            if (qty > 0) {
+                $.each(stuff, function (i, element) {
+                    if (element['pid'] == pid) {
+                        stuff.splice(stuff.indexOf(element), 1);
+                        return false;
+                    }
+                });
+
+                stuff.push({ ProductID: pid, ReceiveQty: qty });
+
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                    success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+            }
+        });
+
+        $("#btnRemove").click(() => {
+            var productId = $('#productId').val();
+            if (productId == '') {
+                alert('Please Select Product');
+                return false;
+            } else {
+                this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                    + '&branchId=' + branchId
+                    + '&productId=' + productId;
+            }
+        });
+
+        $("body").on("click", "#btnAdd", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+            debugger;
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                }
+            });
+        });
+
+
+    $("body").on("click", "#btnSaveAll", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+
+        //Send the JSON array to Controller using AJAX.
+        $('#productId').val('');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    alert('Data Save Successfully');
+                    window.location.href = result.Url
+
+                }
+            });
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+            $("#salePersonId").val('').trigger("change");
+            $("#dateFrom").val('').trigger("change");
+            $("#dateTo").val('').trigger("change");
+        });
+    </script>
+}

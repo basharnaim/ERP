@@ -1,0 +1,83 @@
+﻿@using Library.Crosscutting.Securities;
+@using System.Threading;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>POS</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/metisMenujs")
+    @Scripts.Render("~/bundles/dataTablesjs")
+    @Scripts.Render("~/bundles/sbAdminjs")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/customjs")
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <header class="align-items-start app-header flex-column flex-md-row navbar navbar-expand-md navbar-light">
+            <div class="align-items-baseline d-flex flex-row navbar-brand p-lg-3 pl-3 pr-3 pt-3">
+                 <a class="" href="#">One-ICT</a>
+
+            </div>
+            <ul class="nav navbar-nav ml-md-auto flex-row navbar-top-links">
+                @{
+                    try
+                    {
+                        var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                        <li class="nav-item dropdown"><span class="username">Login IP: @Html.Raw(identity.IpAddress)</span><span class="username"> & Login By @Html.Raw(identity.Name)</span></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-user">
+                                <a class="dropdown-item" href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                @Html.ActionLink("Logout", "Logout", "Login", new { area = "", road = "root" }, new { @class = "dropdown-item fa fa-sign-out fa-fw" })
+                            </div>
+                        </li>
+                    }
+                    catch (Exception ex)
+                    {
+                        HttpContext.Current.Response.Redirect("/Login");
+                    }
+                }
+            </ul>
+            <button class="collapsed ml-auto navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#side-menu-wrapper" aria-controls="side-menu" aria-expanded="false"
+                    aria-label="Toggle navigation" style="">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </header>
+        <div class="d-md-flex">
+            <div class="sidebar" role="navigation">
+                <div class="sidebar-nav collapse navbar-collapse show" id="side-menu-wrapper">
+                    @Html.Action("MenuBinding", "Home")
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <div id="page-wrapper" class="p-2">
+                <div class="container-fluid">
+                    @RenderBody()
+                    @Scripts.Render("~/bundles/tabjs")
+                    @RenderSection("Scripts", false)
+                </div>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
+</body>
+</html>

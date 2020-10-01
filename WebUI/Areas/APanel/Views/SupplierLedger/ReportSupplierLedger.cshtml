@@ -1,0 +1,182 @@
+﻿@model Tuple<IEnumerable<Library.ViewModel.Inventory.Suppliers.SupplierLedgerViewModel>, Library.ViewModel.Inventory.Suppliers.SupplierViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "ReportSupplierLedger";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/APanel" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Supplier Ledger Information</h4>
+    </div>
+</div>
+@using (Html.BeginForm("ReportSupplierLedger", "SupplierLedger", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   mendatory">Company</label>
+                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label  " title="Supplier Phone">Phone</label>
+                @Html.TextBox("phone", null, new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  " title="Supplier name">Supplier</label>
+                @Html.SimpleDropDown("supplierId", "/Supplier/GetSupplierList/", new { @class = "form-control" })
+
+            </div>
+            <div class="form-group pull-right">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary">Show</button>
+                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                    @Html.ActionLink("Report", "RptSupplierLedger", "SupplierLedger", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label   " title="Supplier name">Supplier</label>
+            @Html.TextBoxFor(model => model.Item2.Name, null, new { @class = "form-control", @readonly = "readonly" })
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label   " title="Supplier address">Address</label>
+            @Html.TextBoxFor(model => model.Item2.Address1, null, new { @class = "form-control", @readonly = "readonly" })
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Tracking NO</th>
+                                <th>Invoice No</th>
+                                <th>Receive No</th>
+                                <th title="Mode of Transaction">MOT</th>
+                                <th>Date</th>
+                                <th>Debit Amount</th>
+                                <th>Credit Amount</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Item1 != null)
+                            {
+                                foreach (var item in Model.Item1)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InvoiceNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MoneyReceiveNo)
+                                        </td>
+                                        <td class="td-width-sm">
+                                            @Html.DisplayFor(modelItem => item.Particulars)
+                                        </td>
+                                        <td class="td-width">
+                                            @Html.DisplayFor(modelItem => item.TransactionDate)
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.DisplayFor(modelItem => item.DebitAmount)
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.DisplayFor(modelItem => item.CreditAmount)
+                                        </td>
+                                        <td></td>
+                                        <td class="text-right">
+                                            @Html.DisplayFor(modelItem => item.RunningBalance)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            @if (Model.Item1.Count() != 0)
+                            {
+                                 <tr class="text-right font-bold">
+                                    <td colspan="5">Total:</td>
+                                    <td>@Html.Raw(Model.Item1.Sum(x => Math.Round(x.DebitAmount ?? 0, 2)))</td>
+                                    <td>@Html.Raw(Model.Item1.Sum(x => Math.Round(x.CreditAmount ?? 0, 2)))</td>
+                                    @{
+                                        var totalCredit = Model.Item1.Sum(x => Math.Round(x.CreditAmount ?? 0, 2));
+                                        var totalDebit = Model.Item1.Sum(x => Math.Round(x.DebitAmount ?? 0, 2));
+                                        if (totalDebit > totalCredit)
+                                        {
+                                            var result = totalDebit - totalCredit;
+                                            Model.Item1.FirstOrDefault().AdvanceAmount = result;
+                                            <td colspan="1" style="text-align: right; background-color: #033560; color: #fcab18">Advance:@Html.Raw(Convert.ToDecimal(Model.Item1.FirstOrDefault().AdvanceAmount))</td>
+                                        }
+                                        else if (totalCredit > totalDebit)
+                                        {
+                                            var result = totalCredit - totalDebit;
+                                            Model.Item1.FirstOrDefault().DueAmount = result;
+                                            <td colspan="1" style="text-align: right; background-color: #033560; color: #fcab18">Due: @Html.Raw(Model.Item1.FirstOrDefault().DueAmount)</td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="1" style="text-align: right; background-color: #033560; color: #fcab18">Due: @Html.Raw(Model.Item1.FirstOrDefault().DueAmount)</td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        $("#btnReport").click(function () {
+            var companyId = $('#companyId').val();
+            var branchId = $('#branchId').val();
+            var phone = $('#phone').val();
+            var supplierId = $('#supplierId').val();
+            this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                + '&branchId=' + branchId
+                + '&phone=' + phone
+                + '&supplierId=' + supplierId;
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#phone").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+        });
+
+    </script>
+}

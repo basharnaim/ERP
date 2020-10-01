@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Library.ViewModel.Core.Addresses.CountryViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="top-button">
+            <h4 class="page-header">Country Information</h4>
+            <a href="/CPanel/Country/Create" class="btn btn-primary" role="button">Add New</a>
+            <a href="/CPanel" class="btn btn-primary pull-right" role="button">Back</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Sequence</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var country in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelCountry => country.Sequence)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelCountry => country.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelCountry => country.Name)
+                                    </td>
+                                    <td>
+                                        @Html.YesNoFor(modelItem => country.Active)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Edit", new { id = country.Id }, new { @class = "btn-sm btn-primary glyphicon glyphicon-edit" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

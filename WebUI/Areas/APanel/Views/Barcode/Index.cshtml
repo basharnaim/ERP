@@ -1,0 +1,149 @@
+﻿@model Library.ViewModel.Inventory.Products.BarcodeViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <a href="/APanel" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Product Barcode Information</h4>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Barcode", FormMethod.Post, new { id = "DialogForm", target = "_blank" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Company</label>
+                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="tbl" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="form-group product-input">Product</th>
+                        <th class="form-group text-center">Number</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="editorItemRows">
+                    @if (Model != null && Model.BarcodeList != null && Model.BarcodeList.Any())
+                    {
+                        foreach (var item in Model.BarcodeList)
+                        {
+                            Html.RenderPartial("_ProductRow", item);
+                        }
+                    }
+                </tbody>
+            </table>
+            <p>
+                <a href="javascript:void(0);" class="AddRow" data-url="/APanel/Barcode/BlankItem" data-container="editorItemRows"><span class="btn-sm btn-bg fa fa-plus-square"></span></a>
+            </p>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class=" ">
+                        <button type="submit" onclick="GetIdNumber();" class="btn btn-bg btn-save"><i class="fa fa-check"></i>Generate Barcode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Hidden("TotalIds")
+        @Html.Hidden("TotalNumber")
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    $(function () {
+    });
+    var itemList = eval('@Html.Raw(ViewBag.ItemList)');
+
+    function ItemCodeAutoComplete() {
+        $(".productCode:not(.productCodeInited)").autocomplete({
+            source: itemList,
+            delay: 1000,
+            autoFocus: false,
+            focus: function (event, ui) {
+                event.preventDefault();
+                $(this).val(ui.item.label);
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $(this).closest("tr").find(".productId").val(ui.item.value);
+            }
+        }).addClass("productCodeInited");
+    }
+
+    function GetIdNumber() {
+        var totalIds = [];
+        var totalNumber = [];
+        for (var i = 0; i < $(".productId").length; i++) {
+            totalIds.push($($(".productId")[i]).val());
+            totalNumber.push($($(".number")[i]).val());
+        }
+        $("#TotalIds").val(JSON.stringify(totalIds));
+        $("#TotalNumber").val(JSON.stringify(totalNumber));
+    }
+
+    $(document).keyup(function (e) {
+        if (e.keyCode == 45) {
+            e.preventDefault();
+            $.ajax({
+                url: '/APanel/Barcode/BlankItem',
+                type: 'POST',
+                cache: false,
+                success: function (html) {
+                    $("#editorItemRows").append(html);
+                    $(".productCode").closest("tr").find("input.productCode").focus();
+                }
+            });
+        }
+
+        else if (e.keyCode == 46) {
+            e.preventDefault();
+            var len = $('#tbl tr').length;
+            if (len > 2) {
+                $('#tbl tr').eq(len - 1).remove();
+                $('#tbl tr').eq(len - 2).find("input.productCode").focus();
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+
+        }
+    });
+
+    $("#DialogForm").on("submit", function () {
+        var comId = $("#companyId").val();
+        if (comId == "") {
+            ShowResult("Please select a company.", "failure");
+            return false;
+        }
+        var braId = $("#branchId").val();
+        if (braId == "") {
+            ShowResult("Please select a branch.", "failure");
+            return false;
+        }
+        var productId = $(".productId").closest("tr").find("input.productId").val();
+        if (productId == "") {
+            ShowResult("Please select product", "failure");
+            return false;
+        }
+        var productId = $(".number").closest("tr").find("input.number").val();
+        if (productId == "") {
+            ShowResult("Please select number", "failure");
+            return false;
+        }
+    });
+    </script>
+}

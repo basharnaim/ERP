@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>POS</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/metisMenujs")
+    @Scripts.Render("~/bundles/dataTablesjs")
+    @Scripts.Render("~/bundles/sbAdminjs")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/customjs")
+</head>
+<body style="background: #fff;">
+    @RenderBody()
+    @RenderSection("scripts", false)
+</body>
+</html>

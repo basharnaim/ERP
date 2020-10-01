@@ -1,0 +1,149 @@
+﻿@model Library.ViewModel.Inventory.Customers.CustomerViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Customer Add";
+}
+
+@using (Ajax.BeginForm("Update", "SuperShopSale", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Customer_tittle">
+                    Add Customer
+                    <button type="submit" class="btn btn-bg btn-sm offset-9"><i class="fa fa-save"></i> Save </button>
+                    <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal"> <i class="fa fa-close"></i> Close </button>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Category</label>
+                                @Html.SimpleDropDownFor(model => model.CustomerCategoryId, "/APanel/CustomerCategory/GetCustomerCategoryList/", new { @class = "customerCategoryId form-control select" })
+                                @Html.ValidationMessageFor(model => model.CustomerCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address1, new { title = "Address", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Address1, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone1, new { @min="7", @max="11", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Phone1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Phone1, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ContactPerson, new { title = "Contact Person", @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.ContactPerson, new { @class = "form-control", placeholder = "Contact person" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default card">
+            <div class="card-header ProductBasicConfigurationCategory_tittle">Customer Information </div>
+            <div class="panel-body card-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Sequence</th>
+                                <th>Phone</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.ACustomers.Any())
+                            {
+                                foreach (var item in Model.ACustomers)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Sequence)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Phone1)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address1)
+                                        </td>
+                                        <td>
+                                            @Html.YesNoFor(modelItem => item.Active)
+                                        </td>
+                                        <td>
+                                            <button type="button" id="select" class="btn btn-sm btn-primary" value="@item.Phone1"><i class="fa fa-check"></i>Select</button>
+                                            <button type="button" id="select" class="btn btn-sm btn-info" value="@item.Phone1"><i class="fa fa-edit"></i>Update</button>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+
+        });
+
+        $("#CustomerCategoryId").on('change', function () {
+            var el = $(this);
+            var customerCategoryId = el.val();
+            if (customerCategoryId == "") {
+                ShowResult("Pleasse select a customer category", "failure");
+                return false;
+            }
+            else {
+                var url = "/APanel/Customer/GetCustomerCategoryDiscount?customerCategoryId=" + customerCategoryId;
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: 'GET',
+                    success: function (data) {
+                        $("#DiscountRate").val(parseFloat(data.Discount).toFixed(2));
+                    }
+                });
+            }
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#customerCategoryId").val('').trigger("change");
+            $("#customerSubCategoryId").val('').trigger("change");
+        });
+    </script>
+}

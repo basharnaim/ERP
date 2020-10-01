@@ -1,0 +1,66 @@
+﻿@model Library.ViewModel.Inventory.Sales.MobileShopSaleDetailViewModel
+@using ERP.WebUI.Html;
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("SaleDetails"))
+    {
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductName, new { @class = "productName tabable  form-control", style = "width: 300px; text-align:left;", @readonly = "readonly" })
+            @Html.HiddenFor(model => model.ProductId, new { @class = "productId form-control" })
+            @Html.HiddenFor(model => model.ProductStock, new { @class = "productStock" })
+            @Html.HiddenFor(model => model.VatRate, new { @class = "vatRate" })
+            @Html.HiddenFor(model => model.MaxDiscount, new { @class = "maxDiscount" })
+            @Html.HiddenFor(model => model.VatAmount, new { @class = "vatAmount" })
+            @Html.HiddenFor(model => model.UOMId, new { @class = "uOMId" })
+            @Html.HiddenFor(model => model.Id)
+        </td>
+        <td class="form-group" style="display: inline-flex;margin: 0; text-align:center">
+            <a href="javascript:void(0)" class="decrease" style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Decrease(this);">-</a>
+            @Html.TextBoxFor(model => model.Quantity, new { @class = "quantity form-control", Value = String.Format("{0:0.00}", Model.Quantity), @Min = 1, style = "text-align:center;width: 50px; ", onclick = "this.select()", onchange = "QuantityChange(this);" })
+            <a href="javascript:void(0)" class="increase" style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Increase(this);">+</a>
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.SalePrice, new { @class = "salePrice form-control", Value = String.Format("{0:0.00}", Model.SalePrice), style = "text-align:center; ", onclick = "this.select()", onchange = "PriceChange(this);" })
+            @Html.ValidationMessageFor(model => model.SalePrice, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.DiscountPerUnit, new { @class = "discountPerUnit tabable form-control text-right", Value = String.Format("{0:0.00}", Model.DiscountPerUnit), style = "text-align:center; ", onclick = "this.select()", onchange = "CalculateDiscountAmount(this);" })
+            @Html.HiddenFor(model => model.DiscountAmount, new { @class = "discountAmount" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.DiscountInPercentage, new { @class = "discountInPercentage form-control", Value = String.Format("{0:0.00}", Model.DiscountInPercentage), style = "text-align:center; ", onclick = "this.select()", onchange = "CalculateDiscountInAmount(this);" })
+            @Html.HiddenFor(model => model.DiscountInAmount, new { @class = "discountInAmount" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.TotalAmount, new { @class = "amount form-control", Value = String.Format("{0:0.00}", Model.TotalAmount), style = "text-align:center; ", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn-close"><i class="fa fa-trash"></i></a>
+        </td>
+    }
+</tr>
+<script>
+    $(function () {
+        CheckCustomer();
+        ItemCodeAutoComplete();
+        DeleteRow();
+    });
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+                CalculateSuperShopSaleSummary();
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

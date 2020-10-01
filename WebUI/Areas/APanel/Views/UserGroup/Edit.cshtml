@@ -1,0 +1,70 @@
+﻿@model Library.ViewModel.Core.Securities.UserGroupViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Edit";
+}
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="d-flex justify-content-end pb-1">
+                <a href="/APanel/UserGroup" class="btn btn-bg" role="button">Back</a>
+            </div>
+        </div>
+    </div>
+@using (Ajax.BeginForm("Edit", "UserGroup", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(model => model.Id)
+<div class="row ">
+    <div class="col-xl-12">
+        <div class="card ">
+            <div class="card-header Edit_tittle">Edit User Group</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                            @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label   mendatory">Company</label>
+                            @Html.SimpleDropDownFor(model => model.CompanyId, "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label   mendatory">Branch</label>
+                            @Html.CascadingDropDownFor(model => model.BranchId, "/APanel/Branch/GetBranchList/", "CompanyId", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.BranchId, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                            <label>
+                                @Html.CheckBoxFor(model => model.Active)
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="offset-xl-10 col-xl-2">
+                                <div class="form-group input-group">
+                                    <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                 
+                    }
+                    @section Scripts {@Scripts.Render("~/bundles/jqueryval")
+                    <script type="text/javascript">
+                        $(function () {
+
+                        });
+                    </script>
+                    }

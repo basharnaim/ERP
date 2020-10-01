@@ -1,0 +1,80 @@
+﻿@model Library.ViewModel.Inventory.Accounts.SupplierLedgerViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/SupplierLedger" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Update Supplier Ledger</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "SupplierLedger", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{ 
+    @Html.HiddenFor(model => model.Id);
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Supplier</label>
+                @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.SupplierId)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Address</label>
+                @Html.TextBoxFor(model => model.SupplierAddress, new { @class = "form-control", @readonly = "readonly" })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   ">Ref. no</label>
+                @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  " title="Advance Amount">Advance</label>
+                @Html.TextBoxFor(model => model.AdvanceAmount, new { @class = "creditAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.AdvanceAmount) })
+
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Payable Amount">Amount</label>
+                @Html.TextBoxFor(model => model.DebitAmount, new { @class = "creditAmount form-control", Value = String.Format("{0:0.00}", Model.DebitAmount) })
+                @Html.ValidationMessageFor(model => model.DebitAmount, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  " title="Due Amount">Due Amount</label>
+                @Html.TextBoxFor(model => model.DueAmount, new { @class = "creditAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.DueAmount) })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsDiscount, new { @class = "control-label  " })
+                <label>
+                    @Html.CheckBoxFor(model => model.IsDiscount)
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Particular">Particular</label>
+                @Html.TextAreaFor(model => model.Particulars, new { @class = "creditAmount form-control" })
+                @Html.ValidationMessageFor(model => model.Particulars, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group text-right">
+                <div class="col-xl-12">
+                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,31 @@
+﻿@model Library.ViewModel.Core.Securities.UserRoleDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("UserRoleDetailItems"))
+    {
+        <td>
+            @Html.HiddenFor(modelItem => modelItem.Id)
+            @Html.HiddenFor(modelItem => modelItem.MenuId)
+            @Html.DisplayFor(modelItem => modelItem.Name)
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => modelItem.IsAdd, new { @class = "roleAdd" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => modelItem.IsEdit, new { @class = "roleEdit" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => modelItem.IsDelete, new { @class = "roleDelete" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => modelItem.IsView, new { @class = "roleView" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => modelItem.IsApprove, new { @class = "roleApprove" })
+        </td>
+    }
+</tr>
+

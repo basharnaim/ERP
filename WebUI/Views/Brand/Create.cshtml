@@ -1,0 +1,68 @@
+﻿@model Library.ViewModel.Inventory.Suppliers.BrandViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="">
+            <a href="/Brand" class="btn btn-bg pull-right mb-2" type="button">Back</a>
+        </div>
+    </div>
+    <!-- /.col-xl-12 -->
+</div>
+@using (Ajax.BeginForm("Create", "Brand", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    <!-- /.row -->
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Brand_tittle">Brand Information</div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, new { @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Name" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Supplier</label>
+                                @Html.SimpleDropDownFor(model => model.SupplierId, "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SupplierId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active, new { @class = "control-label " })
+                                @Html.CheckBoxFor(model => model.Active)
+                            </div>
+                            <div class="row">
+                                <div class="offset-xl-10 col-xl-2">
+                                    <div class="form-group input-group">
+                                        <button type="submit" class="btn btn-bg pull-right">Success</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-xl-12 -->
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

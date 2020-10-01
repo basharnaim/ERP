@@ -1,0 +1,189 @@
+﻿@model Library.ViewModel.Core.Doctors.PatientViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/APanel/Item" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Update Item</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "Item", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{                      
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Code, new { autofocus = "", @class = "form-control", placeholder = "Model name" })
+                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Item name" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>           
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Item Category">Category</label>
+                <div class="col-xs-8">
+                    @Html.SimpleDropDownFor(model => model.ProductCategoryId, "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProductCategoryId, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label   " title="Item SubCategory">SubCategory</label>
+                @Html.CascadingDropDownFor(model => model.ProductSubCategoryId, "/APanel/ProductSubCategory/GetProductSubCategoryList?ProductCategoryId=", "ProductCategoryId", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductSubCategoryId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   " title="Item Subsidiary Category">Subsidiary Category</label>
+                @Html.CascadingDropDownFor(model => model.ProductSubsidiaryCategoryId, "/APanel/ItemSubsidiaryCategory/GetItemSubsidiaryCategoryList?ProductSubCategoryId=", "ProductSubCategoryId select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductSubsidiaryCategoryId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   ">Supplier</label>
+                @Html.SimpleDropDownFor(model => model.SupplierId, "/APanel/Supplier/GetSupplierList", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SupplierId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   " title="Supplier brand">S.Brand</label>
+                @Html.CascadingDropDownFor(model => model.BrandId, "/APanel/Brand/GetBrandListBySupplierId?supplierId=", "SupplierId", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountCode, new { title = "Account Code", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.AccountCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AccountCode, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                <label>
+                    @Html.CheckBoxFor(model => model.Active)
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  " title="Input Size ">Input S.(Cm)</label>
+                @Html.TextBoxFor(model => model.InputSize, new { @class = "form-control", placeholder = "Input size" })
+                @Html.ValidationMessageFor(model => model.InputSize, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label  " title="Output Size ">Output S.(Inc)</label>
+                @Html.TextBoxFor(model => model.OutputSize, new { @class = "form-control", placeholder = "Output size" })
+                @Html.ValidationMessageFor(model => model.OutputSize, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory">Grade</label>
+                @Html.SimpleDropDownFor(model => model.GradeId, "/APanel/Grade/GetGradeList/", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GradeId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory">UOM</label>
+                @Html.SimpleDropDownFor(model => model.UOMId, "/APanel/UOM/GetUOMList/", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UOMId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Input Conversion">Input Con.</label>
+                @Html.TextBoxFor(model => model.InputConversion, new { @class = "inputConversion form-control", placeholder = "Input conversion", onclick = "this.select()" })
+                @Html.ValidationMessageFor(model => model.InputConversion, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Output Conversion">Output Con.</label>
+                @Html.TextBoxFor(model => model.OutputConversion, new { @class = "outputConversion form-control", placeholder = "Output conversion", onclick = "this.select()" })
+                @Html.ValidationMessageFor(model => model.OutputConversion, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory" title="Conversion Unit">Pcs / Box</label>
+                @Html.TextBoxFor(model => model.ConversionUnit, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.ConversionUnit) })
+                @Html.ValidationMessageFor(model => model.ConversionUnit, null, new { @class = "text-danger" })
+            </div>            
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentaveragePrice, new { title = "Current Average Price", @class = "control-label   " })
+                @Html.TextBoxFor(model => model.CurrentaveragePrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurrentaveragePrice, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MesurmentCommision, new { title = "Mesurment benefit", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.MesurmentCommision, new { @class = "mesurmentCommision form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.MesurmentCommision) })
+                @Html.ValidationMessageFor(model => model.MesurmentCommision, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PurchasePrice, new { title = "Purchase Price", @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "purchasePrice form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.PurchasePrice) })
+                @Html.ValidationMessageFor(model => model.PurchasePrice, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RetailPrice, new { title = "Retail Price", @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.RetailPrice, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.RetailPrice) })
+                @Html.ValidationMessageFor(model => model.RetailPrice, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.WholeSalePrice, new { title = "Wholesale Price", @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.WholeSalePrice, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.WholeSalePrice) })
+                @Html.ValidationMessageFor(model => model.WholeSalePrice, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxDiscount, new { title = "Max Discount", @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.MaxDiscount, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.MaxDiscount) })
+                @Html.ValidationMessageFor(model => model.MaxDiscount, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Vat, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Vat, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.Vat) })
+                @Html.ValidationMessageFor(model => model.Vat, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label  " title="Reorder lavel">Reorder</label>
+                @Html.TextBoxFor(model => model.ReorderLevel, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.ReorderLevel) })
+                @Html.ValidationMessageFor(model => model.ReorderLevel, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsFixedCommision, new { title = "Fixed Commision", @class = "control-label  " })
+                <label>
+                    @Html.CheckBoxFor(model => model.IsFixedCommision)
+                </label>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CommissionPerUnit, new { title = "Commission Per Unit", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.CommissionPerUnit, new { @class = "form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.CommissionPerUnit) })
+                @Html.ValidationMessageFor(model => model.CommissionPerUnit, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TargetCommision, new { title = "Target Comission", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.TargetCommision, new { @class = "targetComission form-control", onClick = "select()", Value = String.Format("{0:0.00}", Model.TargetCommision) })
+                @Html.ValidationMessageFor(model => model.TargetCommision, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group text-right">
+                <div class="col-xl-12">
+                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")<script type="text/javascript">
+    $("#InputConversion, #OutputConversion, #WholeSalePrice").on("keyup", function () {
+        var intputCon = parseFloat($("#InputConversion").val());
+        intputCon = isNaN(intputCon) ? 0 : intputCon;
+        var outputCon = parseFloat($("#OutputConversion").val());
+        outputCon = isNaN(outputCon) ? 0 : outputCon;
+        var wholeSalePrice = parseFloat($("#WholeSalePrice").val());
+        wholeSalePrice = isNaN(wholeSalePrice) ? 0 : wholeSalePrice;
+        var measurmentConverter = outputCon - intputCon;
+        roundMeasurmentConverter = measurmentConverter.toFixed(2);
+        var measurementBenefit = (roundMeasurmentConverter * wholeSalePrice) / outputCon;
+        $("#MesurmentCommision").val(parseFloat(measurementBenefit).toFixed(2));
+    });
+</script>}

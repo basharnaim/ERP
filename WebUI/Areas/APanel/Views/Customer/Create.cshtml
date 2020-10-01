@@ -1,0 +1,174 @@
+﻿@model Library.ViewModel.Inventory.Customers.CustomerViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/APanel/Customer" class="btn btn-bg" role="button">Back</a>
+        </div>
+    </div>
+</div>
+@using (Ajax.BeginForm("Create", "Customer", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Customer_tittle">Add Customer</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label   mendatory">Company</label>
+                                @Html.SimpleDropDownFor(model => model.CompanyId, "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label   mendatory">Branch</label>
+                                @Html.CascadingDropDownFor(model => model.BranchId, "/APanel/Branch/GetBranchList?id=", "CompanyId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BranchId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Category</label>
+                                @Html.SimpleDropDownFor(model => model.CustomerCategoryId, "/APanel/CustomerCategory/GetCustomerCategoryList/", new { @class = "customerCategoryId form-control select" })
+                                @Html.ValidationMessageFor(model => model.CustomerCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Accounts Payable</label>
+                                @Html.TextBoxFor(model => model.AccountsPayable, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AccountsPayable, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Accounts Receivable</label>
+                                @Html.TextBoxFor(model => model.AccountsReceivable, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AccountsReceivable, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address1, new { title = "Address", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Address1, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address2, new { title = "Delivery Address", @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CountryId, new { @class = "control-label   mendatory" })
+                                @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryList/", new { @class = "form-control", placeholder = "--Select--" })
+                                @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DivisionId, new { @class = "control-label   mendatory" })
+                                @Html.CascadingDropDownFor(model => model.DivisionId, "/APanel/Division/GetDivisionList/", "CountryId", new { @class = "form-control", placeholder = "--Select--" })
+                                @Html.ValidationMessageFor(model => model.DivisionId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DistrictId, new { @class = "control-label   mendatory" })
+                                @Html.CascadingDropDownFor(model => model.DistrictId, "/APanel/District/GetDistrictList/", "DivisionId", new { @class = "form-control", placeholder = "--Select--" })
+                                @Html.ValidationMessageFor(model => model.DistrictId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DiscountRate, new { title = "Discount Rate", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.DiscountRate, new { @class = "discountRate form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.DiscountRate, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AccountCode, new { title = "Account Code", @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.AccountCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AccountCode, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ContactPerson, new { title = "Contact Person", @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.ContactPerson, new { @class = "form-control", placeholder = "Contact person" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ContactPersonDesignation, new { title = "Contact Person Designation", @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.ContactPersonDesignation, new { @class = "form-control", placeholder = "Con. person designation" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone1, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Phone1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Phone1, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone2, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Phone2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Website, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......." })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                                @Html.CheckBoxFor(model => model.Active)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group text-right">
+                                <div class="col-xl-12">
+                                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        $("#CustomerCategoryId").on('change', function () {
+            var el = $(this);
+            var customerCategoryId = el.val();
+            if (customerCategoryId == "") {
+                ShowResult("Pleasse select a customer category", "failure");
+                return false;
+            }
+            else {
+                var url = "/APanel/Customer/GetCustomerCategoryDiscount?customerCategoryId=" + customerCategoryId;
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: 'GET',
+                    success: function (data) {
+                        $("#DiscountRate").val(parseFloat(data.Discount).toFixed(2));
+                    }
+                });
+            }
+        });
+
+    </script>
+}

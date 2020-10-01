@@ -1,0 +1,225 @@
+﻿@model ERP.Models.OpeningBlance
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>OpeningBlance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransectionNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransectionNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransectionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransectionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransectionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransectionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransectionQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransectionQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransectionQtyPrev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransectionQtyPrev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockUnitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockUnitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Archive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Archive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSynchronized)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSynchronized)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SynchronizationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SynchronizationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedFromIp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedFromIp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedFromIp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedFromIp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

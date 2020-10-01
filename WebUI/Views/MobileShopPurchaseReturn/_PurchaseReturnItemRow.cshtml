@@ -1,0 +1,48 @@
+﻿@model Library.ViewModel.Inventory.Purchases.PurchaseReturnDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("PurchaseReturnDetails"))
+    {
+        <td class="form-group">
+            @Html.CheckBoxFor(model => model.Select, new { @class = "selectone" })
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.ProductCode)
+            @Html.HiddenFor(model => model.ProductId, new { @class = "itemId" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PurchaseId)
+            @Html.HiddenFor(model => model.PurchaseDetailId)
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.ProductName)
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.UOMName)
+            @Html.HiddenFor(model => model.UOMId)
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.PurchaseQuantity, new { @class = "purchaseQuantity form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.PurchaseQuantity) })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.PurchaseAmount, new { @class = "purchaseAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.PurchaseAmount) })
+            @Html.HiddenFor(model => model.ReturnUnitPrice, new { @class = "unitPrice" })
+            @Html.HiddenFor(model => model.ReturnUnitPrice, new { @class = "returnUnitPrice" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.RemainingQuantity, new { @class = "remainingQuantity form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.RemainingQuantity) })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ReturnQuantity, new { @class = "returnQuantity form-control", Value = String.Format("{0:0.00}", Model.ReturnQuantity), onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.ReturnQuantity, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ReturnAmount, new { @class = "returnAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.ReturnAmount) })
+        </td>
+
+    }
+</tr>
+
+

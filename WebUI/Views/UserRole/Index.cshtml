@@ -1,0 +1,209 @@
+﻿@model Library.ViewModel.Core.Securities.UserRoleViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/Home" class="btn btn-bg" role="button">Back</a>
+        </div>
+        <hr />
+    </div>
+</div>
+@using (Html.BeginForm("Index", "UserRole", FormMethod.Get))
+{
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label   mendatory">Company</label>
+            @Html.SimpleDropDownFor(model => model.CompanyId, "/Company/GetCompanyList/", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+        </div>
+
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label   mendatory">Branch</label>
+            @Html.CascadingDropDownFor(model => model.BranchId, "/Branch/GetBranchList/", "CompanyId", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BranchId, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label   mendatory">User Group</label>
+            @Html.CascadingDropDownFor(model => model.UserGroupId, "/UserGroup/GetUserGroupList?branchId=", "BranchId", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserGroupId, null, new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label   mendatory">Module</label>
+            @Html.SimpleDropDown("module", "/UserRole/GetMenuList/", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Module, null, new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <div class="form-group">
+            <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
+            <button type="button" id="btnAdd" class="btn btn-bg ml-1 mr-1">Save</button>
+            <input type="button" value="Clear" class="btn btn-warning ml-1 mr-1" id="btnClear" />
+        </div>
+    </div>
+</div>
+}
+@using (Ajax.BeginForm("Index", "UserRole", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header UserRole_tittle">Add User Role</div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (Model.UserRoleDetailItems != null)
+                        {
+                            @Html.Partial("_UserRoleDetailItemRow", Model.UserRoleDetailItems);
+                        }
+                        @Html.Hidden("companyId")
+                        @Html.Hidden("branchId")
+                        @Html.Hidden("module")
+                        @Html.Hidden("usergroupId")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#CompanyId").val('').trigger("change");
+            $("#BranchId").val('').trigger("change");
+            $("#UserGroupId").val('').trigger("change");
+            $("#module").val('').trigger("change");
+        });
+
+        $("input:checkbox.rolesAdd").on("click", function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $(this).closest("div").find(".roleAdd:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("div").find(".roleAdd:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".roleAdd").on("click", function () {
+            var totalcheckbox = $(this).closest("div").find(".roleAdd:checkbox").length;
+            var totalcheckedcheckbox = $(this).closest("div").find(".roleAdd:checked").length;
+            $("input:checkbox.rolesAdd").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+        $("input:checkbox.rolesEdit").on("click", function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $(this).closest("div").find(".roleEdit:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("div").find(".roleEdit:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".roleEdit").on("click", function () {
+            var totalcheckbox = $(this).closest("div").find(".roleEdit:checkbox").length;
+            var totalcheckedcheckbox = $(this).closest("div").find(".roleEdit:checked").length;
+            $("input:checkbox.rolesEdit").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+        $("input:checkbox.rolesDelete").on("click", function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $(this).closest("div").find(".roleDelete:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("div").find(".roleDelete:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".roleDelete").on("click", function () {
+            var totalcheckbox = $(this).closest("div").find(".roleDelete:checkbox").length;
+            var totalcheckedcheckbox = $(this).closest("div").find(".roleDelete:checked").length;
+            $("input:checkbox.rolesDelete").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+        $("input:checkbox.rolesView").on("click", function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $(this).closest("div").find(".roleView:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("div").find(".roleView:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".roleView").on("click", function () {
+            var totalcheckbox = $(this).closest("div").find(".roleView:checkbox").length;
+            var totalcheckedcheckbox = $(this).closest("div").find(".roleView:checked").length;
+            $("input:checkbox.rolesView").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+        $("input:checkbox.rolesApprove").on("click", function () {
+            var checked = $(this).is(":checked");
+            if (checked) {
+                $(this).closest("div").find(".roleApprove:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("div").find(".roleApprove:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".roleApprove").on("click", function () {
+            var totalcheckbox = $(this).closest("div").find(".roleApprove:checkbox").length;
+            var totalcheckedcheckbox = $(this).closest("div").find(".roleApprove:checked").length;
+            $("input:checkbox.rolesApprove").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+
+        $("#btnAdd").on('click', function () {
+            var comId = $("#CompanyId").val();
+            if (comId == "") {
+                ShowResult("Please select a company.", "failure");
+                return false;
+            }
+            $("#companyId").val(comId);
+            var braId = $("#BranchId").val();
+            if (braId == "") {
+                ShowResult("Please select a branch.", "failure");
+                return false;
+            }
+            $("#branchId").val(braId);
+            var usrgId = $("#UserGroupId").val();
+            if (usrgId == "") {
+                ShowResult("Please select a user group.", "failure");
+                return false;
+            }
+            $("#usergroupId").val(usrgId);
+            var mdl = $("#module").val();
+            if (mdl == "") {
+                ShowResult("Please select module.", "failure");
+                return false;
+            }
+            $("#module").val(mdl);
+
+            $("#DialogForm").submit();
+        });
+    </script>
+}
+
+
+

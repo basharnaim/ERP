@@ -1,0 +1,189 @@
+﻿@model IEnumerable<ERP.WebUI.Models.ProductStockDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StockID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BranchID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UOMID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiveQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiveValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiveRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatePc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatePc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeleteBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeleteOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletePc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BranchID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UOMID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiveQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiveValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiveRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatePc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatePc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeleteBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeleteOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletePc)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StockDetailID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StockDetailID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StockDetailID })
+        </td>
+    </tr>
+}
+
+</table>

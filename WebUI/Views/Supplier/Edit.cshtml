@@ -1,0 +1,110 @@
+﻿@model Library.ViewModel.Inventory.Suppliers.SupplierViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/Supplier" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Edit Supplier</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "Supplier", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{     
+    @Html.HiddenFor(model => model.Id)                      
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Supplier name" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label  ">Category</label>
+                @Html.SimpleDropDownFor(model => model.SupplierCategoryId, "/SupplierCategory/GetSupplierCategoryList", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SupplierCategoryId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                <label>
+                    @Html.CheckBoxFor(model => model.Active)
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address1, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address1, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address2, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryId, new { @class = "control-label   mendatory" })
+                @Html.SimpleDropDownFor(model => model.CountryId, "/Country/GetCountryList/", new { @class = "form-control", placeholder = "--Select--" })
+                @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DivisionId, new { @class = "control-label   mendatory" })
+                @Html.CascadingDropDownFor(model => model.DivisionId, "/Division/GetDivisionList/", "CountryId", new { @class = "form-control", placeholder = "--Select--" })
+                @Html.ValidationMessageFor(model => model.DivisionId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DistrictId, new { @class = "control-label   mendatory" })
+                @Html.CascadingDropDownFor(model => model.DistrictId, "/District/GetDistrictList/", "DivisionId", new { @class = "form-control", placeholder = "--Select--" })
+                @Html.ValidationMessageFor(model => model.DistrictId, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccountCode, new { title = "Account Code", @class = "control-label   " })
+                @Html.TextBoxFor(model => model.AccountCode, new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone1, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Phone1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone1, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone2, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Phone2, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......." })
+
+            </div>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group text-right">
+                <div class="col-xl-12">
+                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")<script type="text/javascript">
+    $(function () {
+    });
+</script>}

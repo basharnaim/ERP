@@ -1,0 +1,36 @@
+﻿@model Library.ViewModel.Inventory.Sales.CustomerLedgerViewModel
+@using System.Threading
+@using ERP.WebUI.Html
+@using Library.Crosscutting.Securities
+@{
+    Layout = null;
+    var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+}
+<tr>
+    @using (Html.BeginCollectionItem("CustomerLedgerItems"))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "invoiceNo form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.TrackingNo, new { @class = "invoiceNo form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.CreditAmount, new { @class = "creditAmount form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.DebitAmount, new { @class = "debitAmount form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.RunningBalance, new { @class = "balanceAmount form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.Particulars, new { @class = "balanceAmount form-control", @readonly = "readonly" })
+        </td>
+    }
+</tr>
+<script type="text/javascript">
+    $(function () {
+    });
+</script>

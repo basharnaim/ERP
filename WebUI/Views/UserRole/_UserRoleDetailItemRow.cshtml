@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Library.ViewModel.Core.Securities.UserRoleDetailViewModel>
+@{
+    Layout = null;
+}
+<div class="col-xl-12">
+    <div class="panel panel-default card">
+        <div class="panel-body card-body">
+            <div class="dataTable_wrapper">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>
+                                @Html.CheckBoxFor(m => m.FirstOrDefault().CheckAllAdd, new { @class = "rolesAdd" })
+                                Add
+                            </th>
+                            <th>
+                                @Html.CheckBoxFor(m => m.FirstOrDefault().CheckAllEdit, new { @class = "rolesEdit" })
+                                Edit
+                            </th>
+                            <th>
+                                @Html.CheckBoxFor(m => m.FirstOrDefault().CheckAllDelete, new { @class = "rolesDelete" })
+                                Delete
+                            </th>
+                            <th>
+                                @Html.CheckBoxFor(m => m.FirstOrDefault().CheckAllView, new { @class = "rolesView" })
+                                View
+                            </th>
+                            <th>
+                                @Html.CheckBoxFor(m => m.FirstOrDefault().CheckAllApprove, new { @class = "rolesApprove" })
+                                Approve
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            Html.RenderPartial("_UserRoleDetail", item);
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

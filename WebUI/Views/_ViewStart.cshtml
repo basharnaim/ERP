@@ -1,0 +1,37 @@
+﻿@{
+    try
+    {
+        string company = new System.Configuration.AppSettingsReader().GetValue("POSTYPE", typeof(string)).ToString().ToUpper();
+        switch (company)
+        {
+            case "SSP":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "MDCN":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "MCSPOS":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "MSPOS":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "HARDP":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "CRP":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "NTECHPOS":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "P21P":
+                Layout = "~/Views/Shared/_AdminLayout.cshtml";
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+}

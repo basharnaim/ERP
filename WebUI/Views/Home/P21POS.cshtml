@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Products.ProductStockViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <h3 class="page-header" style="text-align: center">Welcome to Admin Panel</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <template class="exhead">
+                                You have  @Html.Raw(Model.Count()) products low stock quantity.
+                            </template>
+                            <tr>
+                                <th>Product Code</th>
+                                <th>Product Name</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ItemCode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ItemName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ItemStock)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

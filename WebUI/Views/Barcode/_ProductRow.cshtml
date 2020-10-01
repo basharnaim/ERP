@@ -1,0 +1,44 @@
+﻿@model Library.ViewModel.Inventory.Products.BarcodeViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("BarcodeList"))
+    {
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductCode, new { autofocus = "", @class = "productCode form-control", @placeholder = "Input product name" })
+            @Html.HiddenFor(model => model.ProductId, new { @class = "productId form-control" })
+        </td> 
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.Number, new { @class = "number form-control ", type="Number", onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.Number, null, new { @class = "text-danger" })
+        </td> 
+        <td class="form-group">
+            <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn-close"><i class="fa fa-trash"></i></a>
+        </td>
+    }
+</tr>
+<script>
+    $(function () {
+        ItemCodeAutoComplete();
+        DeleteRow();
+    });
+
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

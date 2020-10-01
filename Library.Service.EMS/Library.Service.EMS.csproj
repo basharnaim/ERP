@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA445731-BDB1-498F-B87E-8201DD8D0977}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Library.Service.EMS</RootNamespace>
+    <AssemblyName>Library.Service.EMS</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Library.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebUI\Lib\Library.Model.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Library.Service.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebUI\Lib\Library.Service.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Employees\DepartmentService.cs" />
+    <Compile Include="Employees\DesignationService.cs" />
+    <Compile Include="Employees\EmployeeGroupService.cs" />
+    <Compile Include="Employees\EmployeeService.cs" />
+    <Compile Include="Employees\EmployeeTypeService.cs" />
+    <Compile Include="Employees\IDepartmentService.cs" />
+    <Compile Include="Employees\IDesignationService.cs" />
+    <Compile Include="Employees\IEmployeeGroupService.cs" />
+    <Compile Include="Employees\IEmployeeService.cs" />
+    <Compile Include="Employees\IEmployeeTypeService.cs" />
+    <Compile Include="Employees\IOfficeCalendarService.cs" />
+    <Compile Include="Employees\OfficeCalendarService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Context\Library.Context.csproj">
+      <Project>{B125C027-A6ED-4A06-B8A3-118239A81544}</Project>
+      <Name>Library.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Crosscutting\Library.Crosscutting.csproj">
+      <Project>{30C1B1A7-69FA-4FFB-A65C-59F7516AE291}</Project>
+      <Name>Library.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Model.EMS\Library.Model.EMS.csproj">
+      <Project>{6B0FE58E-3282-49BA-A059-81395F46EC61}</Project>
+      <Name>Library.Model.EMS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

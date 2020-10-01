@@ -1,0 +1,251 @@
+﻿@model ERP.Models.ProductStockMaser
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductStockMaser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UOMID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UOMID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiveQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiveQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiveValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiveValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastReceiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastReceiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastIssueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastIssueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentStock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastSalesDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastSalesDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatePc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatePc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletePc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StockID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

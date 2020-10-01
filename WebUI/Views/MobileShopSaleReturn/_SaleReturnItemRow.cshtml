@@ -1,0 +1,54 @@
+﻿@model Library.ViewModel.Inventory.Sales.SaleReturnDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("SaleReturnDetailItems"))
+    {
+
+        <td class="form-group">
+            @Html.CheckBoxFor(model => model.Select, new { @class = "selectone" })
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.ProductCode)
+            @Html.HiddenFor(model => model.ProductCode)
+            @Html.HiddenFor(model => model.ProductId, new { @class = "itemId" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SaleId)
+            @Html.HiddenFor(model => model.SaleDetailId)
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.ProductName)
+            @Html.HiddenFor(model => model.ProductName)
+        </td>
+        <td class="form-group">
+            @Html.Raw(Model.UOMName)
+            @Html.HiddenFor(model => model.UOMId)
+        </td>
+
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.SoldQuantity, new { @class = "soldQuantity form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.SoldQuantity) })
+        </td>
+
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.SoldAmount, new { @class = "soldAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.SoldAmount) })
+            @Html.HiddenFor(model => model.SalePrice, new { @class = "unitPrice" })
+            @Html.HiddenFor(model => model.ReturnUnitPrice, new { @class = "returnUnitPrice" })
+        </td>
+
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.RemainingQuantity, new { @class = "remainingQuantity form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.RemainingQuantity) })
+        </td>
+
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ReturnQuantity, new { @class = "returnQuantity form-control", Value = String.Format("{0:0.00}", Model.ReturnQuantity), onclick = "this.select()" })
+        </td>
+
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ReturnAmount, new { @class = "returnAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.ReturnAmount) })
+        </td>
+
+    }
+</tr>
+

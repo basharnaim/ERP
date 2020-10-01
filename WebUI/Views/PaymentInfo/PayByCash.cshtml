@@ -1,0 +1,140 @@
+﻿@model Library.ViewModel.Inventory.Accounts.PaymentInfoViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "CashPayment";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/PaymentInfo/PayIndex" class="btn btn-bg" role="button">Back</a>
+        </div>
+        <hr />
+    </div>
+</div>
+@using (Html.BeginForm("PayByCash", "PaymentInfo", FormMethod.Get, new { id = "SearchForm" }))
+{
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label  " title="Supplier name">Supplier</label>
+                @Html.SimpleDropDown("splrId", "/Supplier/GetSupplierList/", new { @class = "form-control" })
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <div class="form-group pull-right">
+                <div class="submit-button">
+                    <button type="submit" class="btn btn-bg">Show</button>
+                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+@using (Ajax.BeginForm("PayByCash", "PaymentInfo", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(m => m.CompanyId)
+    @Html.HiddenFor(m => m.BranchId)
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel panel-default card">
+                <div class="card-header ExpenditureSubCategory_tittle">Pay By Cash Information</div>
+                <div class="panel-body card-body">
+                    <div class="dataTable_wrapper">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label   ">Track No</label>
+                                    @Html.TextBoxFor(model => model.TrackingNo, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label  " title="Advance Amount">Advance</label>
+                                    @Html.TextBoxFor(model => model.AdvanceAmount, new { @class = "creditAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.AdvanceAmount) })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label   " title="Payment type">Pay Type</label>
+                                    @Html.TextBoxFor(model => model.TransactionType, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.TransactionType, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsDiscount, new { @class = "control-label  " })
+                                    @Html.CheckBoxFor(model => model.IsDiscount)
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label   ">Supplier</label>
+                                    @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.HiddenFor(model => model.SupplierId)
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label   mendatory" title="Payable Amount">Amount</label>
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "creditAmount form-control", Value = String.Format("{0:0.00}", Model.Amount), onClick = "this.select()" })
+                                    @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label  " title="Reference No">Ref. No</label>
+                                    @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "creditAmount form-control" })
+                                    @Html.ValidationMessageFor(model => model.InvoiceNo, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label  " title="Due Amount">Due Amount</label>
+                                    @Html.TextBoxFor(model => model.DueAmount, new { @class = "creditAmount form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.DueAmount) })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label   mendatory" title="Particular">Particular</label>
+                                    @Html.TextAreaFor(model => model.Particulars, new { @class = "creditAmount form-control" })
+                                    @Html.ValidationMessageFor(model => model.Particulars, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label  mendatory" title="Transaction Date">Transaction Date</label>
+                                    @Html.DatePickerFor(model => model.TransactionDate, new { @autocomplete = "off", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TransactionDate, null, new { @class = "text-danger" })
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group text-right">
+                                            <div class="col-xl-12">
+                                                <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+        });
+        $("#SearchForm").on("submit", function () {
+            if ($("#companyId").val() == "") {
+                ShowResult("Please select a company.", "failure");
+                return false;
+            }
+            if ($("#branchId").val() == "") {
+                ShowResult("Please select a branch.", "failure");
+                return false;
+            }
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+        });
+    </script>
+}

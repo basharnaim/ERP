@@ -1,0 +1,64 @@
+﻿@model Library.ViewModel.Inventory.Products.SizeViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/APanel/Size" class="btn btn-bg" role="button">Back</a>
+        </div>
+    </div>
+</div>
+@using (Ajax.BeginForm("Create", "Size", null, new AjaxOptions { HttpMethod = "POST", }, new { id = "DialogForm" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Size_tittle">Add Size</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code)
+                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Size name" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description)
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active)
+                                @Html.CheckBoxFor(model => model.Active)
+                            </div>
+                            <div class="row">
+                                <div class="offset-xl-10 col-xl-2">
+                                    <div class="form-group input-group">
+                                        <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+
+        });
+    </script>
+}

@@ -1,0 +1,141 @@
+﻿@model Library.ViewModel.Core.Securities.UserViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="">
+            <a href="/User" class="btn btn-bg pull-right mb-2" type="button">Back</a>
+        </div>
+    </div>
+    <!-- /.col-xl-12 -->
+</div>
+@using (Ajax.BeginForm("Edit", "User", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    <!-- /.row -->
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header User_tittle">Company Information</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserId, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.UserId, new { autofocus = "", @class = "form-control", placeholder = "User Id" })
+                                @Html.ValidationMessageFor(model => model.UserId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "User name" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Company</label>
+                                @Html.SimpleDropDownFor(model => model.CompanyId, "/Company/GetCompanyList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                @Html.CascadingDropDownFor(model => model.BranchId, "/Branch/GetBranchList/", "CompanyId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BranchId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User group</label>
+                                @Html.CascadingDropDownFor(model => model.UserGroupId, "/UserGroup/GetUserGroupList?branchId=", "BranchId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserGroupId, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address, new { title = "Present Address", @class = "control-label   " })
+                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateOfBirth, new { title = "Parmanent Address", @class = "control-label  " })
+                                @Html.DatePickerFor(model => model.DateOfBirth, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Gender, new { @class = "control-label   mendatory" })
+                                <div class="radio">
+                                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male", @checked = true })
+                                    @Html.Label("Male")
+                                </div>
+                                <div class="radio">
+                                    @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
+                                    @Html.Label("Female")
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Picture">Picture</label>
+                                <article class="user-info">
+                                    <h5>
+                                        @if (Model != null && Model.Image != null && Model.Image.Length > 0)
+                                        {
+                                            <img src="@Url.Action("GetPicture", "User", new { id = Model.Id })" alt="Person Image" width="100" />
+                                            @Html.HiddenFor(model => model.Image)
+                                        }
+                                    </h5>
+                                </article>
+                                @Html.TextBoxFor(model => model.ImageFile, new { type = "file", @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SysAdmin, new { @class = "control-label  " })
+                                <label>
+                                    @Html.CheckBoxFor(model => model.SysAdmin)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Active)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group text-right">
+                                <div class="col-xl-12">
+                                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-xl-12 -->
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

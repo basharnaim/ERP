@@ -1,0 +1,40 @@
+﻿@{
+    try
+    {
+        string company = new System.Configuration.AppSettingsReader().GetValue("POSTYPE", typeof(string)).ToString().ToUpper();
+        switch (company)
+        {
+            case "SSP":
+                Layout = "~/Areas/APanel/Views/Shared/_SuperShopLayout.cshtml";
+                break;
+            case "MSPOS":
+                Layout = "~/Areas/APanel/Views/Shared/_MobileShopLayout.cshtml";
+                break;
+            
+            case "MDCN":
+                Layout = "~/Areas/APanel/Views/Shared/_MedicineLayout.cshtml";
+                break;
+            
+            case "MCSPOS":
+                Layout = "~/Areas/APanel/Views/Shared/_MobileCoverShopLayout.cshtml";
+                break;
+            
+            case "HARDP":
+                Layout = "~/Areas/APanel/Views/Shared/_AdminLayoutHARDPOS.cshtml";
+                break;
+            case "CRP":
+                Layout = "~/Areas/APanel/Views/Shared/_AdminLayout.cshtml";
+                break;
+            case "NTECHPOS":
+                Layout = "~/Areas/APanel/Views/Shared/_LayoutSSPOS.cshtml";
+                break;
+            case "P21P":
+                Layout = "~/Areas/APanel/Views/Shared/_LayoutP21POS.cshtml";
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        Layout = "~/Areas/APanel/Views/Shared/_SuperShopLayout.cshtml";
+    }
+}

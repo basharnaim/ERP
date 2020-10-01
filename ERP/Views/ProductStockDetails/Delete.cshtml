@@ -1,0 +1,241 @@
+﻿@model ERP.Models.ProductStockDetail
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProductStockDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StockID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UOMID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UOMID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiveQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiveQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiveValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiveValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiveRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiveRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatePc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatePc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeleteOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeleteOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletePc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletePc)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

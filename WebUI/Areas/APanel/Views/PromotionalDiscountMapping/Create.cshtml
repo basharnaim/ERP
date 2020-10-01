@@ -1,0 +1,153 @@
+﻿@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Assign";
+}
+<section class="innerSection clearfix">
+    <div class="box2">
+        <div class="row">
+            <div class="col-xl-12">
+                <a href="/APanel/PromotionalDiscountMapping" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+                <h4 class="page-header">Add Promotional Discount Mapping</h4>
+            </div>
+
+        </div>
+        @*<div class="page-header border-btm">
+            <span>Promotional Discount Mapping</span>
+            <div class="header-btn">
+                <a href="/APanel/PromotionalDiscountMapping" class="button-back" role="button"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+            </div>
+        </div>*@
+        @using (Ajax.BeginForm("GetCustomerList", "PromotionalDiscountMapping", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "CustomerListPanel", InsertionMode = InsertionMode.Replace }, new { id = "formCustomerPromotionalDiscountMappingSearch", @class = "form-horizontal" }))
+        {
+            <div class="panel panel-default card">
+                <div class="card-header ExpenditureSubCategory_tittle">Add Promotional Discount Mapping</div>
+                <div class="panel-body card-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Sales Chanel
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.SimpleDropDown("customerCategoryId", "/APanel/CustomerCategory/GetCustomerCategoryList/", new { @class = "form-control " })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Depot
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.SimpleDropDown("unitId", "/APanel/Unit/GetAllUnitList/", new { @class = "form-control " })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Region
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.SimpleDropDown("regionId", "/APanel/Region/GetRegionListByCountry?countryId=" + "1", new { @class = "form-control " })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Area
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.CascadingDropDown("areaId", "/APanel/Area/GetAreaList?regionId=", "regionId", new { @class = "form-control " })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Territory
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.CascadingDropDown("territoryId", "/APanel/Territory/GetTerritoryList?areaId=", "areaId", new { @class = "form-control " })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    Distributor
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.CascadingDropDown("customerId", "/APanel/Customer/GetListOfCustomerByTerritory?territoryId=", "territoryId", new { @class = "form-control " })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8 text-right">
+                                    <button type="submit" class="btn btn-default btn-bg btn-active"><i class="fa fa-search" aria-hidden="true"></i> Show</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @using (Ajax.BeginForm("Create", "PromotionalDiscountMapping", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "formCustomerPromotionalDiscountMapping", @class = "form-horizontal" }))
+        {
+            <div class="panel panel-default card">
+                <div class="panel-body card-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="CustomerListPanel" style="max-height: 400px; overflow: auto;padding: 20px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @Html.Hidden("customerIdList")
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="mendatory">Promotional Discount</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.SimpleDropDown("promotionalDiscountId", "/APanel/PromotionalDiscount/GetPromotionalDiscountList/", new { @class = "mendatory form-control" })
+                                    @Html.ValidationMessage("promotionalDiscountId", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="container-fluid text-right">
+                                    <button type="button" class="btn btn-default btn-bg btn-active" onclick="SubmitCustomerIdList();"><i class="fa fa-check" aria-hidden="true"></i> Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                }
+            </div>
+
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#promotionalDiscountId").attr("required", true);
+        });
+
+        function SubmitCustomerIdList() {
+            var idList = [];
+            for (var i = 0; i < $(".customerId").length; i++) {
+                if ($($(".customerIdSelect")[i]).is(":checked")) {
+                    idList.push($($(".customerId")[i]).val());
+                }
+            }
+            if (idList.length <= 0) {
+                ShowResult("Please select distributor.", "failure");
+            }
+            else {
+                if ($("#formCustomerPromotionalDiscountMapping").valid()) {
+                    $("#customerIdList").val(JSON.stringify(idList));
+                    $("#formCustomerPromotionalDiscountMapping").submit();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    </script>
+}

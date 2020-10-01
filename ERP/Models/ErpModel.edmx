@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ERP_AmericanTMartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="OpeningBlance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransectionNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransectionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransectionDate" Type="datetime" Nullable="false" />
+          <Property Name="TransectionQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransectionQtyPrev" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StockQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StockUnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StockAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CompanyId" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="BranchId" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="SupplierId" Type="varchar" MaxLength="15" />
+          <Property Name="BrandId" Type="varchar" MaxLength="15" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ProductStockDetail">
+          <Key>
+            <PropertyRef Name="StockDetailID" />
+          </Key>
+          <Property Name="StockDetailID" Type="bigint" Nullable="false" />
+          <Property Name="StockID" Type="int" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="TransactionID" Type="bigint" />
+          <Property Name="TransactionTypeID" Type="int" Nullable="false" />
+          <Property Name="StockDate" Type="datetime" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="UOMID" Type="int" />
+          <Property Name="ReceiveQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveRate" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueRate" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateOn" Type="datetime" />
+          <Property Name="CreatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateOn" Type="datetime" />
+          <Property Name="UpdatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleteBy" Type="int" />
+          <Property Name="DeleteOn" Type="datetime" />
+          <Property Name="DeletePc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductStockMaser">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="StockID" Type="int" Nullable="false" />
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="UOMID" Type="int" Nullable="false" />
+          <Property Name="ReceiveQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LastReceiveDate" Type="datetime" />
+          <Property Name="IssueQty" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="IssueValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="LastIssueDate" Type="datetime" />
+          <Property Name="CurrentRate" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="CurrentStock" Type="decimal" Precision="19" Scale="6" StoreGeneratedPattern="Computed" />
+          <Property Name="CurrentValue" Type="decimal" Precision="25" Scale="6" StoreGeneratedPattern="Computed" />
+          <Property Name="SalesRate" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="SalesValue" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="LastSalesDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateOn" Type="datetime" />
+          <Property Name="CreatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateOn" Type="datetime" />
+          <Property Name="UpdatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleteBy" Type="int" />
+          <Property Name="DeleteOn" Type="datetime" />
+          <Property Name="DeletePc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ERP_AmericanTMartModelStoreContainer">
+          <EntitySet Name="OpeningBlance" EntityType="Self.OpeningBlance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStockDetail" EntityType="Self.ProductStockDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStockMaser" EntityType="Self.ProductStockMaser" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ERP_AmericanTMartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ERP_AmericanTMartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OpeningBlances" EntityType="ERP_AmericanTMartModel.OpeningBlance" />
+          <EntitySet Name="ProductStockDetails" EntityType="ERP_AmericanTMartModel.ProductStockDetail" />
+          <EntitySet Name="ProductStockMasers" EntityType="ERP_AmericanTMartModel.ProductStockMaser" />
+        </EntityContainer>
+        <EntityType Name="OpeningBlance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransectionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransectionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransectionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TransectionQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TransectionQtyPrev" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="StockQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="StockUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="StockAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CompanyId" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="BranchId" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BrandId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductStockDetail">
+          <Key>
+            <PropertyRef Name="StockDetailID" />
+          </Key>
+          <Property Name="StockDetailID" Type="Int64" Nullable="false" />
+          <Property Name="StockID" Type="Int32" Nullable="false" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="TransactionID" Type="Int64" />
+          <Property Name="TransactionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="StockDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="UOMID" Type="Int32" />
+          <Property Name="ReceiveQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveRate" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueRate" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteBy" Type="Int32" />
+          <Property Name="DeleteOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductStockMaser">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="StockID" Type="Int32" Nullable="false" />
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="UOMID" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LastReceiveDate" Type="DateTime" Precision="3" />
+          <Property Name="IssueQty" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="IssueValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="LastIssueDate" Type="DateTime" Precision="3" />
+          <Property Name="CurrentRate" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="CurrentStock" Type="Decimal" Precision="19" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CurrentValue" Type="Decimal" Precision="25" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SalesRate" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="SalesValue" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="LastSalesDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteBy" Type="Int32" />
+          <Property Name="DeleteOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ERP_AmericanTMartModelStoreContainer" CdmEntityContainer="ERP_AmericanTMartEntities">
+          <EntitySetMapping Name="OpeningBlances">
+            <EntityTypeMapping TypeName="ERP_AmericanTMartModel.OpeningBlance">
+              <MappingFragment StoreEntitySet="OpeningBlance">
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="StockAmount" ColumnName="StockAmount" />
+                <ScalarProperty Name="StockUnitPrice" ColumnName="StockUnitPrice" />
+                <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+                <ScalarProperty Name="TransectionQtyPrev" ColumnName="TransectionQtyPrev" />
+                <ScalarProperty Name="TransectionQty" ColumnName="TransectionQty" />
+                <ScalarProperty Name="TransectionDate" ColumnName="TransectionDate" />
+                <ScalarProperty Name="TransectionType" ColumnName="TransectionType" />
+                <ScalarProperty Name="TransectionNo" ColumnName="TransectionNo" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStockDetails">
+            <EntityTypeMapping TypeName="ERP_AmericanTMartModel.ProductStockDetail">
+              <MappingFragment StoreEntitySet="ProductStockDetail">
+                <ScalarProperty Name="DeletePc" ColumnName="DeletePc" />
+                <ScalarProperty Name="DeleteOn" ColumnName="DeleteOn" />
+                <ScalarProperty Name="DeleteBy" ColumnName="DeleteBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatePc" ColumnName="UpdatePc" />
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreatePc" ColumnName="CreatePc" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IssueValue" ColumnName="IssueValue" />
+                <ScalarProperty Name="IssueRate" ColumnName="IssueRate" />
+                <ScalarProperty Name="IssueQty" ColumnName="IssueQty" />
+                <ScalarProperty Name="ReceiveRate" ColumnName="ReceiveRate" />
+                <ScalarProperty Name="ReceiveValue" ColumnName="ReceiveValue" />
+                <ScalarProperty Name="ReceiveQty" ColumnName="ReceiveQty" />
+                <ScalarProperty Name="UOMID" ColumnName="UOMID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="StockDate" ColumnName="StockDate" />
+                <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="StockDetailID" ColumnName="StockDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStockMasers">
+            <EntityTypeMapping TypeName="ERP_AmericanTMartModel.ProductStockMaser">
+              <MappingFragment StoreEntitySet="ProductStockMaser">
+                <ScalarProperty Name="DeletePc" ColumnName="DeletePc" />
+                <ScalarProperty Name="DeleteOn" ColumnName="DeleteOn" />
+                <ScalarProperty Name="DeleteBy" ColumnName="DeleteBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatePc" ColumnName="UpdatePc" />
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreatePc" ColumnName="CreatePc" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastSalesDate" ColumnName="LastSalesDate" />
+                <ScalarProperty Name="SalesValue" ColumnName="SalesValue" />
+                <ScalarProperty Name="SalesRate" ColumnName="SalesRate" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="CurrentStock" ColumnName="CurrentStock" />
+                <ScalarProperty Name="CurrentRate" ColumnName="CurrentRate" />
+                <ScalarProperty Name="LastIssueDate" ColumnName="LastIssueDate" />
+                <ScalarProperty Name="IssueValue" ColumnName="IssueValue" />
+                <ScalarProperty Name="IssueQty" ColumnName="IssueQty" />
+                <ScalarProperty Name="LastReceiveDate" ColumnName="LastReceiveDate" />
+                <ScalarProperty Name="ReceiveValue" ColumnName="ReceiveValue" />
+                <ScalarProperty Name="ReceiveQty" ColumnName="ReceiveQty" />
+                <ScalarProperty Name="UOMID" ColumnName="UOMID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

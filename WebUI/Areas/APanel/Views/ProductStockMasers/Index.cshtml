@@ -1,0 +1,108 @@
+﻿@model IEnumerable<ERP.WebUI.Models.ViewModels.VmProductStockMaster>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<p>
+    @Html.ActionLink("Add New", "Create")
+</p>
+<div class="row ">
+    <div class="col-12">
+        <div class="card ">
+            <div class="card-header User_tittle h4 bg-info">Opening Balance Product List</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CompanyID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UOMID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiveQty)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiveValue)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastReceiveDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CurrentStock)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CurrentValue)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SalesRate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SalesValue)
+                                    </th>
+                                    <th> Action </th>
+                                </tr>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProductID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProductID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CompanyID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UOMID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReceiveQty)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReceiveValue)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LastReceiveDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CurrentStock)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CurrentValue)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SalesRate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SalesValue)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Create", "Create", new { id = item.StockID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.StockID }) |
+                                                @*@Html.ActionLink("Delete", "Delete", new { id = item.StockID })*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

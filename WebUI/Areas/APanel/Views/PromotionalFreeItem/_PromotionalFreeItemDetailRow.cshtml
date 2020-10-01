@@ -1,0 +1,80 @@
+﻿@model Library.ViewModel.Inventory.Promotions.PromotionalFreeItemDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("PromotionalFreeItemDetails"))
+    {
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductName, new { @class = "itemName form-control", onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.ProductName, null, new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ProductId, new { @class = "itemId" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Sequence)
+            @Html.HiddenFor(model => model.PromotionalFreeItemId)
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.BatchNo, new { @class = "batchNo form-control", onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.BatchNo, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.EligibleQuantity, new { @class = "quantityFrom form-control", type = "number", onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.EligibleQuantity, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ItemTypeName, new { @class = "itemTypeName form-control", onclick = "this.select()" })
+            @Html.HiddenFor(model => model.ItemTypeId, new { @class = "itemTypeId" })
+            @Html.ValidationMessageFor(model => model.ItemTypeId, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.FreeItemName, new { @class = "freeItemName form-control", onclick = "this.select()" })
+            @Html.HiddenFor(model => model.FreeItemId, new { @class = "freeItemId" })
+            @Html.ValidationMessageFor(model => model.FreeItemId, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.FreeQuantity, new { @class = "discountRate form-control", onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.FreeQuantity, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn btn-sm btn-bg"><i class="fa fa-minus"></i></a>
+        </td>
+    }
+</tr>
+<script type="text/javascript">
+    $(function () {
+        if (window.ItemNameAutoComplete) {
+            window.ItemNameAutoComplete();
+        }
+        if (window.BatchNoAutoComplete) {
+            window.BatchNoAutoComplete();
+        }
+        if (window.ItemTypeNameAutoComplete) {
+            window.ItemTypeNameAutoComplete();
+        }
+        if (window.FreeItemNameAutoComplete) {
+            window.FreeItemNameAutoComplete();
+        }
+        if (window.CalculatePromotionalDetail) {
+            CalculatePromotionalDetail();
+        }
+        HelperDropDowns();
+        DeleteRow();
+    });
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

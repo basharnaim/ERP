@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Library.ViewModel.Core.Addresses.DistrictViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="top-button">
+            <h4 class="page-header">District Information</h4>
+            <a href="/CPanel/District/Create" class="btn btn-primary" role="button">Add New</a>
+            <a href="/CPanel" class="btn btn-primary pull-right" role="button">Back</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Sequence</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var district in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelDistrict => district.Sequence)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelDistrict => district.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelDistrict => district.Name)
+                                    </td>
+                                    <td>
+                                        @Html.YesNoFor(modelItem => district.Active)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Edit", new { id = district.Id }, new { @class = "btn-sm btn-primary glyphicon glyphicon-edit" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

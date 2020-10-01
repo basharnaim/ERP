@@ -1,0 +1,50 @@
+﻿@model Library.ViewModel.Inventory.Promotions.PointPolicyDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+    <tr>
+        @using (Html.BeginCollectionItem("PointPolicyDetails"))
+        {
+            <td class="form-group">
+                @Html.TextBoxFor(model => model.SaleAmount, new { @class = "form-control text-right", type = "number", Value = String.Format("{0:0.00}", Model.SaleAmount), onclick = "this.select()" })
+                @Html.ValidationMessageFor(model => model.SaleAmount, null, new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Sequence)
+                @Html.HiddenFor(model => model.PointPolicyId)
+            </td>
+            <td class="form-group">
+                @Html.TextBoxFor(model => model.EquivalantPoint, new { @class = "form-control text-center", type = "number", Value = String.Format("{0:0.00}", Model.EquivalantPoint), onclick = "this.select()" })
+            </td>
+            <td class="form-group">
+                @Html.TextBoxFor(model => model.DiscountAmount, new { @class = "form-control text-right", type = "number", Value = String.Format("{0:0.00}", Model.DiscountAmount), onclick = "this.select()" })
+            </td>
+            <td class="form-group">
+                <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn btn-sm btn-bg"><i class="fa fa-minus"></i></a>
+            </td>
+        }
+    </tr>
+<script type="text/javascript">
+    $(function () {
+        if (window.CalculatePromotionalDetail) {
+            window.CalculatePromotionalDetail();
+        }
+        DeleteRow();
+    });
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

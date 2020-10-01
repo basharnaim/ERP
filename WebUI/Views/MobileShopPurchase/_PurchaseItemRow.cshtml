@@ -1,0 +1,64 @@
+﻿@model Library.ViewModel.Inventory.Purchases.MobileShopPurchaseDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+<tr>
+    @using (Html.BeginCollectionItem("PurchaseDetails"))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductCode, new { @class = "productCode tabable  form-control" })
+            @Html.HiddenFor(model => model.ProductId, new { @class = "productId" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductName, new { @class = "productName form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.UOMName, new { @class = "uOMName form-control", @readonly = "readonly" })
+            @Html.HiddenFor(model => model.UOMId, new { @class = "uOMId" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductStock, new { @class = "productStock form-control", @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.Quantity, new { @class = "quantity form-control", type = "number", min = "1", Value = String.Format("{0:0}", Model.Quantity), onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.Quantity, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "purchasePrice tabable  form-control text-right", Value = String.Format("{0:0.00}", Model.PurchasePrice), onclick = "this.select()" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.TotalAmount, new { @class = "amount form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+        </td>
+        <td>
+            <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn-close"><i class="fa fa-trash"></i></a>
+        </td>
+    }
+</tr>
+<script type="text/javascript">
+    $(function () {
+        ItemCodeAutoComplete();
+        CalculateMobileShopPurchase();
+        DeleteRow();
+    });
+
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+                CalculateSSPurchaseSummary();
+                MemoWiseDiscount();
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

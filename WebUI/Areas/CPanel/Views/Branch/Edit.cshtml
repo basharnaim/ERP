@@ -1,0 +1,126 @@
+﻿@model Library.ViewModel.Core.Organizations.BranchViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/CPanel/Branch" class="btn btn-primary pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Location Information</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "Branch", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Brance name" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory">Company</label>
+                @Html.SimpleDropDownFor(model => model.CompanyId, "/CPanel/Company/GetCompanyList/", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address1, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address1, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address2, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone1, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Phone1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone1, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone2, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Phone2, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryId, new { @class = "control-label   mendatory" })
+                @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryList/", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DivisionId, new { @class = "control-label   mendatory" })
+                @Html.CascadingDropDownFor(model => model.DivisionId, "/APanel/Division/GetDivisionList/", "CountryId", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DivisionId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DistrictId, new { @class = "control-label   mendatory" })
+                @Html.CascadingDropDownFor(model => model.DistrictId, "/APanel/District/GetDistrictList/", "DivisionId", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DistrictId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VatRegistryNo, new { title = "Vat Registry No", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.VatRegistryNo, new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxDiscountRate, new { title = "Max Discount Rate", @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.MaxDiscountRate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaxDiscountRate, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPerson, new { title = "Contact Person", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.ContactPerson, new { @class = "form-control", placeholder = "Contact person" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPersonDesignation, new { title = "Contact Person Designation", @class = "control-label  " })
+                @Html.TextBoxFor(model => model.ContactPersonDesignation, new { @class = "form-control", placeholder = "Con. person designation" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website, new { @class = "control-label  " })
+                @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsOffline, new { title = "Offline Branch", @class = "control-label  " })
+                @Html.CheckBoxFor(model => model.IsOffline)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                @Html.CheckBoxFor(model => model.Active)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group text-right">
+                <div class="col-xl-12">
+                    <button type="submit" class="btn btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

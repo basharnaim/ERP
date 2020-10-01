@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Products.ProductViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Item Mapping";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end border-bottom pb-1">
+            <a href="/ProductMaster" class="btn btn-bg" role="button">Back</a>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Create", "ProductMaster", FormMethod.Get, new { @class = "form-horizontal" }))
+{
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label  ">Company</label>
+                @Html.SimpleDropDown("companyId", "/Company/GetCompanyList/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label  ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label  ">Category</label>
+                @Html.SimpleDropDown("ProductCategoryId", "/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <div class="form-group">
+                <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
+                <button type="button" id="saveItemMaster" class="btn btn-bg ml-1 mr-1">Save</button>
+                <input type="button" value="Clear" class="btn btn-warning ml-1 mr-1" id="btnClear" />
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("Create", "ProductMaster", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "form-horizontal", id = "departmentForm" }))
+{
+    @Html.Hidden("templateIds")
+    @Html.Hidden("templateCompany")
+    @Html.Hidden("templateBranch")
+    <table class="table demo dataTable NoPaging" data-filter="#filter">
+        <thead>
+            <tr>
+                <th data-sort-ignore="true">
+                    <input type="checkbox" id="checkAll" name="checkAll" />
+                </th>
+                <th>
+                    <label>Code</label>
+                </th>
+                <th>
+                    <label>Name</label>
+                </th>
+                <th>
+                    <label>Category</label>
+                </th>
+                <th>
+                    <label>SubCategory</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBox("Select", new { @class = "TemplateId" })
+                            @Html.HiddenFor(r => item.Id, new { @class = "productId" })
+                        </td>
+                        <td>
+                            @Html.Raw(item.Code)
+                        </td>
+                        <td>
+                            @Html.Raw(item.Name)
+                        </td>
+                        <td>
+                            @Html.Raw(item.ProductCategoryName)
+                        </td>
+                        <td>
+                            @Html.Raw(item.ProductSubCategoryName)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("#saveItemMaster").on("click", function () {
+            templateIds = [];
+            for (var i = 0; i < $(".TemplateId").length; i++) {
+                if ($($(".TemplateId")[i]).is(":checked")) {
+                    templateIds.push($($(".productId")[i]).val());
+                }
+            }
+
+            var companyId = $("#companyId").val();
+            if (companyId == "") {
+                ShowResult("Please select company.", "failure");
+                return false;
+            }
+            var branchId = $("#branchId").val();
+            if (branchId == "") {
+                ShowResult("Please select branch.", "failure");
+                return false;
+            }
+            if (templateIds.length == 0) {
+                ShowResult("Please select any item.", "failure");
+                return false;
+            }
+            $("#templateIds").val(JSON.stringify(templateIds));
+            $("#templateCompany").val(companyId);
+            $("#templateBranch").val(branchId);
+            $("#departmentForm").submit();
+            return true;
+        });
+
+        $("#checkAll").click(function () {
+            if ($(this).is(":checked")) {
+                $('.TemplateId').prop('checked', true);
+            }
+            else {
+                $('.TemplateId').prop('checked', false);
+            }
+        });
+
+        $(".TemplateId").on('click', function () {
+            var count = $(".TemplateId").length;
+            var count2 = $('.TemplateId').filter(':checked').length;
+
+            if (count > count2) {
+                $("#checkAll").prop('checked', false);
+            }
+            else
+                $("#checkAll").prop('checked', true);
+        });
+    </script>
+}

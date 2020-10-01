@@ -1,0 +1,111 @@
+﻿@using Library.Crosscutting.Securities;
+@using System.Threading;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>POS</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+   
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <header class="align-items-start app-header flex-column flex-md-row navbar navbar-expand-md navbar-light">
+            <div class="align-items-baseline d-flex flex-row navbar-brand p-lg-3 pl-3 pr-3 pt-3">
+                 <a class="" href="#">One-ICT</a>
+                <button class="collapsed ml-auto navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#side-menu-wrapper" aria-controls="side-menu" aria-expanded="false"
+                        aria-label="Toggle navigation" style="">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <ul class="nav navbar-nav ml-md-auto flex-row navbar-top-links">
+                @{
+                    try
+                    {
+                        var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                        <li class="nav-item dropdown"><span class="username">Login IP: @Html.Raw(identity.IpAddress)</span><span class="username"> & Login By @Html.Raw(identity.Name)</span></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-user">
+                                <a class="dropdown-item" href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                @*<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>*@
+                                @Html.ActionLink("Logout", "Logout", "Login", new { area = "", road = "cpanel" }, new { @class = "dropdown-item fa fa-sign-out fa-fw" })
+                            </div>
+                        </li>
+                    }
+                    catch (Exception ex)
+                    {
+                        HttpContext.Current.Response.Redirect("Login/cpanel");
+                    }
+                }
+            </ul>
+        </header>
+        <div class="d-md-flex">
+            <div class="sidebar" role="navigation">
+                <div class="sidebar-nav collapse navbar-collapse show" id="side-menu-wrapper">
+                    <ul class="nav navbar-nav navbar-collapse flex-column side-nav list-group" id="side-menu">
+                        <li class="list-group-item">
+                            <a href="/CPanel/Home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-sitemap fa-fw"></i>Master Setup<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/CPanel/Company">Company</a></li>
+                                <li class="list-group-item"><a href="/CPanel/Branch">Branch</a></li>
+                                <li class="list-group-item"><a href="/CPanel/User">User</a></li>
+                                <li class="list-group-item"><a href="/CPanel/Country">Country</a></li>
+                                <li class="list-group-item"><a href="/CPanel/Division">Division</a></li>
+                                <li class="list-group-item"><a href="/CPanel/District">District</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <i class="fa fa-sitemap fa-fw"></i><span>Product Management</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item">
+                                    <a href="/CPanel/ProductBasicConfigurationCategory">Configuration Category</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <div id="page-wrapper" class="p-2">
+                @RenderBody()
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrapjs")
+                @Scripts.Render("~/bundles/metisMenujs")
+                @Scripts.Render("~/bundles/dataTablesjs")
+                @Scripts.Render("~/bundles/sbAdminjs")
+                @Scripts.Render("~/bundles/modernizr")
+                @Scripts.Render("~/bundles/customjs")
+                @RenderSection("Scripts", false)
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+</html>

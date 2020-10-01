@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Accounts.PaymentInfoViewModel>
+@using ERP.WebUI.Html
+@using Library.Model.Core.Enums
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="top-button">
+            <h4 class="page-header">PaymentInfo Information</h4>
+            <a href="/APanel/PaymentInfo/PayByCash" class="btn btn-bg" role="button">Cash</a>
+            <a href="/APanel/PaymentInfo/PayByCheque" class="btn btn-bg" role="button">Cheque</a>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("PayIndex", "PaymentInfo", FormMethod.Get, new { id = "SearchForm" }))
+{
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   ">Company</label>
+                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   " title="Payment Type">P.Type</label>
+                @Html.SimpleDropDown("transactionType", "/Enum/TransactionType/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   " title="From date">From date</label>
+                @Html.DatePicker("dateFrom", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   ">To date</label>
+                @Html.DatePicker("dateTo", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group ">
+                <div class="submit-button">
+                    <button type="submit" class="btn btn-bg">Show</button>
+                    @*@Html.ActionLink("Report", "RptSupplierLedger", "SupplierLedger", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle" })*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Sequence</th>
+                                <th>Tracking No</th>
+                                <th>Transaction Date</th>
+                                <th>Particular</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Sequence)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TransactionDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Particulars)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.SupplierId != null && item.TransactionType == TransactionType.Cash.ToString())
+                                                {
+                                                    @Html.ActionLink(" ", "PayByCashEdit", new { id = item.Id }, new { @class = "btn-sm btn-bg fa fa-edit" })
+                                                }
+                                                else if (item.SupplierId != null && item.TransactionType == TransactionType.Cheque.ToString())
+                                                {
+                                                    if (string.IsNullOrEmpty(item.CheckStatus))
+                                                    {
+                                                        @Html.ActionLink(" ", "PayByChequeEdit", new { id = item.Id }, new { @class = " btn-sm btn-bg fa fa-edit" })
+                                                        @Ajax.ActionLink(" ", "Honour", "PaymentInfo", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn-sm btn-bg fa fa-check-square" })
+                                                        @Ajax.ActionLink(" ", "Dishonour", "PaymentInfo", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn-sm btn-bg fa fa-trash-alt" })
+                                                    }
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
+    });
+
+    $("#SearchForm").on("submit", function () {
+        if ($("#companyId").val() == "") {
+            ShowResult("Please select a company.", "failure");
+            return false;
+        }
+        if ($("#branchId").val() == "") {
+            ShowResult("Please select a branch.", "failure");
+            return false;
+        }
+    });
+
+    $("#btnReport").click(function () {
+        var companyId = $("#companyId").val();
+        var branchId = $("#branchId").val();
+        var phone = $('#phone').val();
+        var supplierId = $('#supplierId').val();
+        this.href = this.href.split('?')[0] + '?companyId=' + companyId
+            + '&branchId=' + branchId
+            + '&phone=' + phone
+            + '&supplierId=' + supplierId;
+    });
+</script>
+}

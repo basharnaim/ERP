@@ -1,0 +1,113 @@
+﻿@model Library.ViewModel.Inventory.Sales.SaleReturnViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/SuperShopSaleReturn/SaleReturnIndex" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Update Sale Return</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "SuperShopSaleReturn", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Invoice No.</label>
+                @Html.TextBoxFor(model => model.SaleId, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.SaleId)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Customer</label>
+                @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.CustomerId)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SalesReturnDate, new { @class = "control-label  mendatory" })
+                @Html.DatePickerFor(model => model.SalesReturnDate, new { @class = "form-control", disabled = false })
+                @Html.HiddenFor(m => m.SaleDate)
+                @Html.HiddenFor(m => m.SalesReturnDate)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <table id="tbl" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="td-button-sale">
+                            @Html.CheckBoxFor(model => model.SelectAll, new { @class = "selectAll" })
+                        </th>
+                        <th class="form-group item-width " title="Item Code">Code</th>
+                        <th class="form-group item-width ">Name</th>
+                        <th class="form-group ">UOM</th>
+                        <th class="form-group ">Sold Quantity</th>
+                        <th class="form-group ">Sold Amount</th>
+                        <th class="form-group ">Remaining Quantity</th>
+                        <th class="form-group ">Return Quantity </th>
+                        <th class="form-group ">Return Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="editorItemRows">
+                    @if (Model.SaleReturnDetails != null)
+                    {
+                        foreach (var item in Model.SaleReturnDetails)
+                        {
+                            Html.RenderPartial("_SaleReturnItemRowForEdit", item);
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-bg pull-right">Return</button>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $("input:checkbox.selectAll").on("click", function () {
+            var el = $(this);
+            var checked = el.is(":checked");
+            if (checked) {
+                $(this).closest("table").find(".selectone:checkbox").prop("checked", true);
+            }
+            else {
+                $(this).closest("table").find(".selectone:checkbox").prop("checked", false);
+            }
+        });
+
+        $(".selectone").on("click", function () {
+            var el = $(this);
+            var totalcheckbox = el.parents("tbody").find(".selectone:checkbox").length;
+            var totalcheckedcheckbox = el.parents("tbody").find(".selectone:checked").length;
+            $("input:checkbox.selectAll").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+            return true;
+        });
+
+        $(function () {
+            CalculateSuperShopSaleReturnAmountForEdit();
+        });
+
+        $("#DialogForm").on("submit", function () {
+            var totalcheckedcheckbox = $("input:checkbox.selectone").parents("tbody").find(".selectone:checked").length;
+            if (totalcheckedcheckbox < 1) {
+                ShowResult("Please select item.", "failure");
+                return false;
+            }
+
+        });
+    </script>
+}

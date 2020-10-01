@@ -1,0 +1,324 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>POS</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+<style type="text/css">
+
+
+.register{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    margin-top: 3%;
+    padding: 3%;
+}
+.register-left{
+    text-align: center;
+    color: #fff;
+    margin-top: 4%;
+}
+.register-left input{
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #383d41;
+    margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+.register-right{
+    background: #f8f9fa;
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+.register-left img{
+    margin-top: 15%;
+    margin-bottom: 5%;
+    width: 25%;
+    -webkit-animation: mover 2s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+.register-left p{
+    font-weight: lighter;
+    padding: 12%;
+    margin-top: -9%;
+}
+.register .register-form{
+    padding: 10%;
+    margin-top: 10%;
+}
+.btnRegister{
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+}
+.register .nav-tabs{
+    margin-top: 3%;
+    border: none;
+    background: #0062cc;
+    border-radius: 1.5rem;
+    width: 28%;
+    float: right;
+}
+.register .nav-tabs .nav-link{
+    padding: 2%;
+    height: 34px;
+    font-weight: 600;
+    color: #fff;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+.register .nav-tabs .nav-link:hover{
+    border: none;
+}
+.register .nav-tabs .nav-link.active{
+    width: 100px;
+    color: #0062cc;
+    border: 2px solid #0062cc;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+.register-heading{
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15%;
+    color: #495057;
+}
+
+
+</style>
+</head>
+<body class="bg-gradient-primary">
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="">
+                <h3>Welcome</h3>
+                <p></p>
+                <input type="button" onclick="window.location='index.php'" name="" value="Login"><br>
+            </div>
+            <div class="col-md-9 register-right">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">HRMS Employee Self Registration</h3>
+                        <form name="form" id="form" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="employee_type" value="1">
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Employee Name *" name="employee_name" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Employee ID *" name="employee_id" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="RF ID " name="rf_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="designation" id="designation" required="">
+                                            <option class="hidden" selected="" disabled="">Designation</option>
+                                            <option value="1">EXECUTIVE DIRECTOR</option>
+                                            <option value="2">DIRECTOR</option>
+                                            <option value="3">MANAGER</option>
+                                            <option value="4">ASSISTANT COORDINATOR</option>
+                                            <option value="5">ASSOCIATE COORDINATOR</option>
+                                            <option value="6">ASSISTANT DIRECTOR</option>
+                                            <option value="7">COORDINATOR</option>
+                                            <option value="8">DEPUTY-MANAGER</option>
+                                            <option value="9">SECTION ASSISTANT</option>
+                                            <option value="10">SUPPORT STAFF</option>
+                                            <option value="11">PROGRAM DEVELOPMENT MANAGER</option>
+                                            <option value="12">MANAGER CORPORATE AFFAIRS</option>
+                                            <option value="13">SENIOR COORDINATOR</option>
+                                            <option value="15">DEAFBLIND FIELD EDUCATOR</option>
+                                            <option value="16">JR. SECTION ASSISTANT </option>
+                                            <option value="17">CHDRP</option>
+                                            <option value="18">Program Manager</option>
+                                            <option value="19">Monitoring, Evaluation &amp; Learning Coordinator</option>
+                                            <option value="20">Logistic &amp; Procurement Officer</option>
+                                            <option value="21">Data Entry Operator</option>
+                                            <option value="22">Registration Desk Officer</option>
+                                            <option value="23">Mobile Helpline Operator &amp; Information Desk Officer</option>
+                                            <option value="24">Sr. Doctor</option>
+                                            <option value="25">Female Doctor</option>
+                                            <option value="26">Nurse</option>
+                                            <option value="27">Paramedics</option>
+                                            <option value="28">Medicine Dispenser</option>
+                                            <option value="29">Patient Assistance &amp; Information Desk Officer</option>
+                                            <option value="30">Psychosocial Counsellor</option>
+                                            <option value="31">Inclusive Education in Emergency-Team Leader</option>
+                                            <option value="32">Inclusive Education Facilitator</option>
+                                            <option value="33">Teacher- Child Friendly Learning Space</option>
+                                            <option value="34">Rehabilitation Officer (Physiotherapist)</option>
+                                            <option value="35">Therapy Assistant</option>
+                                            <option value="36">Rehabilitation Officer (Occupational Therapist)</option>
+                                            <option value="37">Volunteer</option>
+                                            <option value="38">Cleaner (Camp)</option>
+                                            <option value="39">Cleaner (Ukhiya)</option>
+                                            <option value="40">Office Assistant (Coxâ€™s Bazar)</option>
+                                            <option value="41">Office Assistant (Ukhiya)</option>
+                                            <option value="42">Security Guard</option>
+                                            <option value="43">Driver</option>
+                                            <option value="44">Refractionist</option>
+                                            <option value="45">Project Manager</option>
+                                            <option value="46">Test Designation</option>
+                                            <option value="47">Inclusion Coordinator</option>
+                                            <option value="48">Inclusion Officer</option>
+                                            <option value="50">Jr. Logistic Officer</option>
+                                            <option value="51">Rehabilitation Officer (Speech &amp; Language Therapist)</option>
+                                            <option value="52">Sr. Inclusive Education Facilitator</option>
+                                            <option value="53">Disability Inclusion Facilitator</option>
+                                            <option value="54">Sr. Trainer -Diversity &amp; Inclusion</option>
+                                            <option value="55">MEAL officer</option>
+                                            <option value="56">Accounts &amp; Admin Officer</option>
+                                            <option value="57">Regional Coordinator</option>
+                                            <option value="58">Optometrist</option>
+                                            <option value="59">DEPUTY-DIRECTOR</option>
+                                            <option value="60">REHABILITATION OFFICER (TEAM LEADER)</option>
+                                            <option value="61">THERAPY ASSISTANT</option>
+                                            <option value="62">SR. HR &amp; ADMIN OFFICER</option>
+                                            <option value="63">WASH OFFICER</option>
+                                            <option value="64">INTERN</option>
+                                            <option value="65">PROJECT OFFICER</option>
+                                            <option value="66">COMMUNITY FACILITATOR</option>
+                                            <option value="67">LIVELIHOOD OFFICER</option>
+                                            <option value="68">CAMPSITE MANAGER</option>
+                                            <option value="69">PROJECT COORDINATOR</option>
+                                            <option value="70">SECRETARY ASSISTANT </option>
+                                            <option value="71">CFS-Mentor</option>
+                                            <option value="72">Assistant - HR &amp; Admin</option>
+                                            <option value="73">FIELD COORDINATOR</option>
+                                            <option value="74">FIELD COORDINATOR</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <input type="radio" checked="checked" name="gender" value="male">
+                                                <span> Male </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" value="female">
+                                                <span>Female </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Mobile Number" name="employee_phone" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email" name="employee_email" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="datepicker-here form-control" data-language="en" name="date_of_birth" id="date_of_birth" placeholder="Date of Birth *" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="datepicker-here form-control" data-language="en" name="joining_date" id="joining_date" autocomplete="off" placeholder="Date of Joining *" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="job_location" id="job_location" required="">
+                                            <option class="hidden" selected="" disabled="">Current Job Location</option>
+                                            <option value="1">HEAD QUATER</option>
+                                            <option value="3">COX'S BAZAR </option>
+                                            <option value="4">UKHIYA</option>
+                                            <option value="5">MAIN CAMP</option>
+                                            <option value="6">BUS CAMP</option>
+                                            <option value="7">GAIBANDHA OFFICE</option>
+                                            <option value="8">CHITTAGONG OFFICE</option>
+                                            <option value="9">Mobile Apps</option>
+                                            <option value="10">Dinajpur</option>
+                                            <option value="11">KURIGRAM</option>
+                                            <option value="12">Manual Attendance</option>
+                                            <option value="13">SARANKHOLA</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+
+
+                                        <select class="form-control department_id" name="department_id" id="department_id" required="">
+                                            <option class="hidden" selected="" disabled="">Department</option>
+                                            <option value="1">HR &amp; ADMIN</option>
+                                            <option value="2">MANAGEMENT </option>
+                                            <option value="3">ACCOUNTS</option>
+                                            <option value="4">NRCAT</option>
+                                            <option value="16">PROJECTS </option>
+                                            <option value="17">ICT</option>
+                                            <option value="18">Individual User</option>
+                                            <option value="19">VOLNTEER</option>
+                                            <option value="20">Test</option>
+                                        </select>
+
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <select class="form-control section_id" name="section_id" id="section_id" required="">
+                                            <option class="hidden" selected="" disabled="">Section</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <select class="form-control" name="workshift" id="workshift" required="">
+                                            <option class="hidden" selected="" disabled="">Work Shift</option>
+                                            <option value="1">Office Hours</option>
+                                            <option value="2">Security Guard (Day)</option>
+                                            <option value="3">Security Guard (Night)</option>
+                                            <option value="4">Security Guard (Morning)</option>
+                                            <option value="5">Cleaner </option>
+                                            <option value="6">Support Staff</option>
+                                            <option value="7">Bus Camp</option>
+                                            <option value="8">Main Camp</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="photo">
+                                    </div>
+                                    <input type="submit" name="submit" id="submit" class="btnRegister" value="Register Now">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/metisMenujs")
+    @Scripts.Render("~/bundles/dataTablesjs")
+    @Scripts.Render("~/bundles/sbAdminjs")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/customjs")
+</body>
+</html>

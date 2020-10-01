@@ -1,0 +1,379 @@
+﻿@model Library.ViewModel.Inventory.Sales.SuperShopSaleViewModel
+@using ERP.WebUI.Html;
+@{
+    ViewBag.Title = "Sale";
+    ViewBag.YouAreHere = "Sale > New";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/SuperShopSale" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Sales Information</h4>
+    </div>
+</div>
+@using (Html.BeginForm("Edit", "SuperShopSale", FormMethod.Post, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(model => model.ActionType)
+    <div class="row bg-top2">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Product Code</label>
+                @Html.TextBoxFor(model => model.ProductCode, new { @class = "form-control", tabindex = "1" })
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>Invoice</label>
+                @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Id, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Date</label>
+                @Html.DatePickerFor(model => model.SaleDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SaleDate, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="mendatory">Customer</label>
+                @Html.TextBoxFor(model => model.CustomerMobileNumber, new { @class = "form-control", placeholder = "Mobile Number" })
+                @Html.ValidationMessageFor(model => model.CustomerMobileNumber, null, new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.CustomerId, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label> Dis(%)</label>
+                @Html.TextBoxFor(model => model.CustomerDiscountInPercentage, new { @class = "form-control", Value = string.Format("{0:0.00}", Model.CustomerDiscountInPercentage), onClick = "this.select()" })
+                @Html.ValidationMessageFor(model => model.CustomerDiscountInPercentage, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Advance</label>
+                        @Html.TextBoxFor(model => model.CustomerAdvanceAmount, new { @class = "form-control", Value = string.Format("{0:0.00}", Model.CustomerAdvanceAmount) })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Due</label>
+                        @Html.TextBoxFor(model => model.CustomerDueAmount, new { @class = "form-control", Value = string.Format("{0:0.00}", Model.CustomerDueAmount) })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Point</label>
+                        @Html.TextBoxFor(model => model.CustomerPoint, new { @class = "form-control", Value = string.Format("{0:0.00}", Model.CustomerPoint) })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Amount</label>
+                        @Html.TextBoxFor(model => model.CustomerPointAmount, new { @class = "form-control", Value = string.Format("{0:0.00}", Model.CustomerPointAmount) })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top3">
+        <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="static-info info1">
+                <ul class="list-inline">
+                    <li><i class="fa fa-dot-circle-o"></i>Stock:<label id="stock"></label></li>
+                    <li><i class="fa fa-dot-circle-o"></i>UOM:<label id="uom"></label></li>
+                    <li><i class="fa fa-dot-circle-o"></i>Price:<label id="price"></label></li>
+                    <li><i class="fa fa-dot-circle-o"></i>VAT(%):<label id="tax"></label></li>
+                </ul>
+            </div>
+            <div class="achievements-wrapper achievements-wrapper-sales">
+                <div class="table-responsive">
+                    <table id="tbl" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="form-group" style="width: 250px;">Product Name</th>
+                                <th class="form-group text-center" style="width: 50px;">Quantity</th>
+                                <th class="form-group text-center product-amount" style="width:18%;">Price</th>
+                                <th class="form-group text-center product-discount" style="width:18%;">Dis(Tk)</th>
+                                <th class="form-group text-center product-discount" style="width:18%;">Dis(%)</th>
+                                <th class="form-group text-center product-amount" style="width:18%;">Amount</th>
+                                <th class="form-group"> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editorItemRows">
+                            @if (Model != null && Model.SaleDetails != null && Model.SaleDetails.Any())
+                            {
+                                foreach (var item in Model.SaleDetails)
+                                {
+                                    Html.RenderPartial("_SaleItemRow", item);
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 sales-info">
+            <div class="static-info inner-form sales-calculation card mt-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline lits2">
+                            <li>
+                                <label>Total Quantity</label>
+                                @Html.TextBoxFor(model => model.TotalQuantity, new { @class = "totalQty text-right form-control", @readonly = "readonly" })
+                            </li>
+                            <li>
+                                <label>Total VAT</label>
+                                @Html.TextBoxFor(model => model.TotalVat, new { @class = "totalVat text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalVat) })
+                                @Html.ValidationMessageFor(model => model.TotalVat, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Discount Amount (Tk)</label>
+                                @Html.TextBoxFor(model => model.OverAllDiscount, new { @class = "text-right form-control", Value = String.Format("{0:0.00}", Model.OverAllDiscount), tabindex = "2", onClick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.OverAllDiscount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Promotional Point</label>
+                                @Html.TextBoxFor(model => model.EarningPoint, new { @class = "text-right form-control", @readonly = "readonly", Value = string.Format("{0:0.00}", Model.EarningPoint) })
+                                @Html.ValidationMessageFor(model => model.EarningPoint, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Point Amount</label>
+                                @Html.TextBoxFor(model => model.EarningPointAmount, new { @class = "text-right form-control", @readonly = "readonly", Value = string.Format("{0:0.00}", Model.EarningPointAmount) })
+                                @Html.ValidationMessageFor(model => model.EarningPointAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Expense Point</label>
+                                @Html.TextBoxFor(model => model.ExpensePoint, new { @class = "text-right form-control", Value = string.Format("{0:0.00}", Model.ExpensePoint) })
+                                @Html.ValidationMessageFor(model => model.ExpensePoint, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label> Point Amount</label>
+                                @Html.TextBoxFor(model => model.ExpensePointAmount, new { @class = "text-right form-control", Value = string.Format("{0:0.00}", Model.ExpensePointAmount), @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.ExpensePointAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                @Html.LabelFor(model => model.PaymentType, new { @class = "control-label  " })
+                                @Html.SimpleDropDownFor(model => model.PaymentType, "/Enum/GetPaymentType/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PaymentType, null, new { @class = "text-danger" })
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-inline lits2">
+                            <li>
+                                <label>Total Amount</label>
+                                @Html.TextBoxFor(model => model.TotalAmount, new { @class = "totalAmount text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+                                @Html.HiddenFor(model => model.TotalPrice, new { @class = "totalPrice" })
+                                @Html.ValidationMessageFor(model => model.TotalAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Customer Discount(Tk)</label>
+                                @Html.TextBoxFor(model => model.CustomerDiscountInAmount, new { @class = "customerDiscountInAmount text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.CustomerDiscountInAmount) })
+                                @Html.ValidationMessageFor(model => model.CustomerDiscountInAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Product Discount(Tk)</label>
+                                @Html.TextBoxFor(model => model.ProductDiscount, new { @class = "totalDiscount text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.ProductDiscount) })
+                                @Html.ValidationMessageFor(model => model.ProductDiscount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Net Amount</label>
+                                @Html.TextBoxFor(model => model.NetAmount, new { @class = "netAmount text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.NetAmount) })
+                                @Html.ValidationMessageFor(model => model.NetAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Change Amount</label>
+                                @Html.TextBoxFor(model => model.ChangeAmount, new { @class = "text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.ChangeAmount) })
+                                @Html.ValidationMessageFor(model => model.ChangeAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Paid Amount</label>
+                                @Html.TextBoxFor(model => model.PaidAmount, new { @class = "paidAmount text-right form-control required paid-color", Value = String.Format("{0:0.00}", Model.PaidAmount) })
+                                @Html.ValidationMessageFor(model => model.PaidAmount, null, new { @class = "text-danger" })
+                            </li>
+                            <li>
+                                <label>Due Amount</label>
+                                @Html.TextBoxFor(model => model.DueAmount, new { @class = "text-right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.DueAmount) })
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="net-price">
+                <h3 class="net-amount text-center"></h3>
+            </div>
+            <p class="pull-right">
+                <a href="javascript:void(0);" onclick="Save()" class="btn btn-sm btn-bg" value="Save"><i class="fa fa-save"></i> Save</a>
+                <a href="javascript:void(0);" onclick="Invoice()" class="btn btn-sm btn-bg" value="Invoice"><i class="fa fa-save"></i> Invoice</a>
+                <a href="javascript:void(0);" onclick="Label()" class="btn btn-sm btn-bg" value="Label"><i class="fa fa-check"></i> Label</a>
+                <a href="javascript:void(0);" onclick="Print()" class="btn btn-sm btn-bg" value="Print"><i class="fa fa-check"></i> Print</a>
+            </p>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+   var promotionalDiscountList = eval('@Html.Raw(ViewBag.PromotionalDiscountList)');
+   var productList = eval('@Html.Raw(ViewBag.ProductList)');
+
+    $("#ProductCode").on("keypress", function (event) {
+        if (event.which == '10' || event.which == '13') {
+            event.preventDefault();
+            var code = $(this).val();
+            $.each(productList, function (i, element) {
+                if (element['label'] == code) {
+                    CheckAddedItem(element['value']);
+                    CalculateSuperShopSaleSummary();
+                    $("#ProductCode").val("");
+                    return true;
+                }
+            });
+        }
+        else {
+            $("#ProductCode").autocomplete({
+                source: productList,
+                minLength: 1,
+                delay: 500,
+                autoFocus: false,
+                focus: function (event, ui) {
+                    event.preventDefault();
+                    $(this).val(ui.item.label);
+                },
+                select: function (event, ui) {
+                    event.preventDefault();
+                    CheckAddedItem(ui.item.value);
+                    CalculateSuperShopSaleSummary();
+                    $("#ProductCode").val("");
+                }
+            });
+        }
+        });
+
+    $("#CustomerMobileNumber").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/SuperShopSale/GetAllCustomerInformationByMobileNumber",
+                    dataType: "json",
+                    async: true,
+                    data: {
+                        term: request.term,
+                        customerMobile: $("#CustomerMobileNumber").val()
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 6,
+            delay: 500,
+            autoFocus: false,
+            focus: function (event, ui) {
+                event.preventDefault();
+                $(this).val(ui.item.label);
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $("#CustomerId").val(ui.item.value);
+                $("#CustomerDiscountInPercentage").val(ui.item.CustomerDiscountRate);
+                $("#CustomerName").val(ui.item.CustomerName);
+                $("#CustomerAddress1").val(ui.item.CustomerAddress1);
+                $("#CustomerAdvanceAmount").val(ui.item.CustomerAdvanceAmount);
+                $("#CustomerDueAmount").val(ui.item.CustomerDueAmount);
+                $("#CustomerPoint").val(ui.item.CustomerPoint);
+                $("#CustomerPointAmount").val(ui.item.CustomerPointAmount);
+                CalculateSuperShopSaleSummary();
+            }
+        });
+
+    function CheckAddedItem(productId) {
+        var product = productList.find(function(product) { return product.value === productId; });
+        if (product.ItemStock < 1) {
+            ShowResult("Product out of stock.", "failure");
+            return false;
+        }
+        var flag = true;
+        for (var i = 0; i < $(".productId").length; i++) {
+            if ($($(".productId")[i]).val() == productId) {
+                var qty = $($(".quantity")[i]).val();
+                qty = parseInt(qty) + 1;
+                $($(".quantity")[i]).val(qty);
+                var price =parseFloat($($(".salePrice")[i]).val()) ||0;
+                var amout = qty * price;
+                $($(".amount")[i]).val(amout.toFixed(2));
+                flag = false;
+            }
+        }
+        if (flag) {
+            AddHTML(product);
+        }
+    }
+
+    $("#CustomerDiscountInPercentage").on('keyup', function () {
+            CalculateSuperShopSaleSummary();
+        });
+
+    $("#OverAllDiscount").on('keyup', function () {
+        CalculateSuperShopSaleSummary();
+    });
+
+    $("#PaidAmount").on('keyup', function () {
+        CalculateSuperShopSaleSummary();
+    });
+
+  $("#ExpensePoint").on('keyup', function () {
+      var points = $(this).val();
+      if (typeof promotionalDiscountList != 'undefined') {
+          var promotionalDiscounts = promotionalDiscountList.sort((a, b) => parseInt(b.EquivalantPoint) - parseInt(a.EquivalantPoint));
+          GetPointAmountByPoint(promotionalDiscounts, points);
+      }
+  });
+
+    window.Save = function () {
+            $("#ActionType").val("Save");
+            if ($("#DialogForm").valid()) {
+                $("#DialogForm").submit();
+                $("button[value='Save']").prop('disabled', true);
+                return true;
+            }
+        };
+
+    window.Invoice = function () {
+            $("#ActionType").val("Invoice");
+            if ($("#DialogForm").valid()) {
+                $("#DialogForm").submit();
+                $("button[value='Invoice']").prop('disabled', true);
+                return true;
+            }
+        };
+
+    window.Label = function () {
+            $("#ActionType").val("Label");
+            if ($("#DialogForm").valid()) {
+                $("#DialogForm").submit();
+                $("button[value='Label']").prop('disabled', true);
+                return true;
+            }
+        };
+        window.Print = function () {
+            $("#ActionType").val("Print");
+            if ($("#DialogForm").valid()) {
+                $("#DialogForm").submit();
+                $("button[value='Print']").prop('disabled', true);
+                return true;
+            }
+        };
+    </script>
+}
+
+
+
+

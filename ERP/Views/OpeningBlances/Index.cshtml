@@ -1,0 +1,178 @@
+﻿@model IEnumerable<ERP.Models.OpeningBlance>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionQtyPrev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockUnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BranchId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Archive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSynchronized)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SynchronizationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedFromIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedFromIp)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionQtyPrev)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockUnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BranchId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Archive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSynchronized)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SynchronizationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedFromIp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedFromIp)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

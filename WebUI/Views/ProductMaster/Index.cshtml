@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Products.ProductMasterViewModel>
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Item Mapping";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="d-flex justify-content-between border-bottom pb-1">
+            <a href="/ProductMaster/Create" class="btn btn-bg" role="button">Add New</a>
+            <a href="/Home" class="btn btn-bg top-button-back float-right" role="button">Back</a>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "ProductMaster", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   ">Company</label>
+                @Html.SimpleDropDown("companyId", "/Company/GetCompanyList/", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label   ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <div class="form-group">
+                <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
+            </div>
+        </div>
+    </div>
+}
+<table class="table demo dataTable" data-filter="#filter" data-page-size="20">
+    <thead>
+        <tr>
+            <th>
+                <label>Code</label>
+            </th>
+            <th>
+                <label>Name</label>
+            </th>
+            <th>
+                <label>Category</label>
+            </th>
+            <th data-sort-ignore="true">
+                @Html.LabelFor(r => Model.First().Active)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.Raw(item.ProductCode)</td>
+                    <td>@Html.Raw(item.ProductName)</td>
+                    <td>@Html.Raw(item.ProductCategoryName)</td>
+                    <td>
+                        @Html.HiddenFor(r => item.Id, new { @class = "ProcessId" })
+                        @Html.CheckBoxFor(r => item.Active, new { @class = "Active" })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        $(".Active").on('click', function () {
+            var id = $(this).closest("tr").find(".ProcessId").val();
+            $.ajax({
+                url: '/ProductMaster/ChangeStatus?id=' + id,
+                type: 'POST',
+                success: function (jsonData, textStatus, XMLHttpRequest) {
+                }
+            });
+            return true;
+        });
+    </script>
+}

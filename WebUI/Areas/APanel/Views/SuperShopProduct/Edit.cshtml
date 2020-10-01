@@ -1,0 +1,233 @@
+﻿@model Library.ViewModel.Inventory.Products.ProductViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/APanel/SuperShopProduct" class="btn btn-bg" role="button">Back</a>
+        </div>
+        <hr />
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "SuperShopProduct", null, new AjaxOptions { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Company_tittle">Product Information</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Id, new { title = "Purchase No", @class = "control-label  mendatory" })
+                                @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.Id, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, new { @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  mendatory ">Supplier</label>
+                                @Html.SimpleDropDownFor(model => model.SupplierId, "/APanel/Supplier/GetSupplierList", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SupplierId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                 <label class="control-label" title="Supplier brand">Brand</label>
+                                @Html.CascadingDropDownFor(model => model.BrandId, "/APanel/Brand/GetBrandListBySupplierId?supplierId=", "SupplierId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BrandId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SupplierProductCode, new { @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.SupplierProductCode, new { autofocus = "", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SupplierProductCode, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label mendatory" title="Product Category">Category</label>
+                                @Html.SimpleDropDownFor(model => model.ProductCategoryId, "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Product Subcategory">Subcategory</label>
+                                @Html.CascadingDropDownFor(model => model.ProductSubCategoryId, "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "ProductCategoryId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductSubCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Product Subsidiary Category">Subsidiary Category</label>
+                                @Html.CascadingDropDownFor(model => model.ProductSubsidiaryCategoryId, "/APanel/ProductSubsidiaryCategory/GetProductSubsidiaryCategoryList?productSubCategoryId=", "ProductSubCategoryId", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductSubsidiaryCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label" title="VAT Category">VAT Category</label>
+                                @Html.SimpleDropDownFor(model => model.VatCategoryId, "/APanel/VatCategory/GetVatCategoryList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.VatCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Product Size">Size</label>
+                                @Html.SimpleDropDownFor(model => model.SizeId, "/APanel/Size/GetSizeList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SizeId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Country Of Origin</label>
+                                @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/CountryOfOrigin/GetCountryList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Product Color">Color</label>
+                                @Html.SimpleDropDownFor(model => model.ColorId, "/APanel/Color/GetColorList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ColorId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Floor</label>
+                                @Html.SimpleDropDownFor(model => model.FloorId, "/APanel/Floor/GetFloorList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FloorId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Style">Style</label>
+                                @Html.SimpleDropDownFor(model => model.StyleId, "/APanel/Style/GetStyleList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StyleId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label mendatory">UOM</label>
+                                @Html.SimpleDropDownFor(model => model.UOMId, "/APanel/UOM/GetUOMList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UOMId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Rack</label>
+                                @Html.SimpleDropDownFor(model => model.RackId, "/APanel/Rack/GetRackList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RackId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PurchasePrice, new { title = "Cost Of Goods", @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.PurchasePrice, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RetailPrice, new { title = "Maximum Retail Price", @class = "control-label mendatory" })
+                                @Html.TextBoxFor(model => model.RetailPrice, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.RetailPrice, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label title="Profit Amount" class="control-label">Profit(Tk)</label>
+                                        @Html.TextBoxFor(model => model.ProfitAmount, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.ProfitAmount, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label title="Profit Amount" class="control-label">Profit(%)</label>
+                                        @Html.TextBoxFor(model => model.ProfitAmountInPercentage, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.ProfitAmountInPercentage, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaxDiscount, new { title = "Max Discount", @class = "control-label" })
+                                @Html.TextBoxFor(model => model.MaxDiscount, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.MaxDiscount, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label title="Shelf-life" class="control-label">Shelf-life</label>
+                                @Html.TextBoxFor(model => model.ShelfLife, new { @class = "form-control ", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.ShelfLife, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReorderLevel, new { title = "Reorder Level", @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ReorderLevel, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.ReorderLevel, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Picture">Picture</label>
+                                <article class="user-info">
+                                    <h5>
+                                        @if (Model != null && Model.Picture != null && Model.Picture.Length > 0)
+                                        {
+                                            <img src="@Url.Action("GetPicture", "Product", new { id = Model.Id })" alt="Person Image" width="100" />
+                                            @Html.HiddenFor(model => model.Picture)
+                                        }
+                                    </h5>
+                                </article>
+                                @Html.TextBoxFor(model => model.Picturep, new { type = "file", @class = "form-control" })
+                            </div>
+                            
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active, new { @class = "control-label" })
+                                @Html.CheckBoxFor(model => model.Active)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group text-right">
+                                <div class="col-xl-12">
+                                    <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-xl-12 -->
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        $("#PurchasePrice, #RetailPrice").on("keyup, change", function () {
+            var purchasePrice = parseFloat($("#PurchasePrice").val()) || 0;
+            var retailPrice = parseFloat($("#RetailPrice").val()) || 0;
+            if (purchasePrice > 0 && retailPrice > 0) {
+                var profitAmount = retailPrice - purchasePrice;
+                $("#ProfitAmount").val(profitAmount.toFixed(2));
+                var profitAmountInpercentage = parseFloat((profitAmount * 100) / purchasePrice) || 0;
+                $("#ProfitAmountInPercentage").val(profitAmountInpercentage.toFixed(2));
+            }
+        });
+
+        $("#SupplierProductCode, #SupplierId, #BrandId").on("keyup, change", function () {
+            var supplierProductCode = $("#SupplierProductCode").val();
+            var supplierName = $("#SupplierId").find(":selected").html();
+            var brandName = $("#BrandId").find(":selected").html();
+            var productAutoId = $("#Id").val();
+            var supplier = '';
+            var brand = '';
+            var barcode = '';
+            if (typeof supplierName != 'undefined' && supplierName != "" && supplierName != "--select--") {
+                supplier = supplierName.trim().substring(0, 3);
+                barcode = supplierProductCode + "-" + supplier + "-" + productAutoId;
+            }
+            if (typeof brandName != 'undefined' && brandName != "" && brandName != "--select--") {
+                brand = brandName.trim().substring(0, 3);
+                barcode = supplierProductCode + "-" + supplier + "-" + brand + "-" + productAutoId;
+            }
+            $("#Code").val(barcode);
+        });
+
+
+    </script>
+}

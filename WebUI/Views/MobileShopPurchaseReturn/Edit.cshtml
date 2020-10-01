@@ -1,0 +1,173 @@
+﻿@model Library.ViewModel.Inventory.Purchases.PurchaseReturnViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/MobileShopPurchaseReturn/PurchaseReturnIndex" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Add Purchase Return</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "MobileShopPurchaseReturn", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{   
+    @Html.HiddenFor(model => model.Id)   
+    @Html.HiddenFor(model => model.PurchaseId)   
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Invoice No.</label>
+                <div class="col-xs-8">
+                    @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.HiddenFor(model => model.InvoiceNo)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Supplier</label>
+                <div class="col-xs-8">
+                    @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.HiddenFor(model => model.SupplierId)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PurchaseReturnDate, new { @class = "control-label  mendatory" })
+                <div class="col-xs-8">
+                    @Html.DatePickerFor(model => model.PurchaseReturnDate, new { @class = "form-control", disabled = false })
+                    @Html.HiddenFor(m => m.PurchaseDate)
+                    @Html.HiddenFor(m => m.PurchaseReturnDate)
+                </div>
+            </div>
+        </div>
+    </div>     
+    <div class="row">
+        <div class="col-xl-12">
+            <table id="tbl" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="td-button-sale">
+                            @Html.CheckBoxFor(model => model.SelectAll, new { @class = "selectAll" })
+                        </th>
+                        <th class="form-group item-width ">Product Code</th>
+                        <th class="form-group item-width ">Product Name</th>
+                        <th class="form-group ">Unit</th>
+                        <th class="form-group ">Purchase Quantity</th>
+                        <th class="form-group ">Purchase Amount</th>
+                        <th class="form-group ">Remaining Quantity</th>
+                        <th class="form-group ">Return Quantity </th>
+                        <th class="form-group ">Return Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="editorItemRows">
+                    @if (Model.PurchaseReturnDetails != null)
+                    {
+                        foreach (var item in Model.PurchaseReturnDetails)
+                        {
+                            Html.RenderPartial("_PurchaseReturnItemRowForEdit", item);
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalAmount, new { @class = "control-label " })
+                <div class="col-xs-8">
+                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "totalAmount right form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+                </div>
+            </div>
+        </div>
+    </div>   
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-bg pull-right">Return</button>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")<script type="text/javascript">
+    $(function () {
+    });
+
+    $("input:checkbox.selectAll").on("click", function () {
+        var el = $(this);
+        var checked = el.is(":checked");
+        if (checked) {
+            $(this).closest("table").find(".selectone:checkbox").prop("checked", true);
+        }
+        else {
+            $(this).closest("table").find(".selectone:checkbox").prop("checked", false);
+        }
+    });
+
+    $(".selectone").on("click", function () {
+        var el = $(this);
+        var totalcheckbox = el.parents("tbody").find(".selectone:checkbox").length;
+        var totalcheckedcheckbox = el.parents("tbody").find(".selectone:checked").length;
+        $("input:checkbox.selectAll").prop("checked", (totalcheckbox == totalcheckedcheckbox));
+        return true;
+    });
+
+    $("#btnAdd").on("click", function () {
+        var totalcheckedcheckbox = $("input:checkbox.selectone").parents("tbody").find(".selectone:checked").length;
+        if (totalcheckedcheckbox < 1) {
+            ShowResult("Please select item.", "failure");
+            return false;
+        }
+        CustomAsk("Are you sure, you want to return?", "function", "SubmitForm()");
+    });
+
+    function CalculateMobileShopPurchaseReturnSummary() {
+        var totalAmount = Number(0);
+        for (var i = 0; i < $(".productId").length; i++) {
+            totalAmount += parseFloat($($(".returnAmount")[i]).val());
+            
+        }
+        $("#TotalAmount").val(parseFloat(totalAmount).toFixed());
+    }
+
+    $(".returnQuantity:not(.returnQuantityInited)").on('keyup', function () {
+        var el = $(this);
+        var check = Number(el.val());
+        if (check.toString() == "NaN") {
+            $(this).val("");
+            ShowResult("Pleasse enter number", "failure");
+            return false;
+        }
+        else {
+            var returnqty = parseFloat(el.val());
+            returnqty = isNaN(returnqty) ? 0 : returnqty;
+            var remainingQty = parseFloat(el.closest("tr").find(".remainingQuantity").val());
+            remainingQty = isNaN(remainingQty) ? 0 : remainingQty;
+            if (returnqty > remainingQty) {
+                $(this).val(0);
+                $(this).focus();
+                el.closest("tr").find(".returnAmount").val(0);
+                ShowResult("Return Quantity can not be greater than Remaining Quantity.", "failure");
+                return false;
+            }
+            else {
+                var unitprice = parseFloat(el.closest("tr").find(".salePrice").val());
+                unitprice = isNaN(unitprice) ? 0 : unitprice;
+                el.closest("tr").find(".returnUnitPrice").val(unitprice);
+                var totatprice = returnqty * unitprice;
+                el.closest("tr").find(".returnAmount").val(parseFloat(totatprice).toFixed(2));
+                CalculateMobileShopPurchaseReturnSummary();
+            }
+        }
+    }).addClass("returnQuantityInited");
+
+    function SubmitForm() {
+        $("#DialogForm").submit();
+    }
+</script>}

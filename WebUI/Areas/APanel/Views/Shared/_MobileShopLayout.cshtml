@@ -1,0 +1,190 @@
+﻿@using Library.Crosscutting.Securities;
+@using System.Threading;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>POS</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/metisMenujs")
+    @Scripts.Render("~/bundles/dataTablesjs")
+    @Scripts.Render("~/bundles/sbAdminjs")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/customjs")
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <header class="align-items-start app-header flex-column flex-md-row navbar navbar-expand-md navbar-light">
+            <div class="align-items-baseline d-flex flex-row navbar-brand p-lg-3 pl-3 pr-3 pt-3">
+                 <a class="" href="#">One-ICT</a>
+                <button class="collapsed ml-auto navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#side-menu-wrapper" aria-controls="side-menu" aria-expanded="false"
+                        aria-label="Toggle navigation" style="">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <ul class="nav navbar-nav ml-md-auto flex-row navbar-top-links">
+                @{
+                    try
+                    {
+                        var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                        <li class="nav-item dropdown"><span class="username">Login IP: @Html.Raw(identity.IpAddress)</span><span class="username"> & Login By @Html.Raw(identity.Name)</span></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-user">
+                                <a class="dropdown-item" href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                @Html.ActionLink("Logout", "Logout", "Login", new { area = "", road = "admin" }, new { @class = "dropdown-item fa fa-sign-out fa-fw" })
+                            </div>
+                        </li>
+                    }
+                    catch (Exception ex)
+                    {
+                        HttpContext.Current.Response.Redirect("~/Login");
+                    }
+                }
+            </ul>
+        </header>
+        <div class="d-md-flex">
+            <div class="sidebar" role="navigation">
+                <div class="sidebar-nav collapse navbar-collapse show" id="side-menu-wrapper">
+                    <ul class="nav navbar-nav navbar-collapse flex-column side-nav list-group" id="side-menu">
+                        <li class="list-group-item">
+                            <a href="/APanel/Home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i><span>Master Setup</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/Company">Company</a></li>
+                                <li class="list-group-item"><a href="/APanel/Branch">Branch</a> </li>
+                                <li class="list-group-item"><a href="/APanel/UserGroup">User Group</a></li>
+                                <li class="list-group-item"><a href="/APanel/User">User</a></li>
+                                <li class="list-group-item"><a href="/APanel/UserRole">User Role</a></li>
+                                <li class="list-group-item"><a href="/APanel/Bank">Bank</a></li>
+                                <li class="list-group-item"><a href="/APanel/BankBranch">Bank Branch</a> </li>
+                                <li class="list-group-item"><a href="/APanel/BankMaster">Bank Accounts</a></li>
+                                <li class="list-group-item"><a href="/APanel/BankMaster">Bank Master</a></li>
+                                <li class="list-group-item"><a href="/APanel/Courier">Courier</a></li>
+                                <li class="list-group-item"><a href="/APanel/Country">Country</a></li>
+                                <li class="list-group-item"><a href="/APanel/Division">Division</a></li>
+                                <li class="list-group-item"><a href="/APanel/District">District</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Warehouse">Warehouse</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Patient">Patient</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-comment fa-fw"></i><span>Product Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/UOM">UOM</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Color">Color</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Floor">Floor</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Rack">Rack</a></li>
+                                <li class="list-group-item"><a href="/APanel/RAM">RAM</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ROM">ROM</a> </li>
+                                <li class="list-group-item"><a href="/APanel/CountryOfOrigin">Country of Origin</a> </li>
+                                <li class="list-group-item"><a href="/APanel/VATCategory">VAT Category</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Manufacturer">Brand</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ProductCategory">Product Category</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ProductSubCategory">Product SubCategory</a></li>
+                                <li class="list-group-item"><a href="/APanel/ProductSubsidiaryCategory">Product SubsidiaryCategory</a></li>
+                                <li class="list-group-item"><a href="/APanel/MobileShopProduct">Product</a></li>
+                                <li class="list-group-item"><a href="/APanel/ProductMaster">Product Master</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Barcode">Barcode</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-tasks fa-fw"></i><span>Customer Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/CustomerCategory">Customer Category</a></li>
+                                <li class="list-group-item"><a href="/APanel/Customer">Customer</a></li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i><span>Supplier Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/SupplierCategory">Supplier Category</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Supplier">Supplier</a></li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-money fa-fw"></i><span>Account Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/PaymentInfo/ReceiveByCash">Receive By Cash </a></li>
+                                <li class="list-group-item"><a href="/APanel/PaymentInfo/ReceiveByCheque">Receive By Cheque </a></li>
+                                <li class="list-group-item"><a href="/APanel/PaymentInfo/ReceiveByBank">Receive By Bank </a></li>
+                                <li class="list-group-item"><a href="/APanel/PaymentInfo/PayByCash">Pay By Cash </a></li>
+                                <li class="list-group-item"><a href="/APanel/PaymentInfo/PayByCheque">Pay By Cheque </a></li>
+                                <li class="list-group-item"><a href="/APanel/BankLedger">Bank Transaction</a></li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i><span>Promotion Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/PromotionalDiscount">Promotional Discount</a> </li>
+                                <li class="list-group-item"><a href="/APanel/PromotionalDiscountMapping">Promotional Discount Mapping</a> </li>
+                                <li class="list-group-item"><a href="/APanel/PromotionalFreeItem">Promotional Free Item</a> </li>
+                                <li class="list-group-item"><a href="/APanel/PromotionalFreeItemMapping">Promotional Free Item Mapping</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-shopping-cart  fa-fw"></i><span>Expenditure Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/ExpenditureCategory">Expenditure Category</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ExpenditureSubCategory">Expenditure SubCategory</a></li>
+                                <li class="list-group-item"><a href="/APanel/ExpenditureSubsidiaryCategory">Expenditure SubsidiaryCategory</a> </li>
+                                <li class="list-group-item"><a href="/APanel/Expenditure">Expenditure</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="#"><i class="fa fa-save fa-fw"></i><span>Report Management</span><span class="fa arrow"></span></a>
+                            <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/MobileShopProduct/ProductList">Product Report</a> </li>
+                                <li class="list-group-item"><a href="/APanel/MobileShopProduct/ProductStockList">Product Stock Report</a> </li>
+                                <li class="list-group-item"><a href="/APanel/MobileShopPurchase/PurchaseSummary">Purchase Report</a> </li>
+                                <li class="list-group-item"><a href="/APanel/MobileShopSale/ReportSaleSummary">Sales Report</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <div id="page-wrapper" class="p-2">
+                <div class="container-fluid">
+                    @RenderBody()
+                    @Scripts.Render("~/bundles/tabjs")
+                    @RenderSection("Scripts", false)
+                </div>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
+</body>
+</html>

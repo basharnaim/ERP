@@ -1,0 +1,806 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="POS_TmartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="VatRegistryNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="MaxDiscountRate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="300" />
+          <Property Name="CountryId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DivisionId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DistrictId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactPersonDesignation" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Website" Type="nvarchar" MaxLength="30" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="IsOffline" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="150" />
+          <Property Name="Tin" Type="nvarchar" MaxLength="20" />
+          <Property Name="VatRegistryNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="FiscalYearStartDate" Type="datetime" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="300" />
+          <Property Name="CountryId" Type="varchar" MaxLength="5" />
+          <Property Name="DivisionId" Type="varchar" MaxLength="5" />
+          <Property Name="DistrictId" Type="varchar" MaxLength="5" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactPersonDesignation" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Website" Type="nvarchar" MaxLength="30" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SupplierProductCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Picture" Type="image" />
+          <Property Name="ProductCategoryId" Type="varchar" MaxLength="15" />
+          <Property Name="ProductSubCategoryId" Type="varchar" MaxLength="15" />
+          <Property Name="ProductSubsidiaryCategoryId" Type="varchar" MaxLength="15" />
+          <Property Name="UOMId" Type="varchar" MaxLength="15" />
+          <Property Name="ColorId" Type="varchar" MaxLength="15" />
+          <Property Name="StyleId" Type="varchar" MaxLength="15" />
+          <Property Name="FlavorId" Type="varchar" MaxLength="15" />
+          <Property Name="GradeId" Type="varchar" MaxLength="15" />
+          <Property Name="FloorId" Type="varchar" MaxLength="15" />
+          <Property Name="RackId" Type="varchar" MaxLength="15" />
+          <Property Name="ManufacturerId" Type="varchar" MaxLength="15" />
+          <Property Name="VatCategoryId" Type="varchar" MaxLength="15" />
+          <Property Name="SizeId" Type="varchar" MaxLength="15" />
+          <Property Name="RAMId" Type="varchar" MaxLength="15" />
+          <Property Name="ROMId" Type="varchar" MaxLength="15" />
+          <Property Name="SupplierId" Type="varchar" MaxLength="15" />
+          <Property Name="BrandId" Type="varchar" MaxLength="15" />
+          <Property Name="CountryId" Type="varchar" MaxLength="5" />
+          <Property Name="PurchasePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RetailPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="WholeSalePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ProfitAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ProfitAmountInPercentage" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ShelfLife" Type="int" Nullable="false" />
+          <Property Name="ReorderLevel" Type="int" Nullable="false" />
+          <Property Name="MaxDiscount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ProductStockDetail">
+          <Key>
+            <PropertyRef Name="StockDetailID" />
+          </Key>
+          <Property Name="StockDetailID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StockID" Type="int" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="TransactionID" Type="bigint" />
+          <Property Name="TransactionTypeID" Type="int" Nullable="false" />
+          <Property Name="StockDate" Type="datetime" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="UOMID" Type="int" />
+          <Property Name="ReceiveQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveRate" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueRate" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IssueValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateOn" Type="datetime" />
+          <Property Name="CreatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateOn" Type="datetime" />
+          <Property Name="UpdatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleteBy" Type="int" />
+          <Property Name="DeleteOn" Type="datetime" />
+          <Property Name="DeletePc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'POS_Tmart.dbo.ProductStockMaser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductStockMaser">
+          <Key>
+            <PropertyRef Name="StockID" />
+            <PropertyRef Name="BranchID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="UOMID" />
+            <PropertyRef Name="IssueQty" />
+            <PropertyRef Name="CurrentRate" />
+            <PropertyRef Name="SalesRate" />
+            <PropertyRef Name="SalesValue" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="StockID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ProductID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="UOMID" Type="int" Nullable="false" />
+          <Property Name="ReceiveQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LastReceiveDate" Type="datetime" />
+          <Property Name="IssueQty" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="IssueValue" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="LastIssueDate" Type="datetime" />
+          <Property Name="CurrentRate" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="CurrentStock" Type="decimal" Precision="19" Scale="6" StoreGeneratedPattern="Computed" />
+          <Property Name="CurrentValue" Type="decimal" Precision="25" Scale="6" StoreGeneratedPattern="Computed" />
+          <Property Name="SalesRate" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="SalesValue" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="LastSalesDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateOn" Type="datetime" />
+          <Property Name="CreatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateOn" Type="datetime" />
+          <Property Name="UpdatePc" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeleteBy" Type="int" />
+          <Property Name="DeleteOn" Type="datetime" />
+          <Property Name="DeletePc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UOM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Archive" Type="bit" Nullable="false" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsUpdated" Type="bit" Nullable="false" />
+          <Property Name="SynchronizationType" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="AddedFromIp" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedFromIp" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityContainer Name="POS_TmartModelStoreContainer">
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStockDetail" EntityType="Self.ProductStockDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UOM" EntityType="Self.UOM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStockMaser" EntityType="Self.ProductStockMaser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductStockMaser].[StockID] AS [StockID], 
+    [ProductStockMaser].[BranchID] AS [BranchID], 
+    [ProductStockMaser].[SupplierID] AS [SupplierID], 
+    [ProductStockMaser].[CategoryID] AS [CategoryID], 
+    [ProductStockMaser].[ProductID] AS [ProductID], 
+    [ProductStockMaser].[CompanyID] AS [CompanyID], 
+    [ProductStockMaser].[UOMID] AS [UOMID], 
+    [ProductStockMaser].[ReceiveQty] AS [ReceiveQty], 
+    [ProductStockMaser].[ReceiveValue] AS [ReceiveValue], 
+    [ProductStockMaser].[LastReceiveDate] AS [LastReceiveDate], 
+    [ProductStockMaser].[IssueQty] AS [IssueQty], 
+    [ProductStockMaser].[IssueValue] AS [IssueValue], 
+    [ProductStockMaser].[LastIssueDate] AS [LastIssueDate], 
+    [ProductStockMaser].[CurrentRate] AS [CurrentRate], 
+    [ProductStockMaser].[CurrentStock] AS [CurrentStock], 
+    [ProductStockMaser].[CurrentValue] AS [CurrentValue], 
+    [ProductStockMaser].[SalesRate] AS [SalesRate], 
+    [ProductStockMaser].[SalesValue] AS [SalesValue], 
+    [ProductStockMaser].[LastSalesDate] AS [LastSalesDate], 
+    [ProductStockMaser].[IsActive] AS [IsActive], 
+    [ProductStockMaser].[CreateBy] AS [CreateBy], 
+    [ProductStockMaser].[CreateOn] AS [CreateOn], 
+    [ProductStockMaser].[CreatePc] AS [CreatePc], 
+    [ProductStockMaser].[UpdateBy] AS [UpdateBy], 
+    [ProductStockMaser].[UpdateOn] AS [UpdateOn], 
+    [ProductStockMaser].[UpdatePc] AS [UpdatePc], 
+    [ProductStockMaser].[IsDeleted] AS [IsDeleted], 
+    [ProductStockMaser].[DeleteBy] AS [DeleteBy], 
+    [ProductStockMaser].[DeleteOn] AS [DeleteOn], 
+    [ProductStockMaser].[DeletePc] AS [DeletePc]
+    FROM [dbo].[ProductStockMaser] AS [ProductStockMaser]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="POS_TmartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VatRegistryNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MaxDiscountRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Address1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DivisionId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistrictId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPersonDesignation" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="IsOffline" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Tin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="VatRegistryNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FiscalYearStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPersonDesignation" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductStockDetail">
+          <Key>
+            <PropertyRef Name="StockDetailID" />
+          </Key>
+          <Property Name="StockDetailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StockID" Type="Int32" Nullable="false" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="TransactionID" Type="Int64" />
+          <Property Name="TransactionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="StockDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="UOMID" Type="Int32" />
+          <Property Name="ReceiveQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveRate" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueRate" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IssueValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteBy" Type="Int32" />
+          <Property Name="DeleteOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UOM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductStockMaser">
+          <Key>
+            <PropertyRef Name="StockID" />
+            <PropertyRef Name="BranchID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="UOMID" />
+            <PropertyRef Name="IssueQty" />
+            <PropertyRef Name="CurrentRate" />
+            <PropertyRef Name="SalesRate" />
+            <PropertyRef Name="SalesValue" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="StockID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ProductID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="UOMID" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ReceiveValue" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LastReceiveDate" Type="DateTime" Precision="3" />
+          <Property Name="IssueQty" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="IssueValue" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="LastIssueDate" Type="DateTime" Precision="3" />
+          <Property Name="CurrentRate" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="CurrentStock" Type="Decimal" Precision="19" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CurrentValue" Type="Decimal" Precision="25" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SalesRate" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="SalesValue" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="LastSalesDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteBy" Type="Int32" />
+          <Property Name="DeleteOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletePc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="POS_TmartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="ProductStockDetails" EntityType="Self.ProductStockDetail" />
+          <EntitySet Name="UOMs" EntityType="Self.UOM" />
+          <EntitySet Name="ProductStockMasers" EntityType="Self.ProductStockMaser" />
+          <EntitySet Name="Products" EntityType="POS_TmartModel.Product" />
+          <EntitySet Name="ProductCategories" EntityType="POS_TmartModel.ProductCategory" />
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductCategoryId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ProductSubCategoryId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ProductSubsidiaryCategoryId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UOMId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ColorId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StyleId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FlavorId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="GradeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FloorId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RackId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ManufacturerId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="VatCategoryId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SizeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RAMId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ROMId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BrandId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PurchasePrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="RetailPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="WholeSalePrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ProfitAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ProfitAmountInPercentage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ShelfLife" Type="Int32" Nullable="false" />
+          <Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+          <Property Name="MaxDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Archive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsUpdated" Type="Boolean" Nullable="false" />
+          <Property Name="SynchronizationType" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedFromIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedFromIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="POS_TmartModelStoreContainer" CdmEntityContainer="POS_TmartEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="POS_TmartModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VatRegistryNo" ColumnName="VatRegistryNo" />
+                <ScalarProperty Name="MaxDiscountRate" ColumnName="MaxDiscountRate" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="ContactPersonDesignation" ColumnName="ContactPersonDesignation" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="IsOffline" ColumnName="IsOffline" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="POS_TmartModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Tin" ColumnName="Tin" />
+                <ScalarProperty Name="VatRegistryNo" ColumnName="VatRegistryNo" />
+                <ScalarProperty Name="FiscalYearStartDate" ColumnName="FiscalYearStartDate" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="ContactPersonDesignation" ColumnName="ContactPersonDesignation" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStockDetails">
+            <EntityTypeMapping TypeName="POS_TmartModel.ProductStockDetail">
+              <MappingFragment StoreEntitySet="ProductStockDetail">
+                <ScalarProperty Name="StockDetailID" ColumnName="StockDetailID" />
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+                <ScalarProperty Name="StockDate" ColumnName="StockDate" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UOMID" ColumnName="UOMID" />
+                <ScalarProperty Name="ReceiveQty" ColumnName="ReceiveQty" />
+                <ScalarProperty Name="ReceiveValue" ColumnName="ReceiveValue" />
+                <ScalarProperty Name="ReceiveRate" ColumnName="ReceiveRate" />
+                <ScalarProperty Name="IssueQty" ColumnName="IssueQty" />
+                <ScalarProperty Name="IssueRate" ColumnName="IssueRate" />
+                <ScalarProperty Name="IssueValue" ColumnName="IssueValue" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreatePc" ColumnName="CreatePc" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="UpdatePc" ColumnName="UpdatePc" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleteBy" ColumnName="DeleteBy" />
+                <ScalarProperty Name="DeleteOn" ColumnName="DeleteOn" />
+                <ScalarProperty Name="DeletePc" ColumnName="DeletePc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UOMs">
+            <EntityTypeMapping TypeName="POS_TmartModel.UOM">
+              <MappingFragment StoreEntitySet="UOM">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStockMasers">
+            <EntityTypeMapping TypeName="POS_TmartModel.ProductStockMaser">
+              <MappingFragment StoreEntitySet="ProductStockMaser">
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="UOMID" ColumnName="UOMID" />
+                <ScalarProperty Name="ReceiveQty" ColumnName="ReceiveQty" />
+                <ScalarProperty Name="ReceiveValue" ColumnName="ReceiveValue" />
+                <ScalarProperty Name="LastReceiveDate" ColumnName="LastReceiveDate" />
+                <ScalarProperty Name="IssueQty" ColumnName="IssueQty" />
+                <ScalarProperty Name="IssueValue" ColumnName="IssueValue" />
+                <ScalarProperty Name="LastIssueDate" ColumnName="LastIssueDate" />
+                <ScalarProperty Name="CurrentRate" ColumnName="CurrentRate" />
+                <ScalarProperty Name="CurrentStock" ColumnName="CurrentStock" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="SalesRate" ColumnName="SalesRate" />
+                <ScalarProperty Name="SalesValue" ColumnName="SalesValue" />
+                <ScalarProperty Name="LastSalesDate" ColumnName="LastSalesDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreatePc" ColumnName="CreatePc" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="UpdatePc" ColumnName="UpdatePc" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleteBy" ColumnName="DeleteBy" />
+                <ScalarProperty Name="DeleteOn" ColumnName="DeleteOn" />
+                <ScalarProperty Name="DeletePc" ColumnName="DeletePc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="POS_TmartModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MaxDiscount" ColumnName="MaxDiscount" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="ShelfLife" ColumnName="ShelfLife" />
+                <ScalarProperty Name="ProfitAmountInPercentage" ColumnName="ProfitAmountInPercentage" />
+                <ScalarProperty Name="ProfitAmount" ColumnName="ProfitAmount" />
+                <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
+                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="ROMId" ColumnName="ROMId" />
+                <ScalarProperty Name="RAMId" ColumnName="RAMId" />
+                <ScalarProperty Name="SizeId" ColumnName="SizeId" />
+                <ScalarProperty Name="VatCategoryId" ColumnName="VatCategoryId" />
+                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
+                <ScalarProperty Name="RackId" ColumnName="RackId" />
+                <ScalarProperty Name="FloorId" ColumnName="FloorId" />
+                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+                <ScalarProperty Name="FlavorId" ColumnName="FlavorId" />
+                <ScalarProperty Name="StyleId" ColumnName="StyleId" />
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="UOMId" ColumnName="UOMId" />
+                <ScalarProperty Name="ProductSubsidiaryCategoryId" ColumnName="ProductSubsidiaryCategoryId" />
+                <ScalarProperty Name="ProductSubCategoryId" ColumnName="ProductSubCategoryId" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SupplierProductCode" ColumnName="SupplierProductCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="POS_TmartModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="UpdatedFromIp" ColumnName="UpdatedFromIp" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="AddedFromIp" ColumnName="AddedFromIp" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SynchronizationType" ColumnName="SynchronizationType" />
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

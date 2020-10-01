@@ -1,0 +1,106 @@
+﻿@model Library.ViewModel.Core.Securities.UserViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/CPanel/User" class="btn btn-primary pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Add User</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Create", "User", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, new { @class = "control-label  mendatory" })
+                @Html.TextBoxFor(model => model.UserId, new { @class = "form-control", placeholder = "User Id" })
+                @Html.ValidationMessageFor(model => model.UserId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label  mendatory" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { title = "Confirm Password", @class = "control-label  mendatory" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label  mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "User name" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label " })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, new { @class = "control-label  mendatory" })
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label " })
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, new { @class = "control-label  mendatory" })
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "male", @checked = true })
+                        @Html.Label("Male")
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "female" })
+                        @Html.Label("Female")
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label" title="Picture">Picture</label>
+                <article class="user-info">
+                    <h5>
+                        @if (Model != null && Model.Image != null && Model.Image.Length > 0)
+                        {
+                            <img src="@Url.Action("GetPicture", "User", new { id = Model.Id })" alt="Person Image" width="100" />
+                            @Html.HiddenFor(model => model.Image)
+                        }
+                    </h5>
+                </article>
+                @Html.TextBoxFor(model => model.ImageFile, new { type = "file", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label " })
+                @Html.CheckBoxFor(model => model.Active)
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="col-xs-offset-4 col-xs-8">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

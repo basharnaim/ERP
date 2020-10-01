@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Library.ViewModel.Core.Securities.UserRoleViewModel>
+<ul class="nav navbar-nav navbar-collapse flex-column side-nav list-group" id="side-menu">
+    @foreach (var menu in Model)
+    {
+        <li class="list-group-item">
+            <a href="javascript:void(0);"><i class="@menu.Icon"></i><span>@menu.Name</span><span class="fa arrow"></span></a>
+            <ul class="nav-second-level list-group nested">
+                @foreach (var item in menu.MenuItemList)
+                {
+                    <li class="list-group-item"><a href="/@item.TargetPage">@item.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

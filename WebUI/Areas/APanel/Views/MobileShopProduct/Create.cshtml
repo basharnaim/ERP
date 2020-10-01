@@ -1,0 +1,161 @@
+﻿@model Library.ViewModel.Inventory.Products.ProductViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-end pb-1">
+            <a href="/APanel/MobileShopProduct" class="btn btn-bg" role="button">Back</a>
+        </div>
+        <hr />
+    </div>
+</div>
+@using (Ajax.BeginForm("Create", "MobileShopProduct", null, new AjaxOptions { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
+    <div class="row ">
+        <div class="col-xl-12">
+            <div class="card ">
+                <div class="card-header Company_tittle">Product Information</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label   mendatory">Code/IMEI</label>
+                                @Html.TextBoxFor(model => model.Code, new { autofocus = "", @class = "form-control", @placeholder = "IMEI" })
+                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Product name" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" title="Manufacturer">Manufacturer</label>
+                                @Html.SimpleDropDownFor(model => model.ManufacturerId, "/APanel/Manufacturer/GetManufacturerList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ManufacturerId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label mendatory" title="Product Category">Category</label>
+                                @Html.SimpleDropDownFor(model => model.ProductCategoryId, "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductCategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label   mendatory">UOM</label>
+                                @Html.SimpleDropDownFor(model => model.UOMId, "/APanel/UOM/GetUOMList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UOMId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label   mendatory">RAM</label>
+                                @Html.SimpleDropDownFor(model => model.RAMId, "/APanel/RAM/GetRAMList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RAMId, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label   mendatory">ROM</label>
+                                @Html.SimpleDropDownFor(model => model.ROMId, "/APanel/ROM/GetROMList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ROMId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label   " title="Product Color">Color</label>
+                                @Html.SimpleDropDownFor(model => model.ColorId, "/APanel/Color/GetColorList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ColorId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Floor</label>
+                                @Html.SimpleDropDownFor(model => model.FloorId, "/APanel/Floor/GetFloorList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FloorId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  ">Rack</label>
+                                @Html.SimpleDropDownFor(model => model.RackId, "/APanel/Rack/GetRackList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RackId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Country Of Origin</label>
+                                @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/CountryOfOrigin/GetCountryList/", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label  " title="Reorder lavel">Reorder</label>
+                                @Html.TextBoxFor(model => model.ReorderLevel, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.ReorderLevel, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PurchasePrice, new { title = "Purchase Price", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "purchasePrice form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.PurchasePrice, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RetailPrice, new { title = "Retail Price", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.RetailPrice, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.RetailPrice, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WholeSalePrice, new { title = "Wholesale Price", @class = "control-label   mendatory" })
+                                @Html.TextBoxFor(model => model.WholeSalePrice, new { @class = "form-control", onclick = "this.select()" })
+                                @Html.ValidationMessageFor(model => model.WholeSalePrice, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label title="Profit Amount" class="control-label">Profit(Tk)</label>
+                                        @Html.TextBoxFor(model => model.ProfitAmount, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.ProfitAmount, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label title="Profit Amount" class="control-label">Profit(%)</label>
+                                        @Html.TextBoxFor(model => model.ProfitAmountInPercentage, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(model => model.ProfitAmountInPercentage, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Write something ......" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                                @Html.CheckBoxFor(model => model.Active)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group text-right">
+                                <div class="col-xl-12">
+                                    <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-xl-12 -->
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $("#PurchasePrice, #RetailPrice").on("keyup, change", function () {
+            var purchasePrice = parseFloat($("#PurchasePrice").val()) || 0;
+            var retailPrice = parseFloat($("#RetailPrice").val()) || 0;
+            if (purchasePrice > 0 && retailPrice > 0) {
+                var profitAmount = retailPrice - purchasePrice;
+                $("#ProfitAmount").val(profitAmount.toFixed(2));
+                var profitAmountInpercentage = parseFloat((profitAmount * 100) / purchasePrice) || 0;
+                $("#ProfitAmountInPercentage").val(profitAmountInpercentage.toFixed(2));
+            }
+        });
+
+    </script>
+}

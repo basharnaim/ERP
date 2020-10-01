@@ -1,0 +1,56 @@
+﻿@model Library.ViewModel.Core.Securities.UserGroupViewModel
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/UserGroup" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Add User Group</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Create", "UserGroup", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory">Company</label>
+                @Html.SimpleDropDownFor(model => model.CompanyId, "/Company/GetCompanyList/", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   mendatory">Branch</label>
+                @Html.CascadingDropDownFor(model => model.BranchId, "/Branch/GetBranchList/", "CompanyId", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BranchId, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                @Html.CheckBoxFor(model => model.Active)
+            </div>
+            <div class="row">
+                <div class="offset-xl-10 col-xl-2">
+                    <div class="form-group input-group">
+                        <button type="submit" class="btn btn-bg pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
+
+    });
+</script>
+}

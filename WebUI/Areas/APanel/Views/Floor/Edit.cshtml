@@ -1,0 +1,62 @@
+﻿@model Library.ViewModel.Inventory.Products.FloorViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/APanel/Floor" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Update Floor</h4>
+    </div>
+</div>
+@using (Ajax.BeginForm("Edit", "Floor", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sequence, new { @class = "control-label   mendatory" })
+                
+                @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                <label>
+                    @Html.CheckBoxFor(model => model.Active)
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Rack name" })
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group text-right">
+                <div class="col-xl-12">
+                    <button type="submit" class="btn btn-bg btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

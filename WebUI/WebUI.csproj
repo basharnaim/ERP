@@ -1,0 +1,1822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{516608E9-0C5B-4D8C-BD1A-D9FFF545042A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERP.WebUI</RootNamespace>
+    <AssemblyName>ERP.WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44372</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BarcodeLib, Version=1.0.0.16, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Library.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Library.Model.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Library.Service.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Library.Service.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Library.ViewModel.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Library.ViewModel.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1400.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.5.11.4\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.4\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.5.11.1\lib\net46\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfiguration.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\APanel\APanelAreaRegistration.cs" />
+    <Compile Include="Areas\APanel\Controllers\MedicineShopProductController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PointPolicyController.cs" />
+    <Compile Include="Areas\APanel\Controllers\MobileShopPurchaseController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductStockDetailsController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductStockMasersController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SuperShopPurchaseController.cs" />
+    <Compile Include="Areas\APanel\Controllers\MobileShopSaleController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SuperShopSaleController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BankBranchController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BankController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BankLedgerController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BankMasterController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BarcodeController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BranchController.cs" />
+    <Compile Include="Areas\APanel\Controllers\BrandController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CountryOfOriginController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CurrencyController.cs" />
+    <Compile Include="Areas\APanel\Controllers\GradeController.cs" />
+    <Compile Include="Areas\APanel\Controllers\MobileShopProductController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SizeController.cs" />
+    <Compile Include="Areas\APanel\Controllers\StyleController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ColorController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\APanel\Controllers\FlavorController.cs" />
+    <Compile Include="Areas\APanel\Controllers\FloorController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ManufacturerController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PatientController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductBasicConfigurationCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductBasicConfigurationController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CountryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CourierController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CustomerCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\APanel\Controllers\CustomerLedgerController.cs" />
+    <Compile Include="Areas\APanel\Controllers\DistrictController.cs" />
+    <Compile Include="Areas\APanel\Controllers\DivisionController.cs" />
+    <Compile Include="Areas\APanel\Controllers\EnumController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ExpenditureCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ExpenditureController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ExpenditureSubCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ExpenditureSubsidiaryCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\HomeController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductMasterController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductSubCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ProductSubsidiaryCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PaymentInfoController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SuperShopProductController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PromotionalDiscountController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PromotionalDiscountMappingController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PromotionalFreeItemController.cs" />
+    <Compile Include="Areas\APanel\Controllers\PromotionalFreeItemMappingController.cs" />
+    <Compile Include="Areas\APanel\Controllers\RackController.cs" />
+    <Compile Include="Areas\APanel\Controllers\RAMController.cs" />
+    <Compile Include="Areas\APanel\Controllers\ROMController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SupplierCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SupplierController.cs" />
+    <Compile Include="Areas\APanel\Controllers\SupplierLedgerController.cs" />
+    <Compile Include="Areas\APanel\Controllers\VATCategoryController.cs" />
+    <Compile Include="Areas\APanel\Controllers\UOMController.cs" />
+    <Compile Include="Areas\APanel\Controllers\UserController.cs" />
+    <Compile Include="Areas\APanel\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\APanel\Controllers\UserRoleController.cs" />
+    <Compile Include="Areas\APanel\Controllers\WarehouseController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\BranchController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\CountryController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\DistrictController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\DivisionController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\HomeController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\MenuController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\ProductBasicConfigurationCategoryController.cs" />
+    <Compile Include="Areas\CPanel\Controllers\UserController.cs" />
+    <Compile Include="Areas\CPanel\CPanelAreaRegistration.cs" />
+    <Compile Include="AutoMapper\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Controllers\BankBranchController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\BankLedgerController.cs" />
+    <Compile Include="Controllers\BankMasterController.cs" />
+    <Compile Include="Controllers\BarcodeController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BranchController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\CountryOfOriginController.cs" />
+    <Compile Include="Controllers\CourierController.cs" />
+    <Compile Include="Controllers\CurrencyController.cs" />
+    <Compile Include="Controllers\CustomerCategoryController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerLedgerController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
+    <Compile Include="Controllers\DivisionController.cs" />
+    <Compile Include="Controllers\EnumController.cs" />
+    <Compile Include="Controllers\ExpenditureCategoryController.cs" />
+    <Compile Include="Controllers\ExpenditureController.cs" />
+    <Compile Include="Controllers\ExpenditureSubCategoryController.cs" />
+    <Compile Include="Controllers\ExpenditureSubsidiaryCategoryController.cs" />
+    <Compile Include="Controllers\FlavorController.cs" />
+    <Compile Include="Controllers\FloorController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManufacturerController.cs" />
+    <Compile Include="Controllers\MedicineShopProductController.cs" />
+    <Compile Include="Controllers\MobileShopProductController.cs" />
+    <Compile Include="Controllers\MobileShopPurchaseController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\PaymentInfoController.cs" />
+    <Compile Include="Controllers\ProductBasicConfigurationCategoryController.cs" />
+    <Compile Include="Controllers\ProductBasicConfigurationController.cs" />
+    <Compile Include="Controllers\ProductCategoryController.cs" />
+    <Compile Include="Controllers\SuperShopProductController.cs" />
+    <Compile Include="Controllers\ProductMasterController.cs" />
+    <Compile Include="Controllers\ProductSubCategoryController.cs" />
+    <Compile Include="Controllers\ProductSubsidiaryCategoryController.cs" />
+    <Compile Include="Controllers\SuperShopPurchaseController.cs" />
+    <Compile Include="Controllers\MobileShopPurchaseReturnController.cs" />
+    <Compile Include="Controllers\SuperShopPurchaseReturnController.cs" />
+    <Compile Include="Controllers\RackController.cs" />
+    <Compile Include="Controllers\RAMController.cs" />
+    <Compile Include="Controllers\ROMController.cs" />
+    <Compile Include="Controllers\MobileShopSaleController.cs" />
+    <Compile Include="Controllers\MedicineShopSaleController.cs" />
+    <Compile Include="Controllers\SuperShopSaleController.cs" />
+    <Compile Include="Controllers\MobileShopSaleReturnController.cs" />
+    <Compile Include="Controllers\SuperShopSaleReturnController.cs" />
+    <Compile Include="Controllers\StyleController.cs" />
+    <Compile Include="Controllers\SupplierCategoryController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\SupplierLedgerController.cs" />
+    <Compile Include="Controllers\UOMController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Controllers\UserRoleController.cs" />
+    <Compile Include="Controllers\VATCategoryController.cs" />
+    <Compile Include="Controllers\WarehouseController.cs" />
+    <Compile Include="DirectPrint\PrintRDLCReport.cs" />
+    <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Html\Helper.cs" />
+    <Compile Include="Html\HtmlPrefixScopeExtensions.cs" />
+    <Compile Include="Models\Branch.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_Pos.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Pos.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_Pos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_Pos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Pos.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductStockDetail.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductStockMaser.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UOM.cs">
+      <DependentUpon>Model_Pos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\VmProductStockMaster.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RdlcReportDataset\ReportDataset.cs">
+      <DependentUpon>ReportDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RdlcReportDataset\ReportDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcBarcodeReportViewer.aspx.cs">
+      <DependentUpon>RdlcBarcodeReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcBarcodeReportViewer.aspx.designer.cs">
+      <DependentUpon>RdlcBarcodeReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerBranchWise.aspx.cs">
+      <DependentUpon>RdlcReportViewerBranchWise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerBranchWise.aspx.designer.cs">
+      <DependentUpon>RdlcReportViewerBranchWise.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerMultipleDataSetWithoutToolbox.aspx.cs">
+      <DependentUpon>RdlcReportViewerMultipleDataSetWithoutToolbox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerMultipleDataSetWithoutToolbox.aspx.designer.cs">
+      <DependentUpon>RdlcReportViewerMultipleDataSetWithoutToolbox.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerMultipleDataSet.aspx.cs">
+      <DependentUpon>RdlcReportViewerMultipleDataSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerMultipleDataSet.aspx.designer.cs">
+      <DependentUpon>RdlcReportViewerMultipleDataSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerWithDate.aspx.cs">
+      <DependentUpon>RdlcReportViewerWithDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerWithDate.aspx.designer.cs">
+      <DependentUpon>RdlcReportViewerWithDate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerWithoutDate.aspx.cs">
+      <DependentUpon>RdlcReportViewerWithoutDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer\RdlcReportViewerWithoutDate.aspx.designer.cs">
+      <DependentUpon>RdlcReportViewerWithoutDate.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Backup\Db Help.txt" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\AutoFill\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\ColReorder\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\FixedColumns\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\FixedHeader\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\KeyTable\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\Responsive\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\RowGroup\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\Scroller\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.foundation.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\extensions\Select\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\media\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\media\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\media\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\media\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\media\images\favicon.ico" />
+    <Content Include="Content\DataTables\media\images\sort_asc.png" />
+    <Content Include="Content\DataTables\media\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\media\images\sort_both.png" />
+    <Content Include="Content\DataTables\media\images\sort_desc.png" />
+    <Content Include="Content\DataTables\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\metisMenu.css" />
+    <Content Include="Content\metisMenu.min.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\Group 1.png" />
+    <Content Include="Images\Login POSbg.jpg" />
+    <Content Include="Images\Logo.jpg" />
+    <Content Include="Images\pos-login-image.png" />
+    <Content Include="Lib\Library.Model.Core.dll" />
+    <Content Include="Lib\Library.Service.Core.dll" />
+    <Content Include="Lib\Library.ViewModel.Core.dll" />
+    <Content Include="Models\Model_Pos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Pos.edmx</DependentUpon>
+      <LastGenOutput>Model_Pos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model_Pos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Pos.edmx</DependentUpon>
+      <LastGenOutput>Model_Pos.cs</LastGenOutput>
+    </Content>
+    <Content Include="ReportViewer\RdlcBarcodeReportViewer.aspx" />
+    <Content Include="ReportViewer\RdlcReportViewerMultipleDataSetWithoutToolbox.aspx" />
+    <Content Include="ReportViewer\RdlcReportViewerWithDate.aspx" />
+    <Content Include="ReportViewer\RdlcReportViewerWithoutDate.aspx" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\data.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\colReorder.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\fixedColumns.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\fixedHeader.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\JSZip\jszip.js" />
+    <Content Include="Scripts\DataTables\extensions\JSZip\jszip.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\keyTable.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\pdfmake\pdfmake.js" />
+    <Content Include="Scripts\DataTables\extensions\pdfmake\pdfmake.min.js" />
+    <Content Include="Scripts\DataTables\extensions\pdfmake\vfs_fonts.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\rowGroup.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\rowReorder.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.semanicui.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\scroller.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.dataTables.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\select.semanticui.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\event-handler.js" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\ReportSaleClosing.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\CashReturn.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\ReportBankLedger.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\ReportCounterWiseSale.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\ReportCategoryWiseSale.cshtml" />
+    <Content Include="Backup\ERP_Supershop" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\ReportDailySales.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopPurchase\ReportPurchaseSummary.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockDetails\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockDetails\Delete.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockDetails\Details.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockDetails\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockDetails\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockMasers\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockMasers\Delete.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockMasers\Details.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockMasers\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductStockMasers\Index.cshtml" />
+    <EntityDeploy Include="Models\Model_Pos.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_Pos.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model_Pos.edmx.diagram">
+      <DependentUpon>Model_Pos.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\manipulator.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\morris-data.js" />
+    <Content Include="Scripts\morris.js" />
+    <Content Include="Scripts\morris.min.js" />
+    <Content Include="Content\sb-admin-2.css" />
+    <Content Include="Content\sb-admin-2.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\timepicki.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Areas\APanel\Views\web.config" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Areas\APanel\Views\Shared\_SuperShopLayout.cshtml" />
+    <Content Include="Areas\APanel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\APanel\Views\Home\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\ProductBasicConfigurationCategory\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\ProductBasicConfigurationCategory\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\ProductBasicConfigurationCategory\Index.cshtml" />
+    <Content Include="Global.asax" />
+    <Content Include="Lib\BarcodeLib.dll" />
+    <Content Include="ReportViewer\RdlcReportViewerBranchWise.aspx" />
+    <Content Include="ReportViewer\RdlcReportViewerMultipleDataSet.aspx" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\js\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.print.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\js\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\swf\flashExport.swf" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\js\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\js\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\js\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\js\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\js\responsive.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\js\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\js\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\js\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\js\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\extensions\Select\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\Scroller\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\RowReorder\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\RowGroup\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\Responsive\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\KeyTable\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\FixedHeader\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\FixedColumns\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\ColReorder\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\Buttons\Readme.md" />
+    <Content Include="Scripts\DataTables\extensions\AutoFill\Readme.md" />
+    <Content Include="Content\DataTables\media\images\Sorting icons.psd" />
+    <Content Include="Content\DataTables\extensions\RowReorder\css\semanticui.scss" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\mixins.scss" />
+    <Content Include="Content\DataTables\extensions\Buttons\css\common.scss" />
+    <Content Include="Areas\APanel\Views\ProductBasicConfiguration\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductBasicConfiguration\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductBasicConfiguration\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\web.config" />
+    <Content Include="Areas\CPanel\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\CPanel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CPanel\Views\Branch\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\Branch\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\Branch\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\Company\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\Company\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\Company\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\Home\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\Menu\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\User\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\User\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\User\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\User\ResetPassword.cshtml" />
+    <Content Include="Areas\CPanel\Views\Country\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\Country\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\Country\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\District\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\District\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\District\Index.cshtml" />
+    <Content Include="Areas\CPanel\Views\Division\Create.cshtml" />
+    <Content Include="Areas\CPanel\Views\Division\Edit.cshtml" />
+    <Content Include="Areas\CPanel\Views\Division\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\BankBranch\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\BankBranch\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\BankBranch\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\BankOpeningBalance.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\BankOpeningBalanceEdit.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\BankOpeningIndex.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\BankLedger\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\BankMaster\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\BankMaster\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Bank\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Bank\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Bank\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Branch\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Branch\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Brand\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Brand\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Brand\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Company\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Company\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Country\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Country\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Country\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Courier\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Courier\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Courier\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\ReportCustomerLedger.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\ReportP21CustomerLedger.cshtml" />
+    <Content Include="Areas\APanel\Views\CustomerLedger\_ItemRow.cshtml" />
+    <Content Include="Areas\APanel\Views\Customer\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Customer\CustomerList.cshtml" />
+    <Content Include="Areas\APanel\Views\Customer\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\District\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\District\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\District\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Division\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Division\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Division\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubsidiaryCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubsidiaryCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ExpenditureSubsidiaryCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Expenditure\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Expenditure\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Expenditure\ExpenditureReport.cshtml" />
+    <Content Include="Areas\APanel\Views\Expenditure\HIExpenditureReport.cshtml" />
+    <Content Include="Areas\APanel\Views\Expenditure\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Floor\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Floor\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Floor\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Grade\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Grade\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Grade\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductMaster\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductMaster\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubsidiaryCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubsidiaryCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubsidiaryCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\ReportProductStock.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\ReportProductStockDetail.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\PayByCash.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\PayByCashEdit.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\PayByCheque.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\PayByChequeEdit.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\PayIndex.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveByBank.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveByCash.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveByCashEdit.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveByCheque.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveByChequeEdit.cshtml" />
+    <Content Include="Areas\APanel\Views\PaymentInfo\ReceiveIndex.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierLedger\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierLedger\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierLedger\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierLedger\ReportSupplierLedger.cshtml" />
+    <Content Include="Areas\APanel\Views\SupplierLedger\_ItemRow.cshtml" />
+    <Content Include="Areas\APanel\Views\Supplier\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Supplier\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Supplier\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Supplier\SupplierList.cshtml" />
+    <Content Include="Areas\APanel\Views\UserGroup\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\UserGroup\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\UserGroup\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\UserRole\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\UserRole\_UserRoleDetail.cshtml" />
+    <Content Include="Areas\APanel\Views\UserRole\_UserRoleDetailItemRow.cshtml" />
+    <Content Include="Areas\APanel\Views\User\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\User\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\User\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\User\ResetPassword.cshtml" />
+    <Content Include="Areas\APanel\Views\Warehouse\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Warehouse\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Warehouse\Index.cshtml" />
+    <Content Include="Images\ajax_loader.gif" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\custom-datetime-validate.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\media\js\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\media\js\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\media\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\media\js\jquery.js" />
+    <Content Include="Scripts\data.js.map" />
+    <Content Include="Scripts\event-handler.js.map" />
+    <Content Include="Areas\APanel\Views\Color\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Color\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Color\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\RAM\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\RAM\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\RAM\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\ROM\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\ROM\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\ROM\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\VatCategory\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\VatCategory\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\VatCategory\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\UOM\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\UOM\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\UOM\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Flavor\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Flavor\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Flavor\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Patient\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Patient\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Patient\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Patient\Address.cshtml" />
+    <Content Include="Areas\APanel\Views\Patient\InsuranceInformation.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHead\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHead\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHead\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHeadGroup\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHeadGroup\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\RevenueHeadGroup\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Manufacturer\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Manufacturer\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Manufacturer\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Rack\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Rack\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Rack\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Style\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Style\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Style\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Size\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Size\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Size\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Currency\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\Currency\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\Currency\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\CountryOfOrigin\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\CountryOfOrigin\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\CountryOfOrigin\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscountMapping\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscountMapping\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscountMapping\_CustomerList.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscount\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscount\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscount\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalDiscount\_PromotionalDiscountDetailRow.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItemMapping\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItemMapping\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItemMapping\_CustomerList.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItem\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItem\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItem\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\PromotionalFreeItem\_PromotionalFreeItemDetailRow.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\Barcode\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\Barcode\_ProductRow.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\ProductList.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopProduct\ProductStockList.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopPurchase\PurchaseList.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopPurchase\PurchaseSummary.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\DailySalesReport.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\ReportSaleSummary.cshtml" />
+    <Content Include="Areas\APanel\Views\SuperShopSale\SaleList.cshtml" />
+    <Content Include="Areas\APanel\Views\Shared\_MobileShopLayout.cshtml" />
+    <Content Include="Areas\APanel\Views\PointPolicy\_PointPolicyDetailRow.cshtml" />
+    <Content Include="Areas\APanel\Views\PointPolicy\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\PointPolicy\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\PointPolicy\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\MedicineShopProduct\Create.cshtml" />
+    <Content Include="Areas\APanel\Views\MedicineShopProduct\Edit.cshtml" />
+    <Content Include="Areas\APanel\Views\MedicineShopProduct\Index.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopPurchase\PurchaseList.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopPurchase\PurchaseSummary.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopSale\DailySalesReport.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopSale\ReportSaleSummary.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopSale\SaleList.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\ProductList.cshtml" />
+    <Content Include="Areas\APanel\Views\MedicineShopProduct\ProductStockList.cshtml" />
+    <Content Include="Areas\APanel\Views\MobileShopProduct\ProductStockList.cshtml" />
+    <Content Include="Areas\APanel\Views\Manufacturer\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\Supplier\Upload.cshtml" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\APanel\Views\Brand\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductCategory\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\ProductSubCategory\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\Style\Upload.cshtml" />
+    <Content Include="Areas\APanel\Views\Size\Upload.cshtml" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="RdlcReportDataset\ReportDataset.xsc">
+      <DependentUpon>ReportDataset.xsd</DependentUpon>
+    </Content>
+    <None Include="RdlcReportDataset\ReportDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportDataset.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="RdlcReportDataset\ReportDataset.xss">
+      <DependentUpon>ReportDataset.xsd</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.br.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-CA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-ZA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.km.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.oc.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.si.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-latn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\metisMenu.js" />
+    <Content Include="Scripts\metisMenu.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\polyfill.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\raphael.js" />
+    <Content Include="Scripts\raphael.min.js" />
+    <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Scripts\sb-admin-2.min.js" />
+    <Content Include="Content\Select2\select2-bootstrap4.css" />
+    <Content Include="Content\Select2\select2.min.css" />
+    <Content Include="Scripts\Select2\select2.min.js" />
+    <Content Include="Scripts\selector-engine.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\tab.js" />
+    <Content Include="Scripts\timepicki.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Scripts\metisMenu.js.map" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Login\CPanel.cshtml" />
+    <Content Include="Scripts\tab.js.map" />
+    <Content Include="Scripts\manipulator.js.map" />
+    <Content Include="Scripts\polyfill.js.map" />
+    <Content Include="Scripts\selector-engine.js.map" />
+    <Content Include="Views\Home\_MenuBinding.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Branch\Edit.cshtml" />
+    <Content Include="Views\Branch\Index.cshtml" />
+    <Content Include="Views\Home\CRPOS.cshtml" />
+    <Content Include="Views\Home\HARDPOS.cshtml" />
+    <Content Include="Views\Home\MCSPOS.cshtml" />
+    <Content Include="Views\Home\MDCNPOS.cshtml" />
+    <Content Include="Views\Home\MobileShop.cshtml" />
+    <Content Include="Views\Home\P21POS.cshtml" />
+    <Content Include="Views\Home\SSPOS.cshtml" />
+    <Content Include="Views\BankBranch\Create.cshtml" />
+    <Content Include="Views\BankBranch\Edit.cshtml" />
+    <Content Include="Views\BankBranch\Index.cshtml" />
+    <Content Include="Views\BankLedger\BankOpeningBalance.cshtml" />
+    <Content Include="Views\BankLedger\BankOpeningBalanceEdit.cshtml" />
+    <Content Include="Views\BankLedger\BankOpeningIndex.cshtml" />
+    <Content Include="Views\BankLedger\Create.cshtml" />
+    <Content Include="Views\BankLedger\Edit.cshtml" />
+    <Content Include="Views\BankLedger\Index.cshtml" />
+    <Content Include="Views\BankMaster\Create.cshtml" />
+    <Content Include="Views\BankMaster\Index.cshtml" />
+    <Content Include="Views\Bank\Create.cshtml" />
+    <Content Include="Views\Bank\Edit.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Color\Create.cshtml" />
+    <Content Include="Views\Color\Edit.cshtml" />
+    <Content Include="Views\Color\Index.cshtml" />
+    <Content Include="Views\Country\Create.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Courier\Create.cshtml" />
+    <Content Include="Views\Courier\Edit.cshtml" />
+    <Content Include="Views\Courier\Index.cshtml" />
+    <Content Include="Views\CustomerCategory\Create.cshtml" />
+    <Content Include="Views\CustomerCategory\Edit.cshtml" />
+    <Content Include="Views\CustomerCategory\Index.cshtml" />
+    <Content Include="Views\CustomerLedger\Create.cshtml" />
+    <Content Include="Views\CustomerLedger\Edit.cshtml" />
+    <Content Include="Views\CustomerLedger\Index.cshtml" />
+    <Content Include="Views\CustomerLedger\ReportCustomerLedger.cshtml" />
+    <Content Include="Views\CustomerLedger\ReportP21CustomerLedger.cshtml" />
+    <Content Include="Views\CustomerLedger\_ItemRow.cshtml" />
+    <Content Include="Views\CustomerSubCategory\Create.cshtml" />
+    <Content Include="Views\CustomerSubCategory\Edit.cshtml" />
+    <Content Include="Views\CustomerSubCategory\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\CustomerList.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\District\Create.cshtml" />
+    <Content Include="Views\District\Edit.cshtml" />
+    <Content Include="Views\District\Index.cshtml" />
+    <Content Include="Views\Division\Create.cshtml" />
+    <Content Include="Views\Division\Edit.cshtml" />
+    <Content Include="Views\Division\Index.cshtml" />
+    <Content Include="Views\ExpenditureCategory\Create.cshtml" />
+    <Content Include="Views\ExpenditureCategory\Edit.cshtml" />
+    <Content Include="Views\ExpenditureCategory\Index.cshtml" />
+    <Content Include="Views\ExpenditureSubCategory\Create.cshtml" />
+    <Content Include="Views\ExpenditureSubCategory\Edit.cshtml" />
+    <Content Include="Views\ExpenditureSubCategory\Index.cshtml" />
+    <Content Include="Views\ExpenditureSubsidiaryCategory\Create.cshtml" />
+    <Content Include="Views\ExpenditureSubsidiaryCategory\Edit.cshtml" />
+    <Content Include="Views\ExpenditureSubsidiaryCategory\Index.cshtml" />
+    <Content Include="Views\Expenditure\Create.cshtml" />
+    <Content Include="Views\Expenditure\Edit.cshtml" />
+    <Content Include="Views\Expenditure\ExpenditureReport.cshtml" />
+    <Content Include="Views\Expenditure\HIExpenditureReport.cshtml" />
+    <Content Include="Views\Expenditure\Index.cshtml" />
+    <Content Include="Views\Flavor\Create.cshtml" />
+    <Content Include="Views\Flavor\Edit.cshtml" />
+    <Content Include="Views\Flavor\Index.cshtml" />
+    <Content Include="Views\Floor\Create.cshtml" />
+    <Content Include="Views\Floor\Edit.cshtml" />
+    <Content Include="Views\Floor\Index.cshtml" />
+    <Content Include="Views\Grade\Create.cshtml" />
+    <Content Include="Views\Grade\Edit.cshtml" />
+    <Content Include="Views\Grade\Index.cshtml" />
+    <Content Include="Views\Manufacturer\Create.cshtml" />
+    <Content Include="Views\Manufacturer\Edit.cshtml" />
+    <Content Include="Views\Manufacturer\Index.cshtml" />
+    <Content Include="Views\MobileShopProduct\Create.cshtml" />
+    <Content Include="Views\MobileShopProduct\Edit.cshtml" />
+    <Content Include="Views\MobileShopProduct\Index.cshtml" />
+    <Content Include="Views\MobileShopProduct\ReportProductStock.cshtml" />
+    <Content Include="Views\MobileShopProduct\ReportProductStockDetail.cshtml" />
+    <Content Include="Views\MobileShopProduct\Upload.cshtml" />
+    <Content Include="Views\PaymentInfo\PayByCash.cshtml" />
+    <Content Include="Views\PaymentInfo\PayByCashEdit.cshtml" />
+    <Content Include="Views\PaymentInfo\PayByCheque.cshtml" />
+    <Content Include="Views\PaymentInfo\PayByChequeEdit.cshtml" />
+    <Content Include="Views\PaymentInfo\PayIndex.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveByBank.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveByCash.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveByCashEdit.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveByCheque.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveByChequeEdit.cshtml" />
+    <Content Include="Views\PaymentInfo\ReceiveIndex.cshtml" />
+    <Content Include="Views\ProductBasicConfiguration\Create.cshtml" />
+    <Content Include="Views\ProductBasicConfiguration\Edit.cshtml" />
+    <Content Include="Views\ProductBasicConfiguration\Index.cshtml" />
+    <Content Include="Views\ProductCategory\Create.cshtml" />
+    <Content Include="Views\ProductCategory\Edit.cshtml" />
+    <Content Include="Views\ProductCategory\Index.cshtml" />
+    <Content Include="Views\ProductMaster\Index.cshtml" />
+    <Content Include="Views\ProductMaster\Create.cshtml" />
+    <Content Include="Views\ProductSubCategory\Create.cshtml" />
+    <Content Include="Views\ProductSubCategory\Edit.cshtml" />
+    <Content Include="Views\ProductSubCategory\Index.cshtml" />
+    <Content Include="Views\ProductSubsidiaryCategory\Create.cshtml" />
+    <Content Include="Views\ProductSubsidiaryCategory\Edit.cshtml" />
+    <Content Include="Views\ProductSubsidiaryCategory\Index.cshtml" />
+    <Content Include="Views\SuperShopProduct\Create.cshtml" />
+    <Content Include="Views\SuperShopProduct\Edit.cshtml" />
+    <Content Include="Views\SuperShopProduct\Index.cshtml" />
+    <Content Include="Views\Rack\Create.cshtml" />
+    <Content Include="Views\Rack\Edit.cshtml" />
+    <Content Include="Views\Rack\Index.cshtml" />
+    <Content Include="Views\RAM\Create.cshtml" />
+    <Content Include="Views\RAM\Edit.cshtml" />
+    <Content Include="Views\RAM\Index.cshtml" />
+    <Content Include="Views\ROM\Create.cshtml" />
+    <Content Include="Views\ROM\Edit.cshtml" />
+    <Content Include="Views\ROM\Index.cshtml" />
+    <Content Include="Views\Style\Create.cshtml" />
+    <Content Include="Views\Style\Edit.cshtml" />
+    <Content Include="Views\Style\Index.cshtml" />
+    <Content Include="Views\SupplierCategory\Create.cshtml" />
+    <Content Include="Views\SupplierCategory\Edit.cshtml" />
+    <Content Include="Views\SupplierCategory\Index.cshtml" />
+    <Content Include="Views\SupplierLedger\Create.cshtml" />
+    <Content Include="Views\SupplierLedger\Edit.cshtml" />
+    <Content Include="Views\SupplierLedger\Index.cshtml" />
+    <Content Include="Views\SupplierLedger\ReportSupplierLedger.cshtml" />
+    <Content Include="Views\SupplierLedger\_ItemRow.cshtml" />
+    <Content Include="Views\SupplierSubCategory\Create.cshtml" />
+    <Content Include="Views\SupplierSubCategory\Edit.cshtml" />
+    <Content Include="Views\SupplierSubCategory\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Supplier\SupplierList.cshtml" />
+    <Content Include="Views\UOM\Create.cshtml" />
+    <Content Include="Views\UOM\Edit.cshtml" />
+    <Content Include="Views\UOM\Index.cshtml" />
+    <Content Include="Views\UserGroup\Create.cshtml" />
+    <Content Include="Views\UserGroup\Edit.cshtml" />
+    <Content Include="Views\UserGroup\Index.cshtml" />
+    <Content Include="Views\UserRole\Index.cshtml" />
+    <Content Include="Views\UserRole\_UserRoleDetail.cshtml" />
+    <Content Include="Views\UserRole\_UserRoleDetailItemRow.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\VatCategory\Create.cshtml" />
+    <Content Include="Views\VatCategory\Edit.cshtml" />
+    <Content Include="Views\VatCategory\Index.cshtml" />
+    <Content Include="Views\Warehouse\Create.cshtml" />
+    <Content Include="Views\Warehouse\Edit.cshtml" />
+    <Content Include="Views\Warehouse\Index.cshtml" />
+    <Content Include="Views\SuperShopPurchase\Create.cshtml" />
+    <Content Include="Views\SuperShopPurchase\Edit.cshtml" />
+    <Content Include="Views\SuperShopPurchase\Index.cshtml" />
+    <Content Include="Views\SuperShopPurchase\_PurchaseItemRow.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\Create.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\Edit.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\Index.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\_PurchaseReturnItemRow.cshtml" />
+    <Content Include="Views\SuperShopSale\Create.cshtml" />
+    <Content Include="Views\SuperShopSale\Details.cshtml" />
+    <Content Include="Views\SuperShopSale\Edit.cshtml" />
+    <Content Include="Views\SuperShopSale\Index.cshtml" />
+    <Content Include="Views\SuperShopSale\_SaleItemRow.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\Create.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\Edit.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\Index.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\_SaleReturnItemRow.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_ProductList.cshtml" />
+    <Content Include="Views\Shared\_ModalLayout.cshtml" />
+    <Content Include="Views\CountryOfOrigin\Create.cshtml" />
+    <Content Include="Views\CountryOfOrigin\Edit.cshtml" />
+    <Content Include="Views\CountryOfOrigin\Index.cshtml" />
+    <Content Include="Views\Currency\Create.cshtml" />
+    <Content Include="Views\Currency\Edit.cshtml" />
+    <Content Include="Views\Currency\Index.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\PurchaseReturnIndex.cshtml" />
+    <Content Include="UploadSample\COUNTRY Wise Products List.xlsx" />
+    <Content Include="Views\MobileShopPurchase\Create.cshtml" />
+    <Content Include="Views\MobileShopPurchase\Edit.cshtml" />
+    <Content Include="Views\MobileShopPurchase\Index.cshtml" />
+    <Content Include="Views\MobileShopPurchase\_PurchaseItemRow.cshtml" />
+    <Content Include="Views\MobileShopPurchaseReturn\_PurchaseReturnItemRow.cshtml" />
+    <Content Include="Views\MobileShopPurchaseReturn\Create.cshtml" />
+    <Content Include="Views\MobileShopPurchaseReturn\Edit.cshtml" />
+    <Content Include="Views\MobileShopPurchaseReturn\Index.cshtml" />
+    <Content Include="Views\MobileShopPurchaseReturn\PurchaseReturnIndex.cshtml" />
+    <Content Include="Views\MobileShopSaleReturn\_SaleReturnItemRow.cshtml" />
+    <Content Include="Views\MobileShopSaleReturn\Create.cshtml" />
+    <Content Include="Views\MobileShopSaleReturn\Edit.cshtml" />
+    <Content Include="Views\MobileShopSaleReturn\Index.cshtml" />
+    <Content Include="Views\MedicineShopProduct\Create.cshtml" />
+    <Content Include="Views\MedicineShopProduct\Edit.cshtml" />
+    <Content Include="Views\MedicineShopProduct\Index.cshtml" />
+    <Content Include="Views\Brand\Create.cshtml" />
+    <Content Include="Views\Brand\Edit.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
+    <Content Include="Views\Barcode\_ProductRow.cshtml" />
+    <Content Include="Views\Barcode\Index.cshtml" />
+    <Content Include="Views\SuperShopSale\ReportSaleSummary.cshtml" />
+    <Content Include="Views\SuperShopSale\SaleList.cshtml" />
+    <Content Include="Views\SuperShopPurchase\PurchaseList.cshtml" />
+    <Content Include="Views\SuperShopPurchase\PurchaseSummary.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\ReportSaleReturnSummary.cshtml" />
+    <Content Include="Views\SuperShopSaleReturn\SaleReturnList.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\PurchaseReturnList.cshtml" />
+    <Content Include="Views\SuperShopPurchaseReturn\PurchaseReturnSummary.cshtml" />
+    <Content Include="Views\SuperShopSale\ReportSaleClosing.cshtml" />
+    <Content Include="Views\PaymentInfo\CashReturn.cshtml" />
+    <Content Include="Views\MobileShopSale\_SaleItemRow.cshtml" />
+    <Content Include="Views\MobileShopSale\Create.cshtml" />
+    <Content Include="Views\MobileShopSale\Details.cshtml" />
+    <Content Include="Views\MobileShopSale\Edit.cshtml" />
+    <Content Include="Views\MobileShopSale\Index.cshtml" />
+    <Content Include="Views\MobileShopSale\ReportSaleClosing.cshtml" />
+    <Content Include="Views\MobileShopSale\ReportSaleSummary.cshtml" />
+    <Content Include="Views\MobileShopSale\SaleList.cshtml" />
+    <Content Include="Views\MedicineShopSale\_SaleItemRow.cshtml" />
+    <Content Include="Views\MedicineShopSale\Create.cshtml" />
+    <Content Include="Views\MedicineShopSale\Details.cshtml" />
+    <Content Include="Views\MedicineShopSale\Edit.cshtml" />
+    <Content Include="Views\MedicineShopSale\Index.cshtml" />
+    <Content Include="Views\MedicineShopSale\ReportSaleClosing.cshtml" />
+    <Content Include="Views\MedicineShopSale\ReportSaleSummary.cshtml" />
+    <Content Include="Views\MedicineShopSale\SaleList.cshtml" />
+    <Content Include="Views\Login\Index2.cshtml" />
+    <Content Include="Views\Login\Index1.cshtml" />
+    <Content Include="Views\MobileShopPurchase - Copy\_PurchaseItemRow.cshtml" />
+    <Content Include="Views\MobileShopPurchase - Copy\Create.cshtml" />
+    <Content Include="Views\MobileShopPurchase - Copy\Edit.cshtml" />
+    <Content Include="Views\MobileShopPurchase - Copy\Index.cshtml" />
+    <Content Include="Views\SuperShopSale\_ModelCustomer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Context\Library.Context.csproj">
+      <Project>{b125c027-a6ed-4a06-b8a3-118239a81544}</Project>
+      <Name>Library.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Crosscutting\Library.Crosscutting.csproj">
+      <Project>{30c1b1a7-69fa-4ffb-a65c-59f7516ae291}</Project>
+      <Name>Library.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Model.EMS\Library.Model.EMS.csproj">
+      <Project>{6b0fe58e-3282-49ba-a059-81395f46ec61}</Project>
+      <Name>Library.Model.EMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Model.Inventory\Library.Model.Inventory.csproj">
+      <Project>{B7CA26EF-1636-4E0D-BCF6-6B9ED6EBEDF8}</Project>
+      <Name>Library.Model.Inventory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Service.EMS\Library.Service.EMS.csproj">
+      <Project>{fa445731-bdb1-498f-b87e-8201dd8d0977}</Project>
+      <Name>Library.Service.EMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Service.Inventory\Library.Service.Inventory.csproj">
+      <Project>{D330DCDE-9FB4-41D4-BE4A-BA028AE1E4DC}</Project>
+      <Name>Library.Service.Inventory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.ViewModel.Inventory\Library.ViewModel.Inventory.csproj">
+      <Project>{FF307BBF-2F92-4EB1-83F1-CC284E0A35F2}</Project>
+      <Name>Library.ViewModel.Inventory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RdlcReport\AllDueListReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\BottleAndJarProduction.rdlc" />
+    <EmbeddedResource Include="RdlcReport\BottleAndJarSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\BottleProduction.rdlc" />
+    <EmbeddedResource Include="RdlcReport\BottleSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\ChalanReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\CustomerDueListReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\DailyBottleSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\DailyJarSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\DueListReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\GatePassRecordReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\GetPassReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\JarSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\MonthlyBottleAndJarSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\MonthlyBottleSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\MonthlyJarSale.rdlc" />
+    <EmbeddedResource Include="RdlcReport\MonthlySaleVatReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\ProductStock.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptBarcodeListForAmericanTMartFinal.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptBarcodeListForAmericanTMart.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptBarcodeList.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCashBalanceReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCategoryWiseItemSales.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCategoryWiseDailySales.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCustomer.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptBankLedger.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCustomerLedger.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptExpenses.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptItem.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptCategoryWiseSales.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSalesReturnInvoiceForSuperShop.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSalesInvoiceForSuperShop.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptLevelPrint.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptMobileProductList.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptMultipleLevelPrint.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptMultipleSalesInvoiceForMobileshop.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptProductList.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptProductStock.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptProductStockDetail.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptPurchase.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptPurchaseInvoice.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptPurchaseInvoiceForMobileShop.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptPurchaseList.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptPurchaseSummary.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSaleList.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSalesInvoice.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSalesInvoiceForMobileshop.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSalesInvoiceForPOS.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSaleClosing.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSaleSummary.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSupllier.rdlc" />
+    <EmbeddedResource Include="RdlcReport\RptSupplierLedger.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SaleJarVatReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SalePrintReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SaleRecordReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SaleVatReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SaleVatReportMonthly.rdlc" />
+    <EmbeddedResource Include="RdlcReport\SaleVatReportYearly.rdlc" />
+    <EmbeddedResource Include="RdlcReport\WaterProductionreport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\WaterSaleCustomerReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\WaterSaleReport.rdlc" />
+    <EmbeddedResource Include="RdlcReport\WaterSaleUserReport.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55463</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44372/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

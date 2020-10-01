@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Products.ProductViewModel>
+@{
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+<div class="row">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead class="thead-heading">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                            @Html.HiddenFor(modelItem => item.Id, new { @class = "productId" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductCategoryName)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-wrap">
+            <button id="btnClose" type="button" class="btn btn-default btn-bg">Close</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#dataTables-example tbody tr").click(function () {
+                var productId = jQuery.trim($(this).closest("tr").find(".productId").val());
+                window.ProductInfo($(this),productId);
+                CloseModal($(this));
+            });
+        });
+
+        $("#btnSubmit").on('click', function () {
+            if ($("#formCustomer").valid()) {
+                $("#formCustomer").submit();
+            }
+        });
+
+        $("#btnClose").on('click', function () {
+            CloseModal($(this));
+        });
+
+        function CloseModal(el) {
+            var win = $(el).closest(".modal");
+            win.modal("hide");
+            setTimeout(function () {
+                win.next(".modal-backdrop").remove();
+                win.remove();
+            }, 500);
+        }
+
+    </script>
+}
+
+
+

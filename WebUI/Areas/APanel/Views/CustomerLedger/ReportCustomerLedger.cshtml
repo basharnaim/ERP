@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Library.ViewModel.Inventory.Accounts.CustomerLedgerViewModel>
+@using System.Threading
+@using ERP.WebUI.Html
+@using Library.Crosscutting.Securities
+@{
+    ViewBag.Title = "Customer Ledger";
+    var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+}
+<div class="row">
+    <div class="col-xl-12">
+        <a href="/APanel/Home" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Customer Ledger</h4>
+    </div>
+</div>
+@using (Html.BeginForm("ReportCustomerLedger", "CustomerLedger", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label   mendatory">Company</label>
+                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   ">Branch</label>
+                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList/", "companyId", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   " title="From date">From date</label>
+                @Html.DatePicker("dateFrom", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  " title="Customer Type">Type</label>
+                @Html.SimpleDropDown("customerType", "/Enum/CustomerType/", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label  " title="Customer name">Customer</label>
+                @Html.CascadingDropDown("cstmrId", "/APanel/Customer/GetCustomerListByBranch?branchId=","branchId", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label   ">To date</label>
+                @Html.DatePicker("dateTo", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label  ">Phone</label>
+                @Html.TextBox("phone", null, new { autofocus = "", @class = "form-control", tabindex = "1" })
+            </div>
+            <div class="form-group pull-right">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-bg">Show</button>
+                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                    @Html.ActionLink("Report", "RptCustomerLedger", "CustomerLedger", new { area = "APanel" }, new { target = "_blank", id = "btnReport", @class = "btn btn-bg" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Customer</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Phone</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.TransactionDate)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.CustomerName)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.CustomerType)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.CustomerPhone)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.CustomerAddress)
+                                        </td>
+                                        @{
+                                            if (item.DueAmount != 0)
+                                            {
+                                                <td class="text-right" style="text-align: right; background-color: #033560; color: #fcab18">
+                                                    Due:  @Html.DisplayFor(modelItem => item.DueAmount)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-right" style="text-align: right; background-color: #033560; color: #fcab18">
+                                                    Advance:  @Html.DisplayFor(modelItem => item.AdvanceAmount)
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            var dateFrom = getUrlVars()["dateFrom"];
+            $("#dateFrom").val(dateFrom);
+            var dateTo = getUrlVars()["dateTo"];
+            $("#dateTo").val(dateTo);
+        });
+
+        $("#btnReport").click(function () {
+            var companyId = $('#companyId').val();
+            var branchId = $('#branchId').val();
+            var dateFrom = $('#dateFrom').val();
+            var dateTo = $('#dateTo').val();
+            var customerType = $('#customerType').val();
+            var phone = $('#phone').val();
+            var customerId = $('#customerId').val();
+            this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                + '&branchId=' + branchId
+                + '&dateFrom=' + dateFrom
+                + '&dateTo=' + dateTo
+                + '&customerType=' + customerType
+                + '&phone=' + phone
+                + '&customerId=' + customerId;
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val("").trigger("change");
+            $("#branchId").val("").trigger("change");
+            $("#dateFrom").val("").trigger("change");
+            $("#dateTo").val("").trigger("change");
+            $("#customerType").val("").trigger("change");
+            $("#phone").val("").trigger("change");
+            $('#name').val("").trigger("change");
+            $('#customerId').val("").trigger("change");
+        });
+    </script>
+}
+
+
