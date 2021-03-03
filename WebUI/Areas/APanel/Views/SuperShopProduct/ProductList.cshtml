@@ -3,33 +3,42 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <a href="/APanel/Home" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
-        <h4 class="page-header">Product Information</h4>
-    </div>
+@*<div class="row">
+        <div class="col-lg-12">
+            <a href="/APanel/Home" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+            <h4 class="page-header">Product Information</h4>
+        </div>
 
-</div>
+    </div>*@
 @using (Html.BeginForm("ProductList", "SuperShopProduct", FormMethod.Get))
 {
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label   ">Category</label>
-                @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
-            </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-primary h5">
+            Product Information
+            <a href="/APanel/Home" class="btn btn-bg pull-right btn-sm" role="button"> Back </a>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label   ">Sub Category</label>
-                @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?ProductCategoryId=", "ProductCategoryId", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group ">
-                <div class="submit-button">
-                    <button type="submit" class="btn btn-bg">Show</button>
-                    @Html.ActionLink("Report", "RdlcReportProductList", "Product", new { target = "_blank", id = "btnReport", @class = "btn btn-bg pull-middle" })
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Sub Category</label>
+                        @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?ProductCategoryId=", "ProductCategoryId", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <div class="submit-button">
+                            <button type="submit" class="btn btn-bg">Show</button>
+                            @Html.ActionLink("Report", "RdlcReportProductList", "Product", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle ml-5" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

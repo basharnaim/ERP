@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -27,9 +28,9 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(productBasicConfigurationCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductBasicConfigurationViewModel>>(_configurationSettingService.GetAll(productBasicConfigurationCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductBasicConfigurationViewModel>>(_configurationSettingService.GetAll(productBasicConfigurationCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductBasicConfigurationViewModel>>(_configurationSettingService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductBasicConfigurationViewModel>>(_configurationSettingService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -74,7 +75,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _configurationSettingService.Add(AutoMapperConfiguration.mapper.Map<ProductBasicConfiguration>(configurationSetting));
+                _configurationSettingService.Add(Mapper.Map<ProductBasicConfiguration>(configurationSetting));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/ProductBasicConfiguration"}')");
             }
             catch (Exception ex)
@@ -92,7 +93,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductBasicConfigurationViewModel>(_configurationSettingService.GetById(id)));
+                return View(Mapper.Map<ProductBasicConfigurationViewModel>(_configurationSettingService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _configurationSettingService.Update(AutoMapperConfiguration.mapper.Map<ProductBasicConfiguration>(configurationSetting));
+                _configurationSettingService.Update(Mapper.Map<ProductBasicConfiguration>(configurationSetting));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/ProductBasicConfiguration"}')");
             }
             catch (Exception ex)

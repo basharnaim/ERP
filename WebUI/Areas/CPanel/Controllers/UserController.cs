@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Securities;
 using Library.ViewModel.Core.Securities;
@@ -26,7 +27,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAllForCPanel()));
+                return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAllForCPanel()));
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.AddUserFromCPanel(AutoMapperConfiguration.mapper.Map<User>(uservm));
+                _userService.AddUserFromCPanel(Mapper.Map<User>(uservm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -89,7 +90,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -116,7 +117,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.UpdateFromCPanel(AutoMapperConfiguration.mapper.Map<User>(uservm));
+                _userService.UpdateFromCPanel(Mapper.Map<User>(uservm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CPanel/User"}')");
             }
             catch (Exception ex)
@@ -130,7 +131,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -143,7 +144,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _userService.ResetPassword(AutoMapperConfiguration.mapper.Map<User>(uservm));
+                _userService.ResetPassword(Mapper.Map<User>(uservm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CPanel/User"}')");
             }
             catch (Exception ex)

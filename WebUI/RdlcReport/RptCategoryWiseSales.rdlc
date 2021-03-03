@@ -1387,7 +1387,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!dto.Value</Value>
+                    <Value>=CDate(Parameters!dto.Value).ToString("dd-MMM-yyyy")</Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
                       <Format>dd-MM-yyyy</Format>
@@ -1420,7 +1420,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!dfrom.Value</Value>
+                    <Value>=CDate(Parameters!dfrom.Value).ToString("dd-MMM-yyyy")</Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
                       <Format>dd-MM-yyyy</Format>

@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -53,15 +54,15 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 if (!string.IsNullOrEmpty(supplierId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, supplierId)));
+                    return View(Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, supplierId)));
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(supplierId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, supplierId)));
+                    return View(Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, supplierId)));
                 }
                 return View();
             }
@@ -91,9 +92,9 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_purchaseReturnService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_purchaseReturnService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_purchaseReturnService.GetAll(identity.CompanyId, identity.BranchId)));
+                return View(Mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_purchaseReturnService.GetAll(identity.CompanyId, identity.BranchId)));
             }
             catch (Exception ex)
             {
@@ -113,8 +114,8 @@ namespace ERP.WebUI.Controllers
                     decimal totalReturnAmount = 0m;
                     PurchaseReturnViewModel purchaseReturn = new PurchaseReturnViewModel();
                     List<PurchaseReturnDetailViewModel> purchaseReturnDetails = new List<PurchaseReturnDetailViewModel>();
-                    SuperShopPurchaseViewModel purchaseVm = AutoMapperConfiguration.mapper.Map<SuperShopPurchaseViewModel>(_purchaseService.GetById(purchaseId));
-                    List<SuperShopPurchaseDetailViewModel> purchaseDetails = AutoMapperConfiguration.mapper.Map<List<SuperShopPurchaseDetailViewModel>>(_purchaseService.GetAllPurchaseDetailbyMasterId(purchaseId).ToList());
+                    SuperShopPurchaseViewModel purchaseVm = Mapper.Map<SuperShopPurchaseViewModel>(_purchaseService.GetById(purchaseId));
+                    List<SuperShopPurchaseDetailViewModel> purchaseDetails = Mapper.Map<List<SuperShopPurchaseDetailViewModel>>(_purchaseService.GetAllPurchaseDetailbyMasterId(purchaseId).ToList());
                     if (purchaseDetails.Any())
                     {
                         foreach (var purchaseDetail in purchaseDetails)
@@ -128,6 +129,7 @@ namespace ERP.WebUI.Controllers
                                 ProductCode = purchaseDetail.ProductCode,
                                 ProductName = purchaseDetail.ProductName,
                                 UOMId = purchaseDetail.UOMId,
+                                UOMName = purchaseDetail.UOMName,
                                 PurchaseQuantity = purchaseDetail.Quantity,
                                 RemainingQuantity = purchaseDetail.Quantity - _purchaseReturnService.GetAlreadyReturnQty(purchaseDetail.PurchaseId, purchaseDetail.ProductId),
                             };
@@ -170,11 +172,16 @@ namespace ERP.WebUI.Controllers
             {
                 if (purchaseReturnvm.PurchaseReturnDetails.Any(x => x.Select && x.ReturnQuantity > 0))
                 {
-                    PurchaseReturn purchaseReturn = AutoMapperConfiguration.mapper.Map<PurchaseReturn>(purchaseReturnvm);
-                    List<PurchaseReturnDetail> purchaseReturnDetailList = AutoMapperConfiguration.mapper.Map<List<PurchaseReturnDetail>>(purchaseReturnvm.PurchaseReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
+                    PurchaseReturn purchaseReturn = Mapper.Map<PurchaseReturn>(purchaseReturnvm);
+                    List<PurchaseReturnDetail> purchaseReturnDetailList = Mapper.Map<List<PurchaseReturnDetail>>(purchaseReturnvm.PurchaseReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
                     purchaseReturn.PurchaseReturnDetails = new List<PurchaseReturnDetail>();
+                    //purchaseReturn.PurchaseReturnDetails.ToList().AddRange(purchaseReturnDetailList);
+
                     foreach (var purchaseReturnDetail in purchaseReturnDetailList)
                     {
+                        purchaseReturnDetail.SupplierId = purchaseReturnvm.SupplierId;
+                        purchaseReturnDetail.PurchasePrice = purchaseReturnvm.PurchaseReturnDetails.Where(x => x.ProductId == purchaseReturnDetail.ProductId).FirstOrDefault().ReturnUnitPrice;
+                        purchaseReturnDetail.ReturnPrice = purchaseReturnDetail.PurchasePrice;
                         purchaseReturn.PurchaseReturnDetails.Add(purchaseReturnDetail);
                     }
                     _purchaseReturnService.Add(purchaseReturn);
@@ -195,8 +202,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var purchaseReturn = AutoMapperConfiguration.mapper.Map<PurchaseReturnViewModel>(_purchaseReturnService.GetById(purchaseReturnId));
-                List<PurchaseReturnDetailViewModel> purchaseReturnDetails = AutoMapperConfiguration.mapper.Map<List<PurchaseReturnDetailViewModel>>(_purchaseReturnService.GetAllPurchaseReturnDetailbyMasterId(purchaseReturnId).ToList());
+                var purchaseReturn = Mapper.Map<PurchaseReturnViewModel>(_purchaseReturnService.GetById(purchaseReturnId));
+                List<PurchaseReturnDetailViewModel> purchaseReturnDetails = Mapper.Map<List<PurchaseReturnDetailViewModel>>(_purchaseReturnService.GetAllPurchaseReturnDetailbyMasterId(purchaseReturnId).ToList());
                 foreach (var purchaseReturnDetail in purchaseReturnDetails)
                 {
                     purchaseReturnDetail.Select = true;
@@ -221,8 +228,8 @@ namespace ERP.WebUI.Controllers
             {
                 if (purchaseReturnvm.PurchaseReturnDetails.Any(x => x.Select && x.ReturnQuantity > 0))
                 {
-                    PurchaseReturn purchaseReturn = AutoMapperConfiguration.mapper.Map<PurchaseReturn>(purchaseReturnvm);
-                    List<PurchaseReturnDetail> PurchaseReturnDetailList = AutoMapperConfiguration.mapper.Map<List<PurchaseReturnDetail>>(purchaseReturnvm.PurchaseReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
+                    PurchaseReturn purchaseReturn = Mapper.Map<PurchaseReturn>(purchaseReturnvm);
+                    List<PurchaseReturnDetail> PurchaseReturnDetailList = Mapper.Map<List<PurchaseReturnDetail>>(purchaseReturnvm.PurchaseReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
                     purchaseReturn.PurchaseReturnDetails = new List<PurchaseReturnDetail>();
                     foreach (var item in PurchaseReturnDetailList)
                     {
@@ -261,7 +268,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<PurchaseReturnViewModel> purchases = new List<PurchaseReturnViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_rawSqlService.GetAllPurchaseReturnSummary(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
+                    purchases = Mapper.Map<IEnumerable<PurchaseReturnViewModel>>(_rawSqlService.GetAllPurchaseReturnSummary(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
                 }
                 return View(purchases);
             }
@@ -276,8 +283,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == id).ToList()).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == id).ToList()).ToList();
+                var detail = Mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Purchase", master);
                 ReportDataSource rpt2 = new ReportDataSource("PurchaseDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -324,7 +331,7 @@ namespace ERP.WebUI.Controllers
         //        IEnumerable<SuperShopPurchaseViewModel> purchases = new List<SuperShopPurchaseViewModel>();
         //        if (!string.IsNullOrEmpty(dateFrom))
         //        {
-        //            purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
+        //            purchases = Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
         //        }
         //        ReportDataSource rpt = new ReportDataSource("Purchase", purchases);
         //        RdlcReportViewer.reportDataSource = rpt;
@@ -358,7 +365,7 @@ namespace ERP.WebUI.Controllers
         //        IEnumerable<SuperShopPurchaseDetailViewModel> purchaseDetails = new List<SuperShopPurchaseDetailViewModel>();
         //        if (!string.IsNullOrEmpty(dateFrom))
         //        {
-        //            purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
+        //            purchaseDetails = Mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
         //        }
         //        return View(purchaseDetails);
         //    }
@@ -400,7 +407,7 @@ namespace ERP.WebUI.Controllers
         //        IEnumerable<SuperShopPurchaseDetailViewModel> purchaseDetails = new List<SuperShopPurchaseDetailViewModel>();
         //        if (!string.IsNullOrEmpty(dateFrom))
         //        {
-        //            purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
+        //            purchaseDetails = Mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(identity.CompanyId.ToString(), identity.BranchId.ToString(), dateFrom, dateTo, supplierId));
         //        }
         //        ReportDataSource rpt = new ReportDataSource("PurchaseDetail", purchaseDetails);
         //        RdlcReportViewer.reportDataSource = rpt;

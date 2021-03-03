@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -26,7 +27,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CourierViewModel>>(_courierService.GetAll()));
+                return View(Mapper.Map<IEnumerable<CourierViewModel>>(_courierService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _courierService.Add(AutoMapperConfiguration.mapper.Map<Courier>(Couriervm));
+                _courierService.Add(Mapper.Map<Courier>(Couriervm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Courier"}')");
             }
             catch (Exception ex)
@@ -84,7 +85,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CourierViewModel>(_courierService.GetById(id)));
+                return View(Mapper.Map<CourierViewModel>(_courierService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _courierService.Update(AutoMapperConfiguration.mapper.Map<Courier>(Couriervm));
+                _courierService.Update(Mapper.Map<Courier>(Couriervm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Courier"}')");
             }
             catch (Exception ex)

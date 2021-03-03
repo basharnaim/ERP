@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -62,7 +63,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -75,7 +76,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -115,7 +116,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -129,7 +130,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -142,7 +143,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
+                return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId)).ToList());
             }
             catch (Exception ex)
             {
@@ -175,7 +176,7 @@ namespace ERP.WebUI.Controllers
                     userRole.Name = menu.Name;
                     userRole.Icon = menu.Icon;
                     userRole.MenuItemList = new List<MenuItemListViewModel>();
-                    userRole.MenuItemList.AddRange(AutoMapperConfiguration.mapper.Map<IEnumerable<MenuItemListViewModel>>(userRoles.Where(r => r.MenuParentId == item.MenuParentId)).OrderBy(x => x.MenuId));
+                    userRole.MenuItemList.AddRange(Mapper.Map<IEnumerable<MenuItemListViewModel>>(userRoles.Where(r => r.MenuParentId == item.MenuParentId)).OrderBy(x => x.MenuId));
                     userRoleList.Add(userRole);
                 }
                 return PartialView("_MenuBinding", userRoleList);

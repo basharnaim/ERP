@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Addresses;
 using Library.Service.Core.Addresses;
 using Library.ViewModel.Core.Addresses;
@@ -22,7 +23,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll()));
+                return View(Mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -58,7 +59,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _districtService.Add(AutoMapperConfiguration.mapper.Map<District>(districtvm));
+                _districtService.Add(Mapper.Map<District>(districtvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -74,7 +75,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<DistrictViewModel>(_districtService.GetById(id)));
+                return View(Mapper.Map<DistrictViewModel>(_districtService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _districtService.Update(AutoMapperConfiguration.mapper.Map<District>(districtvm));
+                _districtService.Update(Mapper.Map<District>(districtvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"../"}')");
             }
             catch (Exception ex)

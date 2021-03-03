@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Banks;
 using Library.Service.Core.Banks;
 using Library.ViewModel.Core.Banks;
@@ -30,7 +31,7 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BankMasterViewModel>>(_bankMasterService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<BankMasterViewModel>>(_bankMasterService.GetAll(companyId, branchId)));
                 }
                 return View();
             }
@@ -82,7 +83,7 @@ namespace ERP.WebUI.Controllers
 
             try
             {
-                _bankMasterService.Add(AutoMapperConfiguration.mapper.Map<BankMaster>(bankMasterVM));
+                _bankMasterService.Add(Mapper.Map<BankMaster>(bankMasterVM));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/BankMaster/?companyId=" + bankMasterVM.CompanyId + "&&branchId=" + bankMasterVM.BranchId}')");
             }

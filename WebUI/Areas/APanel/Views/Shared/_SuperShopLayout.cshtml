@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>POS</title>
+    <title>one pos</title>
     @Styles.Render("~/Content/bootstrapcss")
     @Styles.Render("~/Content/metisMenucss")
     @Styles.Render("~/Content/dataTablescss")
@@ -22,18 +22,21 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/customjs")
 </head>
+
 <body>
     <div id="wrapper">
         <!-- Navigation -->
         <header class="align-items-start app-header flex-column flex-md-row navbar navbar-expand-md navbar-light">
-            <div class="align-items-baseline d-flex flex-row navbar-brand p-lg-3 pl-3 pr-3 pt-3">
-                 <a class="" href="#">One-ICT</a>
+            <div class="align-items-baseline d-flex flex-row navbar-brand p-1 ml-2">
+                <img src="~/Content/images/logo.png" alt="company logo" class="logo" style="height: 40px; background: white; border-radius: 18px;" />
+                <a class="" href="/APanel"> ONE POS </a>
                 <button class="collapsed ml-auto navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#side-menu-wrapper" aria-controls="side-menu" aria-expanded="false"
                         aria-label="Toggle navigation" style="">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+
             <ul class="nav navbar-nav ml-md-auto flex-row navbar-top-links">
                 @{
                     try
@@ -108,7 +111,8 @@
                                 <li class="list-group-item"><a href="/APanel/SuperShopProduct/Upload">Product Upload</a></li>
                                 <li class="list-group-item"><a href="/APanel/ProductMaster">Product Master</a> </li>
                                 <li class="list-group-item"><a href="/APanel/Barcode">Barcode</a> </li>
-                                <li class="list-group-item"><a href="/APanel/ProductStockMasers">Product Opening Stock</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ProductStockMasers/StockIn">Product Opening Stock</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ProductStockMasers/StockOut">Stock Out</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -157,7 +161,7 @@
                             <ul class="nav-second-level list-group nested">
                                 <li class="list-group-item"><a href="/APanel/ExpenditureCategory">Expenditure Category</a> </li>
                                 <li class="list-group-item"><a href="/APanel/ExpenditureSubCategory">Expenditure SubCategory</a></li>
-                                <li class="list-group-item"><a href="/APanel/ExpenditureSubsidiaryCategory">Expenditure SubsidiaryCategory</a> </li>
+                                <li class="list-group-item"><a href="/APanel/ExpenditureSubsidiaryCategory">Ex. Subsidiary Category</a> </li>
                                 <li class="list-group-item"><a href="/APanel/Expenditure">Expenditure</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -166,13 +170,19 @@
                         <li class="list-group-item">
                             <a href="#"><i class="fa fa-save fa-fw"></i><span>Report Management</span><span class="fa arrow"></span></a>
                             <ul class="nav-second-level list-group nested">
+                                <li class="list-group-item"><a href="/APanel/Customer" target="_blank">Customer List Report</a> </li>
+                                <li class="list-group-item"><a href="/APanel/SuperShopPurchase/ExpireList">Product Exprie Report</a> </li>
+                                <li class="list-group-item"><a href="/APanel/SuperShopPurchase/ReorderList">Product Reorder Report</a> </li>
+
                                 <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportDailySales">Daily Sales Report</a> </li>
                                 <li class="list-group-item"><a href="/APanel/SuperShopProduct/ProductList">Product Report</a> </li>
                                 <li class="list-group-item"><a href="/APanel/SuperShopProduct/ProductStockList">Product Stock Report</a> </li>
 
+                                <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportCategoryWiseSaleProfitLoss">Sale Summary Profit Loss </a> </li>
                                 <li class="list-group-item"><a href="/APanel/SuperShopPurchase/ReportPurchaseSummary">Purchase Summary Report</a> </li>
-                                <li class="list-group-item"><a href="/APanel/SuperShopPurchase/PurchaseSummary">Purchase Report</a> </li>
-                                <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportCategoryWiseSale">Category Wise Sale</a> </li>
+                                <li class="list-group-item"><a href="/APanel/SuperShopPurchase/PurchaseSummary">Purchase Summary Report</a> </li>
+
+                                <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportCategoryWiseSale">Supplier Category Wise Sale</a> </li>
                                 <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportSaleClosing">Sales Closing Report</a> </li>
                                 <li class="list-group-item"><a href="/APanel/SuperShopSale/ReportSaleSummary">Sales Report</a> </li>
 
@@ -193,10 +203,17 @@
                     @Scripts.Render("~/bundles/tabjs")
                     @RenderSection("Scripts", false)
                 </div>
+                <div class="copyright-wrap footer pb-2">
+                    <div class="blockquote-footer offset-2">
+                        <i> Copyright (2018) - One Information and Communications Technology Ltd </i><a href="/APanel" title="ONE-ICT"> (ONE-ICT)</a>
+                        <div class="col-1 pull-right"><strong> version </strong> 2.0.1</div>
+                    </div>
+                </div>
             </div>
-            <!-- /#page-wrapper -->
         </div>
+
     </div>
-    <!-- /#wrapper -->
+
+
 </body>
 </html>

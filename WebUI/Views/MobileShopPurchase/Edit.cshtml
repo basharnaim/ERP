@@ -169,7 +169,7 @@
             if (len > 2) {
                 $('#tbl tr').eq(len - 1).remove();
                 $('#tbl tr').eq(len - 2).find("input.itemCode").focus();
-                CalculatePurchaseSummary();
+                ();
             }
             else {
                 ShowResult("At least one row needed!", "failure");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
@@ -26,9 +27,9 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(productCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll(productCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll(productCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -43,6 +44,17 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 return Json(new SelectList(_productSubCategoryService.Lists(productCategoryId), "Value", "Text"), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public JsonResult GetProductSubCategory_List() 
+        {
+            try
+            {
+                return Json(new SelectList(_productSubCategoryService.GetAllObject(), "Value", "Text"), JsonRequestBehavior.AllowGet); 
             }
             catch (Exception ex)
             {
@@ -70,7 +82,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productSubCategoryService.Add(AutoMapperConfiguration.mapper.Map<ProductSubCategory>(productSubCategoryvm));
+                _productSubCategoryService.Add(Mapper.Map<ProductSubCategory>(productSubCategoryvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ProductSubCategory/?productCategoryId=" + productSubCategoryvm.ProductCategoryId}')");
             }
             catch (Exception ex)
@@ -86,7 +98,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductSubCategoryViewModel>(_productSubCategoryService.GetById(id)));
+                return View(Mapper.Map<ProductSubCategoryViewModel>(_productSubCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -99,7 +111,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productSubCategoryService.Update(AutoMapperConfiguration.mapper.Map<ProductSubCategory>(productSubCategoryvm));
+                _productSubCategoryService.Update(Mapper.Map<ProductSubCategory>(productSubCategoryvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/ProductSubCategory/?productCategoryId=" + productSubCategoryvm.ProductCategoryId}')");
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Organizations;
 using Library.Service.Core.Organizations;
 using Library.ViewModel.Core.Organizations;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<WareHouseViewModel>>(_warehouseService.GetAll()));
+                return View(Mapper.Map<IEnumerable<WareHouseViewModel>>(_warehouseService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -59,7 +60,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _warehouseService.Add(AutoMapperConfiguration.mapper.Map<Warehouse>(warehousevm));
+                _warehouseService.Add(Mapper.Map<Warehouse>(warehousevm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Warehouse"}')");
             }
             catch (Exception ex)
@@ -75,7 +76,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<WareHouseViewModel>(_warehouseService.GetById(id)));
+                return View(Mapper.Map<WareHouseViewModel>(_warehouseService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _warehouseService.Update(AutoMapperConfiguration.mapper.Map<Warehouse>(warehousevm));
+                _warehouseService.Update(Mapper.Map<Warehouse>(warehousevm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Warehouse"}')");
             }
             catch (Exception ex)

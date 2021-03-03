@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Securities;
 using Library.ViewModel.Core.Securities;
@@ -13,37 +14,32 @@ namespace ERP.WebUI.Areas.APanel.Controllers
 {
     public class UserController : BaseController
     {
-        #region Ctor
         private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
-        #endregion
 
-        #region Get
         public ActionResult Index(string companyId, string branchId)
         {
             try
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId, branchId)));
                 }
-                if (!string.IsNullOrEmpty(companyId) )
+                if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll()));
+                return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll()));
             }
             catch (Exception ex)
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-        #endregion
 
-        #region JSon
         public JsonResult GetUserList()
         {
             try
@@ -67,9 +63,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 return null;
             }
         }
-        #endregion
 
-        #region Create
         [HttpGet]
         public ActionResult Create()
         {
@@ -82,7 +76,6 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-
 
         [HttpPost]
         public ActionResult Create(UserViewModel userVm)
@@ -102,7 +95,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.AddUserFromAdmin(AutoMapperConfiguration.mapper.Map<User>(userVm));
+                _userService.AddUserFromAdmin(Mapper.Map<User>(userVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/User"}')");
             }
             catch (Exception ex)
@@ -110,15 +103,13 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-        #endregion
 
-        #region Edit
         [HttpGet]
         public ActionResult Edit(string id)
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -144,7 +135,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.UpdateFromAdmin(AutoMapperConfiguration.mapper.Map<User>(userVm));
+                _userService.UpdateFromAdmin(Mapper.Map<User>(userVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/User"}')");
             }
             catch (Exception ex)
@@ -152,15 +143,13 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-        #endregion
 
-        #region Reset PWD
         [HttpGet]
         public ActionResult ResetPassword(string id)
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -173,7 +162,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _userService.ResetPassword(AutoMapperConfiguration.mapper.Map<User>(uservm));
+                _userService.ResetPassword(Mapper.Map<User>(uservm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/User"}')");
             }
             catch (Exception ex)
@@ -182,9 +171,6 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             }
         }
 
-        #endregion
-
-        #region Get Image
         public FileContentResult GetPicture(string id)
         {
             var byteArray = _userService.GetById(id)?.Image;
@@ -192,6 +178,6 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 ? new FileContentResult(byteArray, MediaTypeNames.Image.Jpeg)
                 : null;
         }
-        #endregion
+
     }
 }

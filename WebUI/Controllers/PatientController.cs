@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Doctors;
 using Library.Service.Core.Doctors;
 using Library.ViewModel.Core.Doctors;
@@ -23,9 +24,9 @@ namespace ERP.WebUI.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PatientViewModel>>(_patientService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<PatientViewModel>>(_patientService.GetAll(companyId, branchId)));
                 if (!string.IsNullOrEmpty(companyId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PatientViewModel>>(_patientService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<PatientViewModel>>(_patientService.GetAll(companyId)));
                 return View();
             }
             catch (Exception ex)
@@ -52,7 +53,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _patientService.Add(AutoMapperConfiguration.mapper.Map<Patient>(vm));
+                _patientService.Add(Mapper.Map<Patient>(vm));
                 return JavaScript("ShowResult('Data saved successfully.','success')");
             }
             catch (Exception ex)
@@ -79,7 +80,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _patientService.Add(AutoMapperConfiguration.mapper.Map<Patient>(vm));
+                _patientService.Add(Mapper.Map<Patient>(vm));
                 return JavaScript("ShowResult('Data saved successfully.','success')");
             }
             catch (Exception ex)
@@ -106,7 +107,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _patientService.Add(AutoMapperConfiguration.mapper.Map<Patient>(vm));
+                _patientService.Add(Mapper.Map<Patient>(vm));
                 return JavaScript("ShowResult('Data saved successfully.','success')");
             }
             catch (Exception ex)

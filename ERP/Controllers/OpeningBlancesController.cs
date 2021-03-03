@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DotLiquid.Tags;
 using ERP.Models;
 
 namespace ERP.Controllers
@@ -20,12 +21,17 @@ namespace ERP.Controllers
             return View(db.OpeningBlances.ToList());
         }
 
+        private ActionResult View(List<OpeningBlance> lists)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: OpeningBlances/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new Microsoft.AspNet.Mvc.HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             OpeningBlance openingBlance = db.OpeningBlances.Find(id);
             if (openingBlance == null)

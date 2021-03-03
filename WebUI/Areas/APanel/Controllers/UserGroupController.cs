@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Securities;
@@ -25,13 +26,13 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll(companyId, branchId)));
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll(companyId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll()));
+                return View(Mapper.Map<IEnumerable<UserGroupViewModel>>(_userGroupService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _userGroupService.Add(AutoMapperConfiguration.mapper.Map<UserGroup>(userGroupvm));
+                _userGroupService.Add(Mapper.Map<UserGroup>(userGroupvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/UserGroup?companyId=" + userGroupvm.CompanyId + "&&branchId=" + userGroupvm.BranchId}')");
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserGroupViewModel>(_userGroupService.GetById(id)));
+                return View(Mapper.Map<UserGroupViewModel>(_userGroupService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _userGroupService.Update(AutoMapperConfiguration.mapper.Map<UserGroup>(userGroupvm));
+                _userGroupService.Update(Mapper.Map<UserGroup>(userGroupvm));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/UserGroup?companyId=" + userGroupvm.CompanyId + "&&branchId=" + userGroupvm.BranchId}')");
             }

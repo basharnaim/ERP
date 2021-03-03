@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Expenditures;
 using Library.Service.Inventory.Expenditures;
@@ -26,10 +27,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(expenditureCategoryId) && !string.IsNullOrEmpty(expenditureSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll(expenditureCategoryId, expenditureSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll(expenditureCategoryId, expenditureSubCategoryId)));
                 if (!string.IsNullOrEmpty(expenditureSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureSubsidiaryCategory>, IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll(expenditureSubCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureSubsidiaryCategory>, IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ExpenditureSubsidiaryCategory>, IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll(expenditureSubCategoryId)));
+                return View(Mapper.Map<IEnumerable<ExpenditureSubsidiaryCategory>, IEnumerable<ExpenditureSubsidiaryCategoryViewModel>>(_expenditureSubsidiaryCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureSubsidiaryCategoryService.Add(AutoMapperConfiguration.mapper.Map<ExpenditureSubsidiaryCategory>(expenditureSubsidiaryCategoryvm));
+                _expenditureSubsidiaryCategoryService.Add(Mapper.Map<ExpenditureSubsidiaryCategory>(expenditureSubsidiaryCategoryvm));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ExpenditureSubsidiaryCategory/?ProductCategory=" + expenditureSubsidiaryCategoryvm.ExpenditureCategoryId + "&&ProductSubCategoryId=" + expenditureSubsidiaryCategoryvm.ExpenditureSubCategoryId}')");
             }
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ExpenditureSubsidiaryCategoryViewModel>(_expenditureSubsidiaryCategoryService.GetById(id)));
+                return View(Mapper.Map<ExpenditureSubsidiaryCategoryViewModel>(_expenditureSubsidiaryCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -101,9 +102,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureSubsidiaryCategoryService.Update(AutoMapperConfiguration.mapper.Map<ExpenditureSubsidiaryCategory>(expenditureSubsidiaryCategoryvm));
-                return JavaScript(
-                    $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ExpenditureSubsidiaryCategory/?ProductCategory=" + expenditureSubsidiaryCategoryvm.ExpenditureCategoryId + "&&ProductSubCategoryId=" + expenditureSubsidiaryCategoryvm.ExpenditureSubCategoryId}')");
+                _expenditureSubsidiaryCategoryService.Update(Mapper.Map<ExpenditureSubsidiaryCategory>(expenditureSubsidiaryCategoryvm));
+                return JavaScript($"ShowResult('{"Data update successfully."}','{"success"}','{"redirect"}','{"/APanel/ExpenditureSubsidiaryCategory/?ProductCategory=" + expenditureSubsidiaryCategoryvm.ExpenditureCategoryId + "&&ProductSubCategoryId=" + expenditureSubsidiaryCategoryvm.ExpenditureSubCategoryId}')");
             }
             catch (Exception ex)
             {

@@ -22,7 +22,7 @@
         <td class="form-group">
             @Html.Raw(Model.UOMName)
             @Html.HiddenFor(model => model.UOMId)
-        </td>
+        </td>       
         <td class="form-group">
             @Html.TextBoxFor(model => model.PurchaseQuantity, new { @class = "purchaseQuantity form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.PurchaseQuantity) })
         </td>

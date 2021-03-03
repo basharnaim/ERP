@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.IO;
@@ -232,9 +233,22 @@ namespace Library.Service.Inventory.Products
                 _productRepository.Add(product);
                 _unitOfWork.SaveChanges();
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException dbEx)
             {
-                throw new Exception(ex.Message);
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting  
+                        // the current instance as InnerException  
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
             }
         }
         public void Update(Product product)
@@ -690,6 +704,7 @@ namespace Library.Service.Inventory.Products
                 throw new Exception(ex.Message);
             }
         }
+        
         public override int GetAutoSequence()
         {
             try
@@ -705,5 +720,6 @@ namespace Library.Service.Inventory.Products
         {
             return null;
         }
+
     }
 }

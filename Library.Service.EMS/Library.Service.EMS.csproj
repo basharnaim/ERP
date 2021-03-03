@@ -18,6 +18,7 @@
     <SccProvider>SAK</SccProvider>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,8 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Library.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Library.Model.Core">
       <HintPath>..\WebUI\Lib\Library.Model.Core.dll</HintPath>
     </Reference>
     <Reference Include="Library.Service.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,15 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Context\Library.Context.csproj">
-      <Project>{B125C027-A6ED-4A06-B8A3-118239A81544}</Project>
+      <Project>{b125c027-a6ed-4a06-b8a3-118239a81544}</Project>
       <Name>Library.Context</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Crosscutting\Library.Crosscutting.csproj">
-      <Project>{30C1B1A7-69FA-4FFB-A65C-59F7516AE291}</Project>
+      <Project>{30c1b1a7-69fa-4ffb-a65c-59f7516ae291}</Project>
       <Name>Library.Crosscutting</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Model.EMS\Library.Model.EMS.csproj">
-      <Project>{6B0FE58E-3282-49BA-A059-81395F46EC61}</Project>
+      <Project>{6b0fe58e-3282-49ba-a059-81395f46ec61}</Project>
       <Name>Library.Model.EMS</Name>
     </ProjectReference>
   </ItemGroup>

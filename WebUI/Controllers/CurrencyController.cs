@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CurrencyViewModel>>(_currencyService.GetAll()));
+                return View(Mapper.Map<IEnumerable<CurrencyViewModel>>(_currencyService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -70,7 +71,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _currencyService.Add(AutoMapperConfiguration.mapper.Map<Currency>(currencyVm));
+                _currencyService.Add(Mapper.Map<Currency>(currencyVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Currency"}')");
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CurrencyViewModel>(_currencyService.GetById(id)));
+                return View(Mapper.Map<CurrencyViewModel>(_currencyService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _currencyService.Update(AutoMapperConfiguration.mapper.Map<Currency>(currencyVm));
+                _currencyService.Update(Mapper.Map<Currency>(currencyVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Currency"}')");
             }
             catch (Exception ex)

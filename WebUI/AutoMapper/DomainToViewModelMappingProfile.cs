@@ -50,7 +50,7 @@ namespace ERP.WebUI.AutoMapper
             #endregion
 
             #region Organization
-            CreateMap<Company, CompanyViewModel>();
+            CreateMap<Company, CompanyViewModel>().ReverseMap();
             CreateMap<Branch, BranchViewModel>();
             CreateMap<Warehouse, WareHouseViewModel>();
             CreateMap<Courier, CourierViewModel>();

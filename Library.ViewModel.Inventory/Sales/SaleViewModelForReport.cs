@@ -55,6 +55,8 @@ namespace Library.ViewModel.Inventory.Sales
         public string AddedBy { get; set; }
         public string CustomerId { get; set; }
         public string SaleId { get; set; }
+        public string CustomerAddress1 { get; set; } 
+        public string Email { get; set; }
         #endregion
     }
 }

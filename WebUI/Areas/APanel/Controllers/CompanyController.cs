@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Organizations;
 using Library.Service.Core.Organizations;
@@ -13,9 +14,11 @@ namespace ERP.WebUI.Areas.APanel.Controllers
     {
         #region Ctor
         private readonly ICompanyService _companyService;
+        //private readonly Mapper mapper;  
         public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
+            //mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<Company, CompanyViewModel>()));
         }
         #endregion
 
@@ -24,7 +27,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAll().Where(r => r.Active)));
+                return View(Mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAll().Where(r => r.Active).ToList()));
+                //return View(AutoMapperConfiguration.Imapper.Map<IEnumerable<CompanyViewModel>>());
             }
             catch (Exception ex)
             {
@@ -49,12 +53,11 @@ namespace ERP.WebUI.Areas.APanel.Controllers
 
         #region Edit
         [HttpGet]
-
         public ActionResult Edit(string id)
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
+                return View(Mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -63,13 +66,13 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         }
 
         [HttpPost]
-
         public ActionResult Edit(CompanyViewModel comvm)
         {
             try
             {
                 comvm.Active = true;
-                _companyService.Update(AutoMapperConfiguration.mapper.Map<Company>(comvm));
+                var data = Mapper.Map<Company>(comvm);
+                _companyService.Update(Mapper.Map<Company>(comvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Company"}')");
             }
             catch (Exception ex)

@@ -14,7 +14,8 @@ namespace Library.ViewModel.Inventory.Purchases
         [Required(ErrorMessage = "Date is required.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime PurchaseDate { get; set; }
+        public DateTime PurchaseDate { get; set; }        
+        
         [Display(Name = "Total Quantity")]
         [Required(ErrorMessage = "Quantity is reruired.")]
         public decimal TotalQuantity { get; set; }
@@ -37,11 +38,13 @@ namespace Library.ViewModel.Inventory.Purchases
         public string SynchronizationType { get; set; }
 
         [Display(Name = "Memo Discount")]
+        [Range(0, 100000, ErrorMessage = "Value must be between 0 and 100000")]
         public decimal? MemoWiseDiscount { get; set; }
         public string Description { get; set; }
         
         
         public string MemoNo { get; set; }
+        public string RefNo { get; set; } 
         public decimal NetAmount { get; set; }
         #endregion
 
@@ -52,6 +55,7 @@ namespace Library.ViewModel.Inventory.Purchases
         public string BrandId { get; set; }
         public string CompanyId { get; set; }
         public string BranchId { get; set; }
+        public string TypeId { get; set; } 
         #endregion
 
         #region List

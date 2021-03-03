@@ -1,4 +1,5 @@
-﻿using Library.Model.Core.Addresses;
+﻿using AutoMapper;
+using Library.Model.Core.Addresses;
 using Library.Service.Core.Addresses;
 using Library.ViewModel.Core.Addresses;
 using System;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<DivisionViewModel>>(_divisionService.GetAll()));
+                return View(Mapper.Map<IEnumerable<DivisionViewModel>>(_divisionService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -59,7 +60,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _divisionService.Add(AutoMapperConfiguration.mapper.Map<Division>(divisionvm));
+                _divisionService.Add(Mapper.Map<Division>(divisionvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -75,7 +76,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<DivisionViewModel>(_divisionService.GetById(id)));
+                return View(Mapper.Map<DivisionViewModel>(_divisionService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _divisionService.Update(AutoMapperConfiguration.mapper.Map<Division>(divisionvm));
+                _divisionService.Update(Mapper.Map<Division>(divisionvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"../"}')");
             }
             catch (Exception ex)

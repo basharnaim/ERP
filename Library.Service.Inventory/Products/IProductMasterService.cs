@@ -49,6 +49,7 @@ namespace Library.Service.Inventory.Products
         /// </summary>
         /// <returns></returns>
         IEnumerable<object> Lists();
+        IEnumerable<object> ListsBySupplier(string Id, string subId, string cId); 
 
         /// <summary>
         /// 

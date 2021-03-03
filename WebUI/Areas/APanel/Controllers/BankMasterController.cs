@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Banks;
 using Library.Service.Core.Banks;
@@ -31,7 +32,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BankMasterViewModel>>(_bankMasterService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<BankMasterViewModel>>(_bankMasterService.GetAll(companyId, branchId)));
                 }
                 return View();
             }
@@ -83,7 +84,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
 
             try
             {
-                _bankMasterService.Add(AutoMapperConfiguration.mapper.Map<BankMaster>(bankMasterVm));
+                _bankMasterService.Add(Mapper.Map<BankMaster>(bankMasterVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/BankMaster/?companyId=" + bankMasterVm.CompanyId + "&&branchId=" + bankMasterVm.BranchId}')");
             }
             catch (Exception ex)

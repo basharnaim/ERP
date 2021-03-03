@@ -1,0 +1,78 @@
+﻿@model Library.ViewModel.Inventory.Purchases.SuperShopStockOutDetailViewModel
+@using ERP.WebUI.Html
+@{
+    Layout = null;
+}
+
+<tr>
+    @using (Html.BeginCollectionItem("StockOutDetails"))
+    {
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductCode, new { placeholder = "Please enter your product code", @class = "productCode  form-control" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductName, new { placeholder = "Please enter your product name", @class = "productName  form-control" })
+            @Html.HiddenFor(model => model.ProductId, new { @class = "productId" })
+            @Html.HiddenFor(model => model.Id)
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.UOMName, new { @class = "uOMName form-control", @readonly = "readonly" })
+            @Html.HiddenFor(model => model.UOMId, new { @class = "uOMId" })
+        </td>
+        <td class="form-group">
+            @*@Html.DatePicker("ExpiryDate", new { @class = "form-control", type="date" })*@
+            @Html.DatePickerFor(model => model.StockOutDate, new { @class = "form-control" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.ProductStock, new { @class = "productStock form-control", Value = String.Format("{0:0}", Model.Quantity), @readonly = "readonly" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.Quantity, new { type = "number", @class = "quantity form-control", Value = String.Format("{0:0}", Model.Quantity), onclick = "this.select()" })
+            @Html.ValidationMessageFor(model => model.Quantity, null, new { @class = "text-danger" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.PurchasePrice, new { @class = "purchasePrice   form-control text-right", Value = String.Format("{0:0.00}", Model.PurchasePrice), onclick = "this.select()" })
+        </td>
+        <td class="form-group">
+            @Html.TextBoxFor(model => model.TotalAmount, new { @class = "amount form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+        </td>
+        <td class="form-group">
+            <a onclick="return DeleteRow(this)" href="javascript:void(0);" class="btn-close"><i class="fa fa-trash"></i></a>
+        </td>
+    }
+</tr>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.DatePicker').datepicker({ dateFormat: 'dd-M-yy' }).val();
+    });
+    $(function () {
+        ProductCodeAutoComplete();
+        ProductNameAutoComplete();
+        CalculateSuperShopPurchase();
+        DeleteRow();
+    });
+
+    function DeleteRow(lnk) {
+        if (typeof lnk != 'undefined') {
+            var row = lnk.parentNode.parentNode;
+            var rowIndex = row.rowIndex - 1;
+            var myTableee = document.getElementById('tbl').tBodies[0];
+            var tabRowCount = myTableee.rows.length;
+
+            if (tabRowCount > 1) {
+                var myTable = document.getElementById('tbl');
+                myTable.deleteRow(rowIndex + 1);
+                CalculateSuperShopPurchaseSummary();
+                var discount = parseFloat($("#MemoWiseDiscount").val()) || 0;
+                var totalAmount = parseFloat($("#TotalAmount").val()) || 0;
+                var netAmount = totalAmount - discount;
+                $("#NetAmount").val(netAmount.toFixed(2));
+                MemoWiseDiscount();
+            }
+            else {
+                ShowResult("At least one row needed!", "failure");
+            }
+        }
+    }
+</script>

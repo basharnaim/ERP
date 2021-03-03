@@ -69,8 +69,10 @@
     <div class="row ">
         <div class="col-xl-12">
             <div class="form-group">
-                <input type="button" id="btnAdd1" name="btn" value="Return" class="btn btn-bg pull-right">
-                @*<input type="button" id="btnAdd2" name="btn" value="Cancel" class="btn btn-bg pull-right">*@
+                <input type="text" id="TotalAmount" name="btn" value="0" class="col-1 form-control pull-right ml-2" readonly>
+                <input type="text" id="TotalQuantity" name="btn" value="0" class="col-1 form-control pull-right ml-5" readonly>
+                <input type="button" id="btnAdd1" name="btn" value="Return" class="btn btn-danger col-1 pull-right ml-2">
+
             </div>
         </div>
     </div>
@@ -79,7 +81,16 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(function () {
-            CalculateSuperShopSaleReturnAmount();
+            var totalAmount = 0;
+            var totalQty = 0;
+
+            for (var i = 0; i < $(".returnQuantity").length; i++) {
+                totalQty += parseFloat($($(".returnQuantity")[i]).val()) || 0;
+                totalAmount += parseFloat($($(".returnAmount")[i]).val()) || 0;
+            }
+            $("#TotalQuantity").val(totalQty.toFixed(2));
+            $("#TotalAmount").val(totalAmount.toFixed(2));
+            //CalculateSuperShopSaleReturnAmount();
         });
 
         $("input:checkbox.selectAll").on("click", function () {
@@ -102,6 +113,7 @@
         });
 
         $("#btnAdd1").on("click", function (e) {
+            debugger;
             e.preventDefault();
             var type = $(this).val();
             $("#Type").val(type);
@@ -128,5 +140,32 @@
         function SubmitForm() {
             $("#DialogForm").submit();
         }
+
+        $('.returnQuantity').on('blur', function () {
+            var el = $(this);
+            var rqty = parseFloat(el.closest("tr").find(".returnQuantity").val()) || 0;
+            qty = parseFloat(rqty.toFixed(2));
+            if (qty <= 0) {
+                ShowResult("Pleasse input minimum 0.01 qty or uncheck this checkbox", "failure");
+                el.closest("tr").find(".returnQuantity").val(1);
+            } else {
+
+                var unitPrice = parseFloat(el.closest("tr").find(".unitPrice").val()) || 0;
+                var totalprics = (qty * unitPrice);
+                el.closest("tr").find(".returnAmount").val(parseFloat(totalprics).toFixed(2));
+                el.closest("tr").find(".returnQuantity").val(parseFloat(qty).toFixed(2));
+
+                var totalAmount = 0;
+                var totalQty = 0;
+
+                for (var i = 0; i < $(".returnQuantity").length; i++) {
+                    totalQty += parseFloat($($(".returnQuantity")[i]).val()) || 0;
+                    totalAmount += parseFloat($($(".returnAmount")[i]).val()) || 0;
+                }
+                $("#TotalQuantity").val(totalQty.toFixed(2));
+                $("#TotalAmount").val(totalAmount.toFixed(2));
+            }
+
+        })
     </script>
 }

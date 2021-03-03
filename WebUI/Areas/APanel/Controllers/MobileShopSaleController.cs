@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.ReportViewer;
 using Library.Context.Repositories;
 using Library.Service.Inventory.Sales;
@@ -45,7 +46,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopSaleViewModel> sales = new List<MobileShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
                 }
                 return View(sales);
             }
@@ -90,7 +91,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopSaleViewModel> sales = new List<MobileShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -122,7 +123,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, productId, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<MobileShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, productId, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -175,7 +176,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopSaleDetailViewModel> salesDetail = new List<MobileShopSaleDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    salesDetail = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, itemId, dateFrom, dateTo));
+                    salesDetail = Mapper.Map<IEnumerable<MobileShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, itemId, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("SaleDetail", salesDetail);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -193,8 +194,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id));
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id));
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id));
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id));
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -227,7 +228,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -268,7 +269,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopSaleViewModel> salesList = new List<MobileShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    salesList = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo));
+                    salesList = Mapper.Map<IEnumerable<MobileShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", salesList);
                 RdlcReportViewerWithDate.reportDataSource = rpt;

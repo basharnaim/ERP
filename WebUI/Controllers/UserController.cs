@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Mime;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Securities;
 using Library.ViewModel.Core.Securities;
@@ -27,13 +28,13 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId, branchId)));
                 }
                 if (!string.IsNullOrEmpty(companyId) )
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll(companyId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll()));
+                return View(Mapper.Map<IEnumerable<UserViewModel>>(_userService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.AddUserFromAdmin(AutoMapperConfiguration.mapper.Map<User>(userVm));
+                _userService.AddUserFromAdmin(Mapper.Map<User>(userVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/User"}')");
             }
             catch (Exception ex)
@@ -103,7 +104,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -129,7 +130,7 @@ namespace ERP.WebUI.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _userService.UpdateFromAdmin(AutoMapperConfiguration.mapper.Map<User>(userVm));
+                _userService.UpdateFromAdmin(Mapper.Map<User>(userVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/User"}')");
             }
             catch (Exception ex)
@@ -145,7 +146,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UserViewModel>(_userService.GetById(id)));
+                return View(Mapper.Map<UserViewModel>(_userService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -158,7 +159,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _userService.ResetPassword(AutoMapperConfiguration.mapper.Map<User>(uservm));
+                _userService.ResetPassword(Mapper.Map<User>(uservm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/User"}')");
             }
             catch (Exception ex)

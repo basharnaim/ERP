@@ -8,15 +8,18 @@ namespace ERP.WebUI.Models.ViewModels
     public class VmProductStockMaster
     {
         public string StockID { get; set; }
+        public int CompanyID { get; set; }
         public int BranchID { get; set; }
         public int? SupplierID { get; set; }
         public int? CategoryID { get; set; }
         public string ProductID { get; set; }
-        public int CompanyID { get; set; }
+        
         public int UOMID { get; set; }
+        [DisplayName("Receive Rate")]
+        public decimal? ReceiveRate { get; set; } 
         [DisplayName("Receive Qty")]
         public decimal? ReceiveQty { get; set; }
-        [DisplayName("Receive Rate")]
+        [DisplayName("Receive Value")]
         public decimal? ReceiveValue { get; set; }
         [DataType(DataType.Date)]
         public DateTime LastReceiveDate { get; set; }

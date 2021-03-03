@@ -3,57 +3,65 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-xl-12">
         <a href="/Home" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
         <h4 class="page-header">Sales Return Information</h4>
     </div>
-</div>
+</div>*@
 @using (Html.BeginForm("Index", "SuperShopSaleReturn", FormMethod.Get))
 {
-<div class="row">
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label  ">Invoice No</label>
-            @Html.TextBox("invoiceNo", null, new { @class = "form-control" })
+    <div class="card card-inverse">
+        <div class="card-header alert-success h5">
+            Sales Return Information
+            <a href="/Home" class="btn btn-bg pull-right btn-sm" role="button"> Back </a>
         </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label  " title="Customer name">C.Name.</label>
-            @Html.SimpleDropDown("customerId", "/Customer/GetSSCustomerListByCompanyBranchId", new { @class = "customerCategoryId form-control select" })
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label  ">Invoice No</label>
+                        @Html.TextBox("invoiceNo", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label  " title="Customer name">C.Name.</label>
+                        @Html.SimpleDropDown("customerId", "/Customer/GetSSCustomerListByCompanyBranchId", new { @class = "customerCategoryId form-control select" })
 
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label  " title="Customer Phone">C.Phone</label>
-            @Html.TextBox("phone", null, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label  ">From date</label>
-            @Html.DatePicker("dateFrom", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label  " title="Customer Phone">C.Phone</label>
+                        @Html.TextBox("phone", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label  ">From date</label>
+                        @Html.DatePicker("dateFrom", new { @class = "form-control" })
 
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label  ">To date</label>
-            @Html.DatePicker("dateTo", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label  ">To date</label>
+                        @Html.DatePicker("dateTo", new { @class = "form-control" })
 
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group ">
-            <div class="submit-button">
-                <button type="submit" class="btn btn-bg">Show</button>
-                <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <div class="submit-button">
+                            <button type="submit" class="btn btn-bg">Show</button>
+                            <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 <div class="row">
     <div class="col-xl-12">
@@ -64,7 +72,7 @@
                         <thead class="thead-heading">
                             <tr>
                                 <th>Invoice No</th>
-                                <th>Sales date</th>
+                                <th>Sales Date</th>
                                 <th>Total Quantity</th>
                                 <th>Total Amount</th>
                                 <th>Action</th>

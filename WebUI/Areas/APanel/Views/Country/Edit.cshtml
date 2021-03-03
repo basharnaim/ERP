@@ -2,42 +2,54 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <div class="d-flex justify-content-end pb-1">
-            <a href="/APanel/Country" class="btn btn-bg" role="button">Back</a>
+@*<div class="row">
+        <div class="col-xl-12">
+            <div class="d-flex justify-content-end pb-1">
+                <a href="/APanel/Country" class="btn btn-bg" role="button">Back</a>
+            </div>
+            <hr />
         </div>
-        <hr />
-    </div>
-</div>
+    </div>*@
 @using (Ajax.BeginForm("Edit", "Country", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
 {
     @Html.HiddenFor(model => model.Id)
-    <div class="row ">
+    @*<div class="row ">
         <div class="col-xl-12">
             <div class="card ">
-                <div class="card-header Country_tittle">Country Information</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
-                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                <div class="card-header Country_tittle">Add or Update Country Information</div>
+                <div class="card-body">*@
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel panel-default card">
+                <div class="card-header alert-info">
+                    Add or Update Country Information
+                    <a href="/APanel" class="btn btn-bg top-button-back float-right btn-sm" role="button"><i class="fa fa-undo"></i> Back</a>
+                </div>
+                <div class="panel-body card-body">
+                    <div class="dataTable_wrapper">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                                    @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Country name" })
+                                    @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
-                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Country name" })
-                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
-                                @Html.CheckBoxFor(model => model.Active)
-                            </div>
-                            <div class="row">
-                                <div class="offset-xl-10 col-xl-2">
+                            <div class="col-3">
+                                <br />
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                                    @Html.CheckBoxFor(model => model.Active)
+                                </div>
+                                <div class="">
+                                    <br /> <br />
                                     <div class="form-group input-group">
-                                        <button type="submit" class="btn btn-bg pull-right">Save</button>
+                                        <button type="submit" class="btn btn-success pull-right col-4">Save</button>
                                     </div>
                                 </div>
                             </div>

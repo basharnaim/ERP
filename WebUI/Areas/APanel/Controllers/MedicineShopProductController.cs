@@ -12,6 +12,7 @@ using System.IO;
 using System.Net.Mime;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace ERP.WebUI.Areas.APanel.Controllers
 {
@@ -36,10 +37,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(ProductCategoryId) && !string.IsNullOrEmpty(ProductSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(ProductCategoryId, ProductSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(ProductCategoryId, ProductSubCategoryId)));
                 if (!string.IsNullOrEmpty(ProductCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(ProductCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(ProductCategoryId)));
+                return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _productService.Add(AutoMapperConfiguration.mapper.Map<Product>(ProductVm));
+                _productService.Add(Mapper.Map<Product>(ProductVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/MedicineShopProduct/?ProductCategoryId=" + ProductVm.ProductCategoryId + "&&ProductSubCategoryId=" + ProductVm.ProductSubCategoryId}')");
             }
             catch (Exception ex)
@@ -103,7 +104,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductViewModel>(_productService.GetById(id)));
+                return View(Mapper.Map<ProductViewModel>(_productService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -129,7 +130,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                     else
                         throw new Exception("Please upload .jpg, PNG, gif file only.");
                 }
-                _productService.Update(AutoMapperConfiguration.mapper.Map<Product>(ProductVm));
+                _productService.Update(Mapper.Map<Product>(ProductVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/MedicineShopProduct/?ProductCategoryId=" + ProductVm.ProductCategoryId + "&&ProductSubCategoryId=" + ProductVm.ProductSubCategoryId}')");
             }
             catch (Exception ex)
@@ -155,10 +156,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(itemCategoryId) && !string.IsNullOrEmpty(itemSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(itemCategoryId, itemSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(itemCategoryId, itemSubCategoryId)));
                 if (!string.IsNullOrEmpty(itemCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(itemCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(itemCategoryId)));
+                return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -179,11 +180,11 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 IEnumerable<ProductViewModelForReport> items;
                 if (!string.IsNullOrEmpty(itemCategoryId) && !string.IsNullOrEmpty(itemSubCategoryId))
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(itemCategoryId, itemSubCategoryId));
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(itemCategoryId, itemSubCategoryId));
                 else if (!string.IsNullOrEmpty(itemCategoryId))
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(itemCategoryId));
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(itemCategoryId));
                 else
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll());
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll());
                 ReportDataSource rpt = new ReportDataSource("Product", items);
                 RdlcReportViewerWithoutDate.reportDataSource = rpt;
                 string rPath = "RdlcReport/RptProductList.rdlc";
@@ -213,7 +214,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -273,7 +274,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<ProductStockViewModel> productStocks = new List<ProductStockViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    productStocks = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo));
+                    productStocks = Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("ProductStock", productStocks);
                 RdlcReportViewerWithDate.reportDataSource = rpt;

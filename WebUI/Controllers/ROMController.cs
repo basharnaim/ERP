@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -26,7 +27,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ROMViewModel>>(_romService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ROMViewModel>>(_romService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _romService.Add(AutoMapperConfiguration.mapper.Map<ROM>(ROMvm));
+                _romService.Add(Mapper.Map<ROM>(ROMvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/ROM"}')");
             }
             catch (Exception ex)
@@ -84,7 +85,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ROMViewModel>(_romService.GetById(id)));
+                return View(Mapper.Map<ROMViewModel>(_romService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _romService.Update(AutoMapperConfiguration.mapper.Map<ROM>(ROMvm));
+                _romService.Update(Mapper.Map<ROM>(ROMvm));
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/ROM"}')");
             }

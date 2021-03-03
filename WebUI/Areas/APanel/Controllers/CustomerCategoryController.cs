@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Customers;
 using Library.Service.Inventory.Customers;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerCategoryViewModel>>(_customerCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<CustomerCategoryViewModel>>(_customerCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _customerCategoryService.Add(AutoMapperConfiguration.mapper.Map<CustomerCategory>(customerCategoryVm));
+                _customerCategoryService.Add(Mapper.Map<CustomerCategory>(customerCategoryVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/CustomerCategory"}')");
             }
             catch (Exception ex)
@@ -89,7 +90,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CustomerCategoryViewModel>(_customerCategoryService.GetById(id)));
+                return View(Mapper.Map<CustomerCategoryViewModel>(_customerCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _customerCategoryService.Update(AutoMapperConfiguration.mapper.Map<CustomerCategory>(customerCategoryVm));
+                _customerCategoryService.Update(Mapper.Map<CustomerCategory>(customerCategoryVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/CustomerCategory"}')");
             }
             catch (Exception ex)

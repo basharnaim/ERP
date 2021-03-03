@@ -314,6 +314,19 @@ namespace Library.Service.Inventory.Products
             }
         }
 
+        public IEnumerable<object> GetAllObject()
+        {
+            try
+            {
+                return from r in _productSubCategoryRepository.GetAll(r => !r.Archive && r.Active)
+                                                 .OrderBy(r => r.Sequence)
+                       select new { Value = r.Id, Text = r.Name };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public IEnumerable<object> Lists(string productCategoryId)
         {

@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SizeViewModel>>(_sizeService.GetAll()));
+                return View(Mapper.Map<IEnumerable<SizeViewModel>>(_sizeService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -67,7 +68,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _sizeService.Add(AutoMapperConfiguration.mapper.Map<Size>(sizevm));
+                _sizeService.Add(Mapper.Map<Size>(sizevm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Size"}')");
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<SizeViewModel>(_sizeService.GetById(id)));
+                return View(Mapper.Map<SizeViewModel>(_sizeService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -96,7 +97,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _sizeService.Update(AutoMapperConfiguration.mapper.Map<Size>(sizevm));
+                _sizeService.Update(Mapper.Map<Size>(sizevm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Size"}')");
             }
             catch (Exception ex)

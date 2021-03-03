@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Suppliers;
 using Library.Service.Inventory.Suppliers;
 using Library.ViewModel.Inventory.Suppliers;
@@ -27,7 +28,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BrandViewModel>>(_brandService.GetAll()));
+                return View(Mapper.Map<IEnumerable<BrandViewModel>>(_brandService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -82,7 +83,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _brandService.Add(AutoMapperConfiguration.mapper.Map<Brand>(vm));
+                _brandService.Add(Mapper.Map<Brand>(vm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Brand?supplierId=" + vm.SupplierId}')");
             }
             catch (Exception ex)
@@ -99,7 +100,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BrandViewModel>(_brandService.GetById(id)));
+                return View(Mapper.Map<BrandViewModel>(_brandService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -112,7 +113,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _brandService.Update(AutoMapperConfiguration.mapper.Map<Brand>(vm));
+                _brandService.Update(Mapper.Map<Brand>(vm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Brand?supplierId=" + vm.SupplierId}')");
             }
             catch (Exception ex)

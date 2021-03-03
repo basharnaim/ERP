@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using AutoMapper;
 using Library.Crosscutting.Securities;
 using Library.Model.Inventory.Sales;
 using Library.Service.Inventory.Sales;
@@ -48,31 +49,31 @@ namespace ERP.WebUI.Controllers
                 }
                 if (!string.IsNullOrEmpty(invoiceNo) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByInvoiceNoWithDate(identity.CompanyId, identity.BranchId, invoiceNo, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByInvoiceNoWithDate(identity.CompanyId, identity.BranchId, invoiceNo, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(customerId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerNameWithDate(identity.CompanyId, identity.BranchId, customerId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerNameWithDate(identity.CompanyId, identity.BranchId, customerId, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerPhoneWithDate(identity.CompanyId, identity.BranchId, phone, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerPhoneWithDate(identity.CompanyId, identity.BranchId, phone, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCompanyBranchIdWithDateRange(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCompanyBranchIdWithDateRange(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(invoiceNo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByInvoiceNo(identity.CompanyId, identity.BranchId, invoiceNo)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByInvoiceNo(identity.CompanyId, identity.BranchId, invoiceNo)));
                 }
                 if (!string.IsNullOrEmpty(customerId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCompanyBranchCustomerId(identity.CompanyId, identity.BranchId, customerId)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCompanyBranchCustomerId(identity.CompanyId, identity.BranchId, customerId)));
                 }
                 if (!string.IsNullOrEmpty(phone))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerPhone(identity.CompanyId, identity.BranchId, phone)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllInvoiceByCustomerPhone(identity.CompanyId, identity.BranchId, phone)));
                 }
                 return View();
             }
@@ -90,10 +91,10 @@ namespace ERP.WebUI.Controllers
             {
                 SaleReturnViewModel saleReturnVm = new SaleReturnViewModel();
                 List<SaleReturnDetailViewModel> saleReturnDetails = new List<SaleReturnDetailViewModel>();
-                SuperShopSaleViewModel saleVm = AutoMapperConfiguration.mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(saleId));
+                SuperShopSaleViewModel saleVm = Mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(saleId));
                 if (saleId != null)
                 {
-                    List<SuperShopSaleDetailViewModel> saleDetails = AutoMapperConfiguration.mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(saleId).ToList());
+                    List<SuperShopSaleDetailViewModel> saleDetails = Mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(saleId).ToList());
                     if (saleDetails.Any())
                     {
                         foreach (var saleDetail in saleDetails)
@@ -139,8 +140,8 @@ namespace ERP.WebUI.Controllers
             {
                 if (saleReturnvm.SaleReturnDetails.Any(x => x.Select && x.ReturnQuantity > 0))
                 {
-                    SaleReturn saleReturn = AutoMapperConfiguration.mapper.Map<SaleReturn>(saleReturnvm);
-                    List<SaleReturnDetail> saleReturnDetailList = AutoMapperConfiguration.mapper.Map<List<SaleReturnDetail>>(saleReturnvm.SaleReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
+                    SaleReturn saleReturn = Mapper.Map<SaleReturn>(saleReturnvm);
+                    List<SaleReturnDetail> saleReturnDetailList = Mapper.Map<List<SaleReturnDetail>>(saleReturnvm.SaleReturnDetails.Where(x => x.Select && x.ReturnQuantity > 0));
                     saleReturn.SaleReturnDetails = new List<SaleReturnDetail>();
                     foreach (var item in saleReturnDetailList)
                     {

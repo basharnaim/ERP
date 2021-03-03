@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ERP.WebUI.Models;
+using Library.ViewModel.Core.Organizations;
 
 namespace ERP.WebUI
 {
@@ -9,5 +11,6 @@ namespace ERP.WebUI
     public static class AutoMapperConfiguration
     {
         public static IMapper mapper;
+        public static IMapper Imapper;       
     }
 }

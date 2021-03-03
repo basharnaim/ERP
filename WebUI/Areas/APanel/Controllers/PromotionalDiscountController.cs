@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Promotions;
 using Library.Service.Inventory.Promotions;
@@ -42,7 +43,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PromotionalDiscountViewModel>>(_promotionalDiscountService.GetAll(dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PromotionalDiscountViewModel>>(_promotionalDiscountService.GetAll(dfrom.Value, dto.Value)));
                 }
                 return View();
             }
@@ -108,8 +109,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (promotionalDiscountVm.PromotionalDiscountDetails.All(x => x.EligibleQuantity > 0))
                 {
-                    var promotionalDiscount = AutoMapperConfiguration.mapper.Map<PromotionalDiscount>(promotionalDiscountVm);
-                    var promotionalDiscountDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalDiscountDetail>>(promotionalDiscountVm.PromotionalDiscountDetails);
+                    var promotionalDiscount = Mapper.Map<PromotionalDiscount>(promotionalDiscountVm);
+                    var promotionalDiscountDetails = Mapper.Map<List<PromotionalDiscountDetail>>(promotionalDiscountVm.PromotionalDiscountDetails);
                     promotionalDiscount.PromotionalDiscountDetails = new List<PromotionalDiscountDetail>();
                     foreach (var item in promotionalDiscountDetails)
                     {
@@ -133,8 +134,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var promotionalDiscount = AutoMapperConfiguration.mapper.Map<PromotionalDiscountViewModel>(_promotionalDiscountService.GetById(id));
-                var promotionalDiscountDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalDiscountDetailViewModel>>(_promotionalDiscountService.GetAllPromotionalDiscountDetailbyMasterId(id));
+                var promotionalDiscount = Mapper.Map<PromotionalDiscountViewModel>(_promotionalDiscountService.GetById(id));
+                var promotionalDiscountDetails = Mapper.Map<List<PromotionalDiscountDetailViewModel>>(_promotionalDiscountService.GetAllPromotionalDiscountDetailbyMasterId(id));
                 promotionalDiscount.PromotionalDiscountDetails = new List<PromotionalDiscountDetailViewModel>();
                 promotionalDiscount.PromotionalDiscountDetails.AddRange(promotionalDiscountDetails);
                 return View(promotionalDiscount);
@@ -153,8 +154,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (promotionalDiscountVm.PromotionalDiscountDetails.All(x => x.EligibleQuantity > 0))
                 {
-                    var promotionalDiscount = AutoMapperConfiguration.mapper.Map<PromotionalDiscount>(promotionalDiscountVm);
-                    var promotionalDiscountDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalDiscountDetail>>(promotionalDiscountVm.PromotionalDiscountDetails);
+                    var promotionalDiscount = Mapper.Map<PromotionalDiscount>(promotionalDiscountVm);
+                    var promotionalDiscountDetails = Mapper.Map<List<PromotionalDiscountDetail>>(promotionalDiscountVm.PromotionalDiscountDetails);
                     promotionalDiscount.PromotionalDiscountDetails = new List<PromotionalDiscountDetail>();
                     foreach (var item in promotionalDiscountDetails)
                     {

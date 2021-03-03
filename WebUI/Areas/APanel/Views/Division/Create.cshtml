@@ -3,65 +3,70 @@
 @{
     ViewBag.Title = "Create";
 }
-    <div class="row">
+@*<div class="row">
         <div class="col-xl-12">
             <div class="d-flex justify-content-end pb-1">
                 <a href="/APanel/Division" class="btn btn-bg" role="button">Back</a>
             </div>
         </div>
-    </div>
+    </div>*@
 @using (Ajax.BeginForm("Create", "Division", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
 {
-<div class="row ">
-    <div class="col-xl-12">
-        <div class="card ">
-            <div class="card-header Division_tittle">Add Division</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Sequence, new { @class = "control-label   mendatory" })
-                            
-                            @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
-                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
-                            @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Division name" })
-                            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label   mendatory ">Country</label>
-                            @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryListWithId/", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
-                            @Html.CheckBoxFor(model => model.Active)
-                        </div>
-                        <div class="row">
-                            <div class="offset-xl-10 col-xl-2">
-                                <div class="form-group input-group">
-                                    <button type="submit" class="btn btn-bg pull-right">Save</button>
-                                </div>
-                            </div>
-                        </div>
+    <div class="card ">
+        <div class="card-header Warehouse_tittle alert-info ">
+            Add Division
+            <a href="/APanel/Division" class="btn btn-bg btn-sm pull-right" role="button"><i class="fa fa-undo"></i> Back </a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.Sequence, new { @class = "control-label   mendatory" })
+
+                    @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "text-danger" })
+                </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                        @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Division name" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label   mendatory ">Country</label>
+                        @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryList/", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <br />
+                        @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                        @Html.CheckBoxFor(model => model.Active)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group input-group">
+                        <button type="submit" class="btn btn-success offset-11 col-1"> <i class="fa fa-save"></i> Save</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-              
-                    }
-                    @section Scripts {@Scripts.Render("~/bundles/jqueryval")
-                    <script type="text/javascript">
-                        $(function () {
+}
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(function () {
 
-                        });
-                    </script>
-                    }
+    });
+</script>
+}

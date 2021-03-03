@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Menus;
@@ -117,7 +118,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                                       MenuId = rd.MenuId
                                   };
                 userroles.AddRange(roleDetails);
-                _userRoleService.Add(AutoMapperConfiguration.mapper.Map<List<UserRole>>(userroles), companyId, branchId, usergroupId);
+                _userRoleService.Add(Mapper.Map<List<UserRole>>(userroles), companyId, branchId, usergroupId);
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/UserRole/?companyId=" + userrolevm.CompanyId + "&&branchId=" + userrolevm.BranchId + "&&module=" + userrolevm.Module + "&&UserGroupId=" + userrolevm.UserGroupId}')");
             }
             catch (Exception ex)

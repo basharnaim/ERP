@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<StyleViewModel>>(_styleService.GetAll()));
+                return View(Mapper.Map<IEnumerable<StyleViewModel>>(_styleService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -70,7 +71,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _styleService.Add(AutoMapperConfiguration.mapper.Map<Style>(Stylevm));
+                _styleService.Add(Mapper.Map<Style>(Stylevm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Style"}')");
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<StyleViewModel>(_styleService.GetById(id)));
+                return View(Mapper.Map<StyleViewModel>(_styleService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _styleService.Update(AutoMapperConfiguration.mapper.Map<Style>(Stylevm));
+                _styleService.Update(Mapper.Map<Style>(Stylevm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Style"}')");
             }
             catch (Exception ex)

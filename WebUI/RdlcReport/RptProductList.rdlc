@@ -112,28 +112,28 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.38605in</Width>
+                  <Width>0.5048in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.62563in</Width>
+                  <Width>0.99438in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14126in</Width>
+                  <Width>1.66209in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.56461in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.58333in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.42813in</Width>
+                  <Width>0.5323in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.28229in</Width>
+                  <Width>1.35521in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.07396in</Width>
+                  <Width>0.75104in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.81354in</Width>
@@ -808,7 +808,7 @@
             <Top>0.31944in</Top>
             <Left>0.10417in</Left>
             <Height>0.5in</Height>
-            <Width>7.75087in</Width>
+            <Width>7.7613in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -822,14 +822,14 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>List of products</Value>
+                    <Value>Product List</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
+                      <FontFamily>arial</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
@@ -837,7 +837,7 @@
             <Top>0.04167in</Top>
             <Left>0.10417in</Left>
             <Height>0.25in</Height>
-            <Width>7.47588in</Width>
+            <Width>3.72588in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -853,10 +853,10 @@
         <Height>0.96354in</Height>
         <Style />
       </Body>
-      <Width>7.85504in</Width>
+      <Width>7.96962in</Width>
       <Page>
         <PageHeader>
-          <Height>1.81598in</Height>
+          <Height>1.55556in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -869,7 +869,8 @@
                     <TextRun>
                       <Value>=IIf(Parameters!cName.Value &lt;&gt; ".", Parameters!cName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -879,9 +880,9 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>cName</rd:DefaultName>
-              <Top>0.19271in</Top>
-              <Left>0.10417in</Left>
-              <Height>0.25in</Height>
+              <Top>0.13576in</Top>
+              <Left>0.22917in</Left>
+              <Height>0.29167in</Height>
               <Width>7.47588in</Width>
               <Style>
                 <Border>
@@ -902,7 +903,7 @@
                     <TextRun>
                       <Value>=IIf(Parameters!bName.Value &lt;&gt; ".", Parameters!bName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -912,8 +913,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bName</rd:DefaultName>
-              <Top>0.50521in</Top>
-              <Left>0.10417in</Left>
+              <Top>0.44271in</Top>
+              <Left>0.22917in</Left>
               <Height>0.25in</Height>
               <Width>7.47588in</Width>
               <ZIndex>1</ZIndex>
@@ -936,7 +937,7 @@
                     <TextRun>
                       <Value>=IIf(Parameters!bAddress.Value &lt;&gt; ".", Parameters!bAddress.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -946,8 +947,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bAddress</rd:DefaultName>
-              <Top>0.73438in</Top>
-              <Left>0.10417in</Left>
+              <Top>0.72188in</Top>
+              <Left>0.22917in</Left>
               <Height>0.25in</Height>
               <Width>7.47588in</Width>
               <ZIndex>2</ZIndex>
@@ -968,6 +969,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Mobile No: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=IIf(Parameters!bPhone.Value &lt;&gt; ".", Parameters!bPhone.Value, "")</Value>
                       <Style />
                     </TextRun>
@@ -978,8 +983,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bPhone</rd:DefaultName>
-              <Top>1.05382in</Top>
-              <Left>0.10417in</Left>
+              <Top>0.97882in</Top>
+              <Left>0.22917in</Left>
               <Height>0.25in</Height>
               <Width>7.47588in</Width>
               <ZIndex>3</ZIndex>
@@ -1000,6 +1005,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Vat Reg No: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, "")</Value>
                       <Style />
                     </TextRun>
@@ -1010,8 +1019,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bVatRNo</rd:DefaultName>
-              <Top>1.37327in</Top>
-              <Left>0.10417in</Left>
+              <Top>1.23577in</Top>
+              <Left>0.22917in</Left>
               <Height>0.25in</Height>
               <Width>7.47588in</Width>
               <ZIndex>4</ZIndex>

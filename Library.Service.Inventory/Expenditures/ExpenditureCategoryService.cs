@@ -59,7 +59,6 @@ namespace Library.Service.Inventory.Expenditures
                 expenditureCategory.AddedFromIp = identity.IpAddress;
                 _expenditureCategoryRepository.Add(expenditureCategory);
                 _unitOfWork.SaveChanges();
-
             }
             catch (Exception ex)
             {

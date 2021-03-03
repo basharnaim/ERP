@@ -45,14 +45,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Library.Model.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Library.Model.Core">
       <HintPath>..\WebUI\Lib\Library.Model.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
   </ItemGroup>
@@ -87,19 +85,22 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library.Crosscutting\Library.Crosscutting.csproj">
-      <Project>{30C1B1A7-69FA-4FFB-A65C-59F7516AE291}</Project>
+      <Project>{30c1b1a7-69fa-4ffb-a65c-59f7516ae291}</Project>
       <Name>Library.Crosscutting</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Model.EMS\Library.Model.EMS.csproj">
-      <Project>{6B0FE58E-3282-49BA-A059-81395F46EC61}</Project>
+      <Project>{6b0fe58e-3282-49ba-a059-81395f46ec61}</Project>
       <Name>Library.Model.EMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Model.Inventory\Library.Model.Inventory.csproj">
-      <Project>{B7CA26EF-1636-4E0D-BCF6-6B9ED6EBEDF8}</Project>
+      <Project>{b7ca26ef-1636-4e0d-bcf6-6b9ed6ebedf8}</Project>
       <Name>Library.Model.Inventory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Library.ViewModel.Inventory\Library.ViewModel.Inventory.csproj">
+      <Project>{ff307bbf-2f92-4eb1-83f1-cc284e0a35f2}</Project>
+      <Name>Library.ViewModel.Inventory</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

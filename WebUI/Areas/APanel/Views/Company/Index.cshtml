@@ -1,19 +1,15 @@
 ﻿@model IEnumerable<Library.ViewModel.Core.Organizations.CompanyViewModel>
 @{
     ViewBag.Title = "Index";
-}<div class="row">
-    <div class="col-xl-12">
-        <div class="d-flex justify-content-end pb-1">
-            <a href="/APanel" class="btn btn-bg" role="button">Back</a>
-        </div>
-    </div>
-</div>
+}
 
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-12">
         <div class="card">
-            <div class="card-header ProductBasicConfigurationCategory_tittle">Company Information</div>
-            <!-- /.card-header -->
+            <div class="card-header alert-secondary h4"> Company Information
+                <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button"><i class="fa fa-undo"></i> Back </a>
+            </div> 
+            
             <div class="card-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead class="thead-heading">
@@ -48,12 +44,9 @@
                         }
                     </tbody>
                 </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.panel -->
-    </div>
-    <!-- /.col-xl-12 -->
+            </div>            
+        </div>        
+    </div>    
 </div>
 
 

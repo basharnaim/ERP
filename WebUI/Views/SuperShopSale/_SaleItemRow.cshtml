@@ -6,19 +6,26 @@
 <tr>
     @using (Html.BeginCollectionItem("SaleDetails"))
     {
-        <td class="form-group">
-            @Html.TextBoxFor(model => model.ProductName, new { @class = "productName tabable  form-control", style = "width: 300px; text-align:left;", @readonly = "readonly" })
-            @Html.HiddenFor(model => model.ProductId, new { @class = "productId form-control" })
-            @Html.HiddenFor(model => model.ProductStock, new { @class = "productStock" })
-            @Html.HiddenFor(model => model.VatRate, new { @class = "vatRate" })
-            @Html.HiddenFor(model => model.MaxDiscount, new { @class = "maxDiscount" })
-            @Html.HiddenFor(model => model.VatAmount, new { @class = "vatAmount" })
-            @Html.HiddenFor(model => model.UOMId, new { @class = "uOMId" })
-            @Html.HiddenFor(model => model.Id)
-        </td>
+    <td class="form-group">
+        @Html.TextBoxFor(model => model.ProductName, new { @class = "productName tabable  form-control", style = "width: 300px; text-align:left;", @readonly = "readonly" })
+        @Html.HiddenFor(model => model.ProductId, new { @class = "productId form-control" })
+        @Html.HiddenFor(model => model.ProductStock, new { @class = "productStock" })
+        @Html.HiddenFor(model => model.VatRate, new { @class = "vatRate" })
+        @Html.HiddenFor(model => model.MaxDiscount, new { @class = "maxDiscount" })
+        @Html.HiddenFor(model => model.VatAmount, new { @class = "vatAmount" })
+        @Html.HiddenFor(model => model.UOMId, new { @class = "uOMId" })
+        @Html.HiddenFor(model => model.ProductCode)
+        @Html.HiddenFor(model => model.ProductCategoryId)
+        @Html.HiddenFor(model => model.ProductSubCategoryId)
+        @Html.HiddenFor(model => model.ProductSubsidiaryCategoryId)
+        @Html.HiddenFor(model => model.SupplierId)
+        @Html.HiddenFor(model => model.Id)
+
+    </td>
         <td class="form-group" style="display: inline-flex;margin: 0; text-align:center">
             <a href="javascript:void(0)" class="decrease" style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Decrease(this);">-</a>
-            @Html.TextBoxFor(model => model.Quantity, new { @class = "quantity form-control", Value = String.Format("{0:0.00}", Model.Quantity), @Min = 1, style = "text-align:center;width: 50px; ", onclick = "this.select()", onchange = "QuantityChange(this);" })
+            @*<input  type="number" id="Quantity_" name="Quantity_" value="@Model.Quantity" onclick="this.select();" onchange="QuantityChange(this);" class="form-control"/>*@
+               @Html.TextBoxFor(model => model.Quantity, new { @class = "quantity form-control", @type = "number", style = "text-align:center;width: 80px; ", onclick = "this.select()", onchange = "QuantityChange(this);" })
             <a href="javascript:void(0)" class="increase" style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Increase(this);">+</a>
         </td>
         <td class="form-group">

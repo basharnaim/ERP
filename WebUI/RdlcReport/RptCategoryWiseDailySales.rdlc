@@ -586,6 +586,7 @@
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -623,6 +624,7 @@
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -735,6 +737,7 @@
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -755,6 +758,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -847,6 +851,7 @@
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -867,6 +872,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -964,6 +970,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -984,6 +991,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1076,6 +1084,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1096,6 +1105,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1188,6 +1198,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1208,6 +1219,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1263,6 +1275,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1300,6 +1313,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1370,7 +1384,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Sale</DataSetName>
-            <Top>2.18055in</Top>
+            <Top>1.5986in</Top>
             <Left>0.25in</Left>
             <Height>2.25in</Height>
             <Width>4.89346in</Width>
@@ -1387,6 +1401,12 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Date : </Value>
+                    <Style>
+                      <FontFamily>Arial Narrow</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=CDate(Parameters!dfrom.Value).ToString("dd-MMM-yyyy")</Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
@@ -1394,47 +1414,17 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>dfrom</rd:DefaultName>
-            <Top>1.86111in</Top>
-            <Left>0.7077in</Left>
-            <Height>0.25in</Height>
-            <Width>0.99011in</Width>
+            <Top>1.31666in</Top>
+            <Left>2.91377in</Left>
+            <Height>0.20833in</Height>
+            <Width>2.16719in</Width>
             <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox19">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Date :</Value>
-                    <Style>
-                      <FontFamily>Arial Narrow</FontFamily>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>1.87499in</Top>
-            <Left>0.25in</Left>
-            <Height>0.25in</Height>
-            <Width>0.43734in</Width>
-            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1454,7 +1444,8 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
                   <TextRun>
                     <Value>=IIf(Parameters!cName.Value &lt;&gt; ".", Parameters!cName.Value, "")</Value>
                     <Style>
-                      <FontFamily>Arial Narrow</FontFamily>
+                      <FontFamily>arial</FontFamily>
+                      <FontSize>14pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1464,11 +1455,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>cName</rd:DefaultName>
-            <Top>0.125in</Top>
-            <Left>0.5in</Left>
-            <Height>0.25in</Height>
+            <Top>0.08334in</Top>
+            <Left>0.48958in</Left>
+            <Height>0.26458in</Height>
             <Width>4.33096in</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1498,11 +1489,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bName</rd:DefaultName>
-            <Top>0.40278in</Top>
-            <Left>0.5in</Left>
-            <Height>0.25in</Height>
+            <Top>0.3632in</Top>
+            <Left>0.48958in</Left>
+            <Height>0.2125in</Height>
             <Width>4.33096in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1532,11 +1523,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bAddress</rd:DefaultName>
-            <Top>0.66667in</Top>
-            <Left>0.5in</Left>
-            <Height>0.25in</Height>
+            <Top>0.57709in</Top>
+            <Left>0.48958in</Left>
+            <Height>0.2125in</Height>
             <Width>4.33096in</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1554,6 +1545,10 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Mobile No: </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=IIf(Parameters!bPhone.Value &lt;&gt; ".", Parameters!bPhone.Value, "")</Value>
                     <Style />
                   </TextRun>
@@ -1564,11 +1559,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bPhone</rd:DefaultName>
-            <Top>0.93056in</Top>
-            <Left>0.5in</Left>
-            <Height>0.25in</Height>
+            <Top>0.80556in</Top>
+            <Left>0.48958in</Left>
+            <Height>0.2125in</Height>
             <Width>4.33096in</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1586,6 +1581,10 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Vat Reg No: </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, "")</Value>
                     <Style />
                   </TextRun>
@@ -1596,11 +1595,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bVatRNo</rd:DefaultName>
-            <Top>1.22222in</Top>
-            <Left>0.5in</Left>
-            <Height>0.25in</Height>
+            <Top>1.03472in</Top>
+            <Left>0.48958in</Left>
+            <Height>0.2125in</Height>
             <Width>4.33096in</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1618,7 +1617,7 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Daily Sale Report</Value>
+                    <Value>Category Wise Daily Sale Report </Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
                     </Style>
@@ -1630,11 +1629,11 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bVatRNo</rd:DefaultName>
-            <Top>1.54166in</Top>
+            <Top>1.31666in</Top>
             <Left>0.25in</Left>
-            <Height>0.25in</Height>
-            <Width>1.33323in</Width>
-            <ZIndex>8</ZIndex>
+            <Height>0.20833in</Height>
+            <Width>2.24763in</Width>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1645,12 +1644,46 @@ SUM(IIF(Fields!PaymentType.Value ="CashOnDelivery",CDbl(Fields!NetAmount.Value),
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Line Name="Line1">
+            <Top>1.29458in</Top>
+            <Left>0.01958in</Left>
+            <Height>0in</Height>
+            <Width>5.30096in</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line2">
+            <Top>3.98833in</Top>
+            <Left>0.01958in</Left>
+            <Height>0in</Height>
+            <Width>5.30096in</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
         </ReportItems>
-        <Height>4.66542in</Height>
+        <Height>4.08208in</Height>
         <Style />
       </Body>
-      <Width>5.42471in</Width>
+      <Width>5.3425in</Width>
       <Page>
+        <PageFooter>
+          <Height>0.16667in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
         <Style />
       </Page>
     </ReportSection>

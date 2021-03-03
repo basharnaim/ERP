@@ -13,14 +13,15 @@ namespace Library.Model.Inventory.Purchases
         {
             PurchaseDetails = new List<PurchaseDetail>();
             PurchaseReturns = new List<PurchaseReturn>();
-        } 
+        }
         #endregion
 
         #region Scaler
         public string Id { get; set; }
         public int Sequence { get; set; }
         public string MemoNo { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        public string RefNo { get; set; } 
+        public DateTime PurchaseDate { get; set; }        
         public decimal TotalQuantity { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal MemoWiseDiscount { get; set; }
@@ -52,6 +53,7 @@ namespace Library.Model.Inventory.Purchases
         #endregion
 
         #region Audit
+        
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string AddedFromIp { get; set; }

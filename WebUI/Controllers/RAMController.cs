@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -28,7 +29,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<RAMViewModel>>(_ramService.GetAll()));
+                return View(Mapper.Map<IEnumerable<RAMViewModel>>(_ramService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -70,7 +71,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _ramService.Add(AutoMapperConfiguration.mapper.Map<RAM>(RAMvm));
+                _ramService.Add(Mapper.Map<RAM>(RAMvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/RAM"}')");
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<RAMViewModel>(_ramService.GetById(id)));
+                return View(Mapper.Map<RAMViewModel>(_ramService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _ramService.Update(AutoMapperConfiguration.mapper.Map<RAM>(RAMvm));
+                _ramService.Update(Mapper.Map<RAM>(RAMvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/RAM"}')");
             }
             catch (Exception ex)

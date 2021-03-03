@@ -50,12 +50,15 @@ namespace Library.Service.Inventory.Expenditures
                 {
                     expenditure.BranchId = identity.BranchId;
                 }
-                expenditure.Id = GenerateAutoId(expenditure.CompanyId, expenditure.BranchId, "Expenditure");
+                expenditure.Id = GetAutoSequence("Expenditure").ToString(); //GenerateAutoId(expenditure.CompanyId, expenditure.BranchId, "Expenditure");
                 expenditure.Sequence = GetAutoSequence("Expenditure");
+                expenditure.Active = true;
+                expenditure.Archive = false;
+                expenditure.IsUpdated = false;
                 expenditure.SynchronizationType = SynchronizationType.Server.ToString();
                 expenditure.AddedBy = identity.Name;
                 expenditure.AddedDate = DateTime.Now;
-                expenditure.AddedFromIp = identity.IpAddress;
+                expenditure.AddedFromIp = identity.IpAddress;                
                 _expenditureRepository.Add(expenditure);
                 _unitOfWork.SaveChanges();
             }

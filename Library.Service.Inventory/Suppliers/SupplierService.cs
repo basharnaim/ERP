@@ -1,6 +1,7 @@
 ﻿using Library.Context.Core;
 using Library.Context.UnitOfWorks;
 using Library.Crosscutting.Securities;
+using Library.Model.Inventory.Products;
 using Library.Model.Inventory.Suppliers;
 using Library.Service.Core.Core;
 using System;
@@ -25,13 +26,12 @@ namespace Library.Service.Inventory.Suppliers
     {
         #region Ctor
         private readonly IRepository<Supplier> _supplierRepository;
+        private readonly IRepository<Product> _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public SupplierService(
-            IRepository<Supplier> supplierRepository,
-            IUnitOfWork unitOfWork
-            ) : base(supplierRepository)
+        public SupplierService( IRepository<Supplier> supplierRepository, IRepository<Product> productRepository, IUnitOfWork unitOfWork ) : base(supplierRepository)
         {
             _supplierRepository = supplierRepository;
+            _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
         #endregion
@@ -345,7 +345,21 @@ namespace Library.Service.Inventory.Suppliers
                 return null;
             }
         }
-
+        public IEnumerable<object> Lists(string Id)
+        {
+            try
+            {
+                //IEnumerable<string> productlist = _productRepository.GetAll(r => !r.Archive && r.Active && r.ProductSubCategoryId == Id).Select(r => r.SupplierId).ToList();
+                IEnumerable<string> products = _productRepository.GetAll(r => !r.Archive && r.Active && r.ProductSubCategoryId == Id).Select(r => r.SupplierId);                               
+                IEnumerable<object> result = from r in _supplierRepository.GetAll(r => r.Active && !r.Archive && products.Contains(r.Id)).OrderByDescending(r => r.Sequence)
+                                             select new { Value = r.Id, Text = r.Name };
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public Supplier GetSupplierBySupplierMobileNumber(string supplierMobile)
         {
             try

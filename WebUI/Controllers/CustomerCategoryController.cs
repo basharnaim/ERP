@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Customers;
 using Library.Service.Inventory.Customers;
 using Library.ViewModel.Inventory.Customers;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerCategoryViewModel>>(_customerCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<CustomerCategoryViewModel>>(_customerCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -72,7 +73,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerCategoryService.Add(AutoMapperConfiguration.mapper.Map<CustomerCategory>(customerCategoryVM));
+                _customerCategoryService.Add(Mapper.Map<CustomerCategory>(customerCategoryVM));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CustomerCategory"}')");
             }
@@ -89,7 +90,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CustomerCategoryViewModel>(_customerCategoryService.GetById(id)));
+                return View(Mapper.Map<CustomerCategoryViewModel>(_customerCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerCategoryService.Update(AutoMapperConfiguration.mapper.Map<CustomerCategory>(customerCategoryVM));
+                _customerCategoryService.Update(Mapper.Map<CustomerCategory>(customerCategoryVM));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CustomerCategory"}')");
             }

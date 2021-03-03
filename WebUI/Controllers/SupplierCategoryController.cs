@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Suppliers;
 using Library.Service.Inventory.Suppliers;
 using Library.ViewModel.Inventory.Suppliers;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierCategoryViewModel>>(_supplierCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<SupplierCategoryViewModel>>(_supplierCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _supplierCategoryService.Add(AutoMapperConfiguration.mapper.Map<SupplierCategory>(supplierCategoryvm));
+                _supplierCategoryService.Add(Mapper.Map<SupplierCategory>(supplierCategoryvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SupplierCategory/?companyId=" + supplierCategoryvm.CompanyId + "&&branchId=" + supplierCategoryvm.BranchId}')");
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<SupplierCategory, SupplierCategoryViewModel>(_supplierCategoryService.GetById(id)));
+                return View(Mapper.Map<SupplierCategory, SupplierCategoryViewModel>(_supplierCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _supplierCategoryService.Update(AutoMapperConfiguration.mapper.Map<SupplierCategory>(supplierCategoryvm));
+                _supplierCategoryService.Update(Mapper.Map<SupplierCategory>(supplierCategoryvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/SupplierCategory/?companyId=" + supplierCategoryvm.CompanyId + "&&branchId=" + supplierCategoryvm.BranchId}')");
             }
             catch (Exception ex)

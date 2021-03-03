@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Accounts;
 using Library.Model.Inventory.Customers;
@@ -50,12 +51,12 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(transactionType) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForSupplier(companyId, branchId, transactionType, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForSupplier(companyId, branchId, transactionType, dfrom.Value, dto.Value)));
                 }
 
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(transactionType))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForSupplier(companyId, branchId, transactionType)));
+                    return View(Mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForSupplier(companyId, branchId, transactionType)));
                 }
                 return View();
             }
@@ -108,7 +109,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.PayByCash(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.PayByCash(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/PayIndex"}')");
             }
             catch (Exception ex)
@@ -124,7 +125,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithSupplier(id)));
+                return View(Mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithSupplier(id)));
             }
             catch (Exception ex)
             {
@@ -137,7 +138,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.PayByCashUpdate(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.PayByCashUpdate(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/PayIndex"}')");
             }
             catch (Exception ex)
@@ -189,7 +190,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.PayByCheque(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.PayByCheque(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/PayIndex"}')");
             }
             catch (Exception ex)
@@ -205,7 +206,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithSupplier(id)));
+                return View(Mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithSupplier(id)));
             }
             catch (Exception ex)
             {
@@ -218,7 +219,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.PayByChequeUpdate(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.PayByChequeUpdate(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/PayIndex"}')");
             }
             catch (Exception ex)
@@ -289,12 +290,12 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(transactionType) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForCustomer(companyId, branchId, transactionType, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForCustomer(companyId, branchId, transactionType, dfrom.Value, dto.Value)));
                 }
 
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(transactionType))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForCustomer(companyId, branchId, transactionType)));
+                    return View(Mapper.Map<IEnumerable<PaymentInfoViewModel>>(_paymentInfoService.GetAllForCustomer(companyId, branchId, transactionType)));
                 }
                 return View();
             }
@@ -361,7 +362,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.ReceiveByCash(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.ReceiveByCash(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
             }
             catch (Exception ex)
@@ -427,7 +428,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.CashReturn(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.CashReturn(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
             }
             catch (Exception ex)
@@ -443,7 +444,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithCustomer(id)));
+                return View(Mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithCustomer(id)));
             }
             catch (Exception ex)
             {
@@ -456,7 +457,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.ReceiveByCashUpdate(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.ReceiveByCashUpdate(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
             }
@@ -527,7 +528,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.ReceiveByCheque(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.ReceiveByCheque(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
             }
             catch (Exception ex)
@@ -543,7 +544,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithCustomer(id)));
+                return View(Mapper.Map<PaymentInfoViewModel>(_paymentInfoService.GetByIdWithCustomer(id)));
             }
             catch (Exception ex)
             {
@@ -556,7 +557,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _paymentInfoService.ReceiveByChequeUpdate(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                _paymentInfoService.ReceiveByChequeUpdate(Mapper.Map<PaymentInfo>(paymentInfoVm));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
             }
@@ -673,7 +674,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (paymentInfoVm.Amount > 0)
                 {
-                    _paymentInfoService.ReceiveByBank(AutoMapperConfiguration.mapper.Map<PaymentInfo>(paymentInfoVm));
+                    _paymentInfoService.ReceiveByBank(Mapper.Map<PaymentInfo>(paymentInfoVm));
                     return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/PaymentInfo/ReceiveIndex"}')");
                 }
                 return JavaScript($"ShowResult('{"Amount 0 is not valid value!"}','{"failure"}')");

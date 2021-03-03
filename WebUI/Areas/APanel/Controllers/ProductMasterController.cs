@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -29,7 +30,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductMasterViewModel>>(_productMasterService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<ProductMasterViewModel>>(_productMasterService.GetAll(companyId, branchId)));
                 }
                 return View();
             }
@@ -53,7 +54,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public JsonResult GetProductListbySupplier(string Id, string subId, string cId)
+        {
+            return Json(new SelectList(_productMasterService.ListsBySupplier(Id, subId, cId), "Value", "Text"), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetProductCategoryList(string branchId)
         {
             try
@@ -90,7 +94,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductMasterTemplate(companyId, branchId, productCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductMasterTemplate(companyId, branchId, productCategoryId)));
                 }
                 return View();
             }

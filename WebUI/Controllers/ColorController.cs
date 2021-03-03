@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -23,7 +24,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ColorViewModel>>(_colorService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ColorViewModel>>(_colorService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _colorService.Add(AutoMapperConfiguration.mapper.Map<Color>(colorvm));
+                _colorService.Add(Mapper.Map<Color>(colorvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Color"}')");
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ColorViewModel>(_colorService.GetById(id)));
+                return View(Mapper.Map<ColorViewModel>(_colorService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _colorService.Update(AutoMapperConfiguration.mapper.Map<Color>(colorvm));
+                _colorService.Update(Mapper.Map<Color>(colorvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Color"}')");
             }
             catch (Exception ex)

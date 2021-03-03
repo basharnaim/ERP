@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
+using ERP.WebUI.ReportViewer;
+using Library.Crosscutting.Securities;
 using Library.Model.Inventory.Customers;
 using Library.Service.Core.Enums;
 using Library.Service.Inventory.Customers;
 using Library.ViewModel.Inventory.Customers;
+using Microsoft.Reporting.WebForms;
 
 namespace ERP.WebUI.Areas.APanel.Controllers
 {
@@ -35,19 +40,19 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId, customerCategoryId)));
+                    return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId, customerCategoryId)));
                 }
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId)));
                 }
                 if (!string.IsNullOrEmpty(customerCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(customerCategoryId)));
+                    return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(customerCategoryId)));
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId)));
                 }
                 return View();
             }
@@ -109,11 +114,19 @@ namespace ERP.WebUI.Areas.APanel.Controllers
 
         #region Create
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
             try
             {
-                return View(new CustomerViewModel { Active = true });
+                if (id != "" && id != null)
+                {
+                    var cstmr = Mapper.Map<CustomerViewModel>(_customerService.GetById(id));
+                    return View(cstmr);
+                }
+                else
+                {
+                    return View(new CustomerViewModel { Active = true });
+                }
             }
             catch (Exception ex)
             {
@@ -126,16 +139,23 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _customerService.Add(AutoMapperConfiguration.mapper.Map<Customer>(customervm));
-                return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
+                if(string.IsNullOrEmpty(customervm.Id))
+                {
+                    _customerService.Add(Mapper.Map<Customer>(customervm));
+                    return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
+                }
+                else
+                {
+                    _customerService.Update(Mapper.Map<Customer>(customervm));
+                    return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Customer/?companyId=" + customervm.CompanyId + "&&branchId=" + customervm.BranchId}')");
+                }
             }
             catch (Exception ex)
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-        [HttpPost]
-       
+      
         #endregion
 
         #region Edit
@@ -144,7 +164,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var cstmr = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetById(id));
+                var cstmr = Mapper.Map<CustomerViewModel>(_customerService.GetById(id));
                 return View(cstmr);
             }
             catch (Exception ex)
@@ -158,9 +178,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _customerService.Update(AutoMapperConfiguration.mapper.Map<Customer>(customervm));
-                return JavaScript(
-                    $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Customer/?companyId=" + customervm.CompanyId + "&&branchId=" + customervm.BranchId}')");
+                _customerService.Update(Mapper.Map<Customer>(customervm));
+                return JavaScript( $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Customer/?companyId=" + customervm.CompanyId + "&&branchId=" + customervm.BranchId}')");
             }
             catch (Exception ex)
             {
@@ -183,7 +202,42 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             }
         }
         #endregion
-
+        public ActionResult RdlcReportCustomerList(string companyId, string branchId, string customerCategoryId)
+        {
+            try
+            {               
+                IEnumerable<CustomerViewModel> items = new List<CustomerViewModel>();
+                var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                companyId = identity.CompanyId;
+                branchId = identity.BranchId;
+                var cName = identity.CompanyName;    
+                if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerCategoryId))
+                {
+                    items = Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId, customerCategoryId));
+                }
+                if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
+                {
+                    items = Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId, branchId));
+                }
+                if (!string.IsNullOrEmpty(customerCategoryId))
+                {
+                    items = Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(customerCategoryId));
+                }
+                if (!string.IsNullOrEmpty(companyId))
+                {
+                    items = Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(companyId));
+                }
+                ReportDataSource rpt = new ReportDataSource("Customer", items);
+                RdlcReportViewerWithoutDate.reportDataSource = rpt;
+                string rPath = "RdlcReport/RptCustomer.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerWithoutDate.aspx?rPath=" + rPath + "&companyId=" + companyId + "&branchId=" + branchId);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
 
     }
 }

@@ -251,3 +251,18 @@ button.btn.dropdown-toggle.btn-light.bs-placeholder {
     background: #970101;
     color: #ddd;
 }
+
+.logo {
+    height: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: black;
+
+}

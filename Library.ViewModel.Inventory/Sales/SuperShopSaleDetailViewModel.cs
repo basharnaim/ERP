@@ -81,6 +81,7 @@ namespace Library.ViewModel.Inventory.Sales
         public string UOMId { get; set; }
         public string UOMName { get; set; }
         public string DeliveryId { get; set; }
+        public string SupplierId { get; set; } 
         #endregion
 
         #region Extra

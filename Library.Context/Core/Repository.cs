@@ -175,8 +175,7 @@ namespace Library.Context.Core
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> expression = null, string include = "")
         {
             IQueryable<TEntity> query = _dbSet.Where(expression);
-            foreach (var includeProperty in include.Split
-                (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var includeProperty in include.Split (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }

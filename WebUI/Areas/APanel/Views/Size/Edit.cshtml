@@ -2,20 +2,22 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-xl-12">
         <div class="d-flex justify-content-end pb-1">
             <a href="/APanel/Size" class="btn btn-bg" role="button">Back</a>
         </div>
     </div>
-</div>
+</div>*@
 @using (Ajax.BeginForm("Edit", "Size", null, new AjaxOptions { HttpMethod = "POST", }, new { id = "DialogForm" }))
 {
     @Html.HiddenFor(model => model.Id)
 <div class="row ">
     <div class="col-xl-12">
         <div class="card ">
-            <div class="card-header Size_tittle">Add Size</div>
+            <div class="card-header Size_tittle alert-success"> Add Size
+                <a href="/Home" class="btn btn-bg btn-sm pull-right" role="button">Back</a>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">

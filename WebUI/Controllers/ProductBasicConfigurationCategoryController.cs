@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductBasicConfigurationCategoryViewModel>>(_configurationCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductBasicConfigurationCategoryViewModel>>(_configurationCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -70,7 +71,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _configurationCategoryService.Add(AutoMapperConfiguration.mapper.Map<ProductBasicConfigurationCategory>(configurationCategory));
+                _configurationCategoryService.Add(Mapper.Map<ProductBasicConfigurationCategory>(configurationCategory));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CPanel/ProductBasicConfigurationCategory"}')");
             }
             catch (Exception ex)
@@ -88,7 +89,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductBasicConfigurationCategoryViewModel>(_configurationCategoryService.GetById(id)));
+                return View(Mapper.Map<ProductBasicConfigurationCategoryViewModel>(_configurationCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _configurationCategoryService.Update(AutoMapperConfiguration.mapper.Map<ProductBasicConfigurationCategory>(configurationCategory));
+                _configurationCategoryService.Update(Mapper.Map<ProductBasicConfigurationCategory>(configurationCategory));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CPanel/ProductBasicConfigurationCategory"}')");
             }
             catch (Exception ex)

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -58,15 +59,15 @@ namespace ERP.WebUI.Controllers
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo) && !string.IsNullOrEmpty(customerId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, customerId)));
+                    return View(Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, customerId)));
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
                 }
                 if (!string.IsNullOrEmpty(customerId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAllByCustomer(customerId)));
+                    return View(Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_saleService.GetAllByCustomer(customerId)));
                 }
                 return View();
             }
@@ -137,7 +138,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var id = _saleService.Add(AutoMapperConfiguration.mapper.Map<Sale>(salevm));
+                var id = _saleService.Add(Mapper.Map<Sale>(salevm));
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Invoice")
                     return Redirect("/MedicineShopSale/ReportSaleMasterDetail/" + id);
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Label")
@@ -163,8 +164,8 @@ namespace ERP.WebUI.Controllers
                 var serializer = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue };
                 ViewBag.ProductList = serializer.Serialize(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId));
                 ViewBag.PromotionalDiscountList = serializer.Serialize(_rawSqlService.GetPromotionalPointAndDiscount(DateTime.Today));
-                MedicineShopSaleViewModel salevm = AutoMapperConfiguration.mapper.Map<MedicineShopSaleViewModel>(_saleService.GetById(id));
-                List<MedicineShopSaleDetailViewModel> saleItems = AutoMapperConfiguration.mapper.Map<List<MedicineShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
+                MedicineShopSaleViewModel salevm = Mapper.Map<MedicineShopSaleViewModel>(_saleService.GetById(id));
+                List<MedicineShopSaleDetailViewModel> saleItems = Mapper.Map<List<MedicineShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
                 
                 salevm.SaleDetails = new List<MedicineShopSaleDetailViewModel>();
                 salevm.SaleDetails.AddRange(saleItems);
@@ -181,7 +182,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var id = _saleService.Update(AutoMapperConfiguration.mapper.Map<Sale>(salevm));
+                var id = _saleService.Update(Mapper.Map<Sale>(salevm));
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Invoice")
                     return Redirect("/MedicineShopSale/ReportSaleMasterDetail/" + id);
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Label")
@@ -204,8 +205,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                MedicineShopSaleViewModel salevm = AutoMapperConfiguration.mapper.Map<MedicineShopSaleViewModel>(_saleService.GetById(id));
-                List<MedicineShopSaleDetailViewModel> saleItems = AutoMapperConfiguration.mapper.Map<List<MedicineShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
+                MedicineShopSaleViewModel salevm = Mapper.Map<MedicineShopSaleViewModel>(_saleService.GetById(id));
+                List<MedicineShopSaleDetailViewModel> saleItems = Mapper.Map<List<MedicineShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
                 
                 salevm.SaleDetails = new List<MedicineShopSaleDetailViewModel>();
                 salevm.SaleDetails.AddRange(saleItems);
@@ -222,8 +223,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                Sale sale = AutoMapperConfiguration.mapper.Map<Sale>(salevm);
-                List<SaleDetail> saleItems = AutoMapperConfiguration.mapper.Map<List<SaleDetail>>(salevm.SaleDetails);
+                Sale sale = Mapper.Map<Sale>(salevm);
+                List<SaleDetail> saleItems = Mapper.Map<List<SaleDetail>>(salevm.SaleDetails);
                 sale.SaleDetails = new List<SaleDetail>();
                 foreach (var item in saleItems)
                 {
@@ -263,7 +264,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<MedicineShopSaleViewModel> sales = new List<MedicineShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
                 }
                 return View(sales);
             }
@@ -305,7 +306,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<MedicineShopSaleViewModel> sales = new List<MedicineShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -339,7 +340,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<MedicineShopSaleViewModel> sales = new List<MedicineShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
+                    sales = Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
                 }
                 return View(sales);
             }
@@ -377,7 +378,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<MedicineShopSaleViewModel> sales = new List<MedicineShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
+                    sales = Mapper.Map<IEnumerable<MedicineShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -396,8 +397,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -417,8 +418,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -437,8 +438,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 LocalReport report = new LocalReport

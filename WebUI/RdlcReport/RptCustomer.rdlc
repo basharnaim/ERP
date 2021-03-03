@@ -76,24 +76,27 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.41361in</Width>
+                  <Width>0.41708in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.72485in</Width>
+                  <Width>1.72832in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.9032in</Width>
+                  <Width>1.76084in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.10416in</Width>
+                  <Width>1.10763in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.125in</Width>
+                  <Width>0.76389in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.78472in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.23958in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -106,7 +109,7 @@
                                 <TextRun>
                                   <Value>SL#</Value>
                                   <Style>
-                                    <FontFamily>Consolas</FontFamily>
+                                    <FontFamily>arial</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -140,7 +143,7 @@
                                 <TextRun>
                                   <Value>Customer Name</Value>
                                   <Style>
-                                    <FontFamily>Consolas</FontFamily>
+                                    <FontFamily>arial</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -174,7 +177,7 @@
                                 <TextRun>
                                   <Value>Address</Value>
                                   <Style>
-                                    <FontFamily>Consolas</FontFamily>
+                                    <FontFamily>arial</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -208,7 +211,7 @@
                                 <TextRun>
                                   <Value>Phone</Value>
                                   <Style>
-                                    <FontFamily>Consolas</FontFamily>
+                                    <FontFamily>arial</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -240,9 +243,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Customer Type</Value>
+                                  <Value>Cust.Type</Value>
                                   <Style>
-                                    <FontFamily>Consolas</FontFamily>
+                                    <FontFamily>arial</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -265,10 +268,44 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Dis. Rate</Value>
+                                  <Style>
+                                    <FontFamily>arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.22916in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -432,12 +469,45 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DiscountRate">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!DiscountRate.Value</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>DiscountRate</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -456,10 +526,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Customer</DataSetName>
-            <Top>0.19444in</Top>
-            <Left>0.22792in</Left>
-            <Height>0.5in</Height>
-            <Width>6.27082in</Width>
+            <Top>0.06944in</Top>
+            <Left>0.11334in</Left>
+            <Height>0.46874in</Height>
+            <Width>6.56248in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -467,13 +537,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.81944in</Height>
+        <Height>0.59027in</Height>
         <Style />
       </Body>
-      <Width>6.61459in</Width>
+      <Width>6.79041in</Width>
       <Page>
         <PageHeader>
-          <Height>2.30208in</Height>
+          <Height>1.51389in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -486,7 +556,8 @@
                     <TextRun>
                       <Value>=IIf(Parameters!cName.Value &lt;&gt; ".", Parameters!cName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
+                        <FontSize>14pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -496,10 +567,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>cName</rd:DefaultName>
-              <Top>0.43576in</Top>
-              <Left>0.22792in</Left>
-              <Height>0.25in</Height>
-              <Width>6.27082in</Width>
+              <Top>0.11423in</Top>
+              <Left>0.22791in</Left>
+              <Height>0.25764in</Height>
+              <Width>6.28124in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -519,7 +590,7 @@
                     <TextRun>
                       <Value>=IIf(Parameters!bName.Value &lt;&gt; ".", Parameters!bName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -529,10 +600,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bName</rd:DefaultName>
-              <Top>0.74826in</Top>
+              <Top>0.38576in</Top>
               <Left>0.22792in</Left>
-              <Height>0.25in</Height>
-              <Width>6.27082in</Width>
+              <Height>0.19792in</Height>
+              <Width>6.28124in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -552,9 +623,7 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=IIf(Parameters!bAddress.Value &lt;&gt; ".", Parameters!bAddress.Value, "")</Value>
-                      <Style>
-                        <FontFamily>Consolas</FontFamily>
-                      </Style>
+                      <Style />
                     </TextRun>
                   </TextRuns>
                   <Style>
@@ -563,10 +632,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bAddress</rd:DefaultName>
-              <Top>0.97743in</Top>
+              <Top>0.60243in</Top>
               <Left>0.22792in</Left>
-              <Height>0.25in</Height>
-              <Width>6.27082in</Width>
+              <Height>0.19792in</Height>
+              <Width>6.28124in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -585,6 +654,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Mobile No: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=IIf(Parameters!bPhone.Value &lt;&gt; ".", Parameters!bPhone.Value, "")</Value>
                       <Style />
                     </TextRun>
@@ -595,10 +668,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bPhone</rd:DefaultName>
-              <Top>1.29687in</Top>
+              <Top>0.82187in</Top>
               <Left>0.22792in</Left>
-              <Height>0.25in</Height>
-              <Width>6.27082in</Width>
+              <Height>0.19792in</Height>
+              <Width>6.28124in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -617,7 +690,11 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, "")</Value>
+                      <Value>Vat Reg. No: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, " Vat Reg. No")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -627,11 +704,43 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bVatRNo</rd:DefaultName>
-              <Top>1.61632in</Top>
+              <Top>1.04132in</Top>
               <Left>0.22792in</Left>
-              <Height>0.25in</Height>
-              <Width>6.27082in</Width>
+              <Height>0.19792in</Height>
+              <Width>6.28124in</Width>
               <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox8">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Customer List</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox8</rd:DefaultName>
+              <Top>1.25708in</Top>
+              <Left>0.22792in</Left>
+              <Height>0.22902in</Height>
+              <Width>6.28123in</Width>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -650,7 +759,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.52083in</Height>
+          <Height>0.29166in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <Style>

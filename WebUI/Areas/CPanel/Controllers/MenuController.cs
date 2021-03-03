@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Core.Menus;
 using Library.Service.Core.Menus;
 using Library.ViewModel.Core.Menus;
@@ -23,7 +24,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<MenuViewModel>>(_menuService.GetAll()));
+                return View(Mapper.Map<IEnumerable<MenuViewModel>>(_menuService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -38,7 +39,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<MenuViewModel>(_menuService.GetById(id)));
+                return View(Mapper.Map<MenuViewModel>(_menuService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -51,7 +52,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _menuService.Update(AutoMapperConfiguration.mapper.Map<Menu>(comvm));
+                _menuService.Update(Mapper.Map<Menu>(comvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CPanel/Menu"}')");
             }
             catch (Exception ex)

@@ -1,0 +1,331 @@
+﻿@using System.Data
+@model DataSet
+@{ var data = Model.Tables["ProductExpire"].AsEnumerable(); }
+@using ERP.WebUI.Html
+
+@{
+    ViewBag.Title = "Product";
+}
+
+@using (Html.BeginForm("Create", "ProductStockMasers", FormMethod.Get))
+{
+    <div class="card card-inverse">
+        <div class="card-header alert-info h5">
+            Product Stock Out
+            <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label   mendatory">Company</label>
+                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                            @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label   ">Branch</label>
+                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label ">Category</label>
+                            @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label ">Sub Category</label>
+                            @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label ">Supplier</label>
+                            @Html.CascadingDropDown("supplierId", "/APanel/Supplier/GetSupplierListBySubCat/", "productSubCategoryId", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="from-group">
+                            <label for="productId"> Product </label>
+                            <select class="form-control customSelect" id="productId" name="productId">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label>Bar Code</label>
+                            <input id="productcode" name="productcode" class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-10 mt-4">
+                            <input id="btnAdd" type="submit" value="Add" class="btn btn-bg " />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-10 mt-4">
+                            <input id="btnClear" type="submit" value="Clear" class="btn btn-warning " />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<table id="tblCustomers" class="table demo dataTable NoPaging" data-filter="#filter">
+    <tr class="alert-secondary">
+        <th>
+            ProductName
+        </th>
+        <th>
+            ProductCode
+        </th>
+        <th>
+            Prodcut Description
+        </th>
+        <th>
+            UOMName
+        </th>
+        <th>
+            ReceiveRate
+        </th>
+        <th>
+            CurrentStock
+        </th>
+        <th>
+            CurrentValue
+        </th>
+        <th>
+            SalesRate
+        </th>
+        <th>
+            SalesValue
+        </th>
+        <th> <input id="btnRemoveAll" type="submit" value="Clear All" class="btn btn-info btn-sm" /> </th>
+    </tr>
+    @foreach (DataRow item in Model.Tables["ProductExpire"].Rows)
+    {
+        <tr>
+            <td>
+                @item["ProductName"]
+            </td>
+            <td>
+                @item["ProductCode"]
+            </td>
+            <td>
+                @item["ProdcutDescription"]
+            </td>
+            <td>
+                @item["UOMName"]
+            </td>
+            <td>
+                @item["ReceiveRate"]
+            </td>
+            <td>
+                <input type="number" id="@item["ProductID"]" name="@item["ProductID"]" value="@String.Format("{0:0}", item["CurrentStock"])" class="single-line" min="0" max="100000" />
+            </td>
+            <td>
+                @item["CurrentValue"]
+            </td>
+            <td>
+                @item["SalesRate"]
+            </td>
+            <td>
+                @item["SalesValue"]
+            </td>
+            <td>
+                <div class="col-md-offset-2 col-10 mt-4">
+                    <input id="btnRemoveItem" name=@item["ProductID"] type="submit" value="Remove" class="btn btn-info btn-sm btnRemoveItem" />
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="col-12">
+    <div class="pull-right">
+        <input id="btnSaveAll" type="submit" value="Save All" class="btn btn-bg " />
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var stuff = new Array();;
+        $(document).ready(function () {
+
+            var data = JSON.parse(localStorage.getItem("stock"));
+            var stuff = data; //localStorage.getItem("stock");
+            $.each(stuff, function (i, element) {
+                $('#' + element.pid).val(element.qty);
+            })
+
+            $("#supplierId").change(function () {
+                debugger;
+                var suppId = $(this).val();
+                var subId = $('#productSubCategoryId').val();
+                var cId = $('#productCategoryId').val();
+                var url = '/APanel/ProductMaster/GetProductListbySupplier?Id=' + suppId + '&subId=' + subId + '&cId=' + cId;
+                //var data = { Id: suppId, subId: subId};
+                $.ajax({
+                type: "GET",
+                url: url,
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var options = '<option value="">Select</option>';
+                        $.each(response, function (i, item) {
+                            options += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                        });
+                        $('#productId').empty();
+                        $('#productId').append(options);
+                    }
+                    });
+                //$.ajax('GET', url, [], 'json', loadbySupplierSubCategory, false);
+            });
+        });
+        $(".single-line").mousedown((event)=> {
+            var qty = event.target.value;
+            var pid = event.target.name;
+            if (qty == '0') {
+                debugger;
+                $('#'+pid).val('');
+            }
+        });
+        var stuff = new Array();
+        $('.single-line').blur((event) => {
+            var pid = event.target.name;
+            var qty = event.target.value;
+            localStorage.clear();
+            if (qty > 0) {
+                $.each(stuff, function (i, element) {
+                    if (element['pid'] == pid) {
+                        stuff.splice(stuff.indexOf(element), 1);
+                        return false;
+                    }
+                });
+
+                stuff.push({ ProductID: pid, ReceiveQty: qty });
+
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                    success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+            }
+        });
+
+
+
+        $("body").on("click", "#btnAdd", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+            //debugger;
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                }
+            });
+        });
+
+
+    $("body").on("click", "#btnSaveAll", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+
+        //Send the JSON array to Controller using AJAX.
+        $('#productId').val('');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    //alert('Data Save Successfully');
+                    window.location.href = result.Url
+                }
+            });
+    });
+
+    $(".btnRemoveItem").on("click", (event) => {
+        debugger;
+        var productId = event.target.name;
+        if (productId == '') {
+            alert('Please Select Product');
+            return false;
+        } else {
+            var data = { Id: productId };
+          $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveOneItem")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+        }
+    });
+    $("#btnRemoveAll").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+            $("#productCategoryId").val('').trigger("change");
+            $("#productSubCategoryId").val('').trigger("change");
+            $("#productId").val('').trigger("change");
+        });
+    </script>
+}

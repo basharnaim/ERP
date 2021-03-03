@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Organizations;
 using Library.Service.Core.Organizations;
 using Library.ViewModel.Core.Organizations;
@@ -22,7 +23,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BranchViewModel>>(_branchService.GetAll()));
+                return View(Mapper.Map<IEnumerable<BranchViewModel>>(_branchService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -44,7 +45,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BranchViewModel>(_branchService.GetById(id)));
+                return View(Mapper.Map<BranchViewModel>(_branchService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -58,7 +59,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 branchvm.Active = true;
-                _branchService.Update(AutoMapperConfiguration.mapper.Map<Branch>(branchvm));
+                _branchService.Update(Mapper.Map<Branch>(branchvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Branch"}')");
             }
             catch (Exception ex)

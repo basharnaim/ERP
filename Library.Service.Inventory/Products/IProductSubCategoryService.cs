@@ -42,7 +42,8 @@ namespace Library.Service.Inventory.Products
         /// <remarks>Jahangir, 2-11-2015</remarks>
         /// <returns>IEnumerable&lt;ProductSubCategory&gt;.</returns>
         IEnumerable<ProductSubCategory> GetAll();
-        
+        IEnumerable<object> GetAllObject(); 
+
         /// <summary>
         /// 
         /// </summary>

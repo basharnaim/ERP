@@ -1,0 +1,217 @@
+﻿@using System.Data
+@model DataSet
+@using ERP.WebUI.Html
+@{
+    ViewBag.Title = "PurchaseSummary";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <a href="/APanel" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+        <h4 class="page-header">Reorder Information</h4>
+    </div>
+</div>
+@using (Html.BeginForm("ReorderList", "SuperShopPurchase", FormMethod.Get, new { @id = "SearchForm" }))
+{
+    <div class="row ">
+        <div class="col-12">
+            <div class="card ">
+                <div class="card-header User_tittle h4 bg-info">Reorder Product List</div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label   mendatory">Company</label>
+                                    @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                                    @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label   ">Branch</label>
+                                    @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label ">Category</label>
+                                    @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label ">Sub Category</label>
+                                    @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label ">Supplier</label>
+                                    @Html.CascadingDropDown("supplierId", "/APanel/Supplier/GetSupplierListBySubCat/", "productSubCategoryId", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="from-group">
+                                    <label for="productId"> Product </label>
+                                    <select class="form-control customSelect" id="productId" name="productId">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Bar Code</label>
+                                    <input id="productCode" name="productcode" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <div class="submit-button">
+                                        <button type="submit" id="btnShow" class="btn btn-bg">Show</button>
+                                        <input type="button" id="btnClear" value="Clear" class="btn btn-warning" />
+                                        @Html.ActionLink("Report", "RdlcReport_Reorder", "SuperShopPurchase", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle ml-5" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead class="thead-heading">
+                            <tr>
+                                <th>Current Stock</th>
+                                <th>Reorder Level</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>UOM</th>
+                                <th>Category Name</th>
+                                <th>Brand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow Product in Model.Tables["productReorder"].Rows)
+                            {
+                                <tr>
+                                    <td>
+                                        @Product["ProductStock"]
+                                    </td>
+                                    <td>
+                                        @Product["ReorderLevel"]
+                                    </td>
+                                    <td>
+                                        @Product["ProductCode"]
+                                    </td>
+                                    <td>
+                                        @Product["ProductName"]
+                                    </td>
+
+                                    <td>
+                                        @Product["UOMName"]
+                                    </td>
+                                    <td>
+                                        @Product["ProductCategoryName"]
+                                    </td>
+                                    <td>
+                                        @Product["BrandName"]
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).ready(() => {
+            $("#supplierId").change(function () {
+                var suppId = $(this).val();
+                var subId = $('#productSubCategoryId').val();
+                var cId = $('#productCategoryId').val();
+                var url = '/APanel/ProductMaster/GetProductListbySupplier?Id=' + suppId + '&subId=' + subId + '&cId=' + cId;
+                //var data = { Id: suppId, subId: subId};
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    //data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var options = '<option value="">Select</option>';
+                        $.each(response, function (i, item) {
+                            options += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                        });
+                        $('#productId').empty();
+                        $('#productId').append(options);
+                    }
+                });
+            });
+        });
+        $(function () {
+            var dateFrom = getUrlVars()["dateFrom"];
+            $("#dateFrom").val(dateFrom);
+            var dateTo = getUrlVars()["dateTo"];
+            $("#dateTo").val(dateTo);
+        });
+        $("#btnShow").click(function () {
+            var companyId = $('#companyId').val();
+            var branchId = $('#branchId').val();
+            var categoryId = $('#productCategoryId').val();
+            var subCategoryId = $('#productSubCategoryId').val();
+            var supplierId = $('#supplierId').val();
+            var productId = $('#productId').val();
+            var productCode = $('#productCode').val() || '';
+
+            this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                + '&branchId=' + branchId
+                + '&categoryId=' + categoryId
+                + '&subCategoryId=' + subCategoryId
+                + '&supplierId=' + supplierId
+                + '&productId=' + productId
+                + '&productCode=' + productCode;
+        });
+
+        $("#btnReport").click(function () {
+            var companyId = $('#companyId').val();
+            var branchId = $('#branchId').val();
+            var categoryId = $('#productCategoryId').val();
+            var subCategoryId = $('#productSubCategoryId').val() || 0;
+            var supplierId = $('#supplierId').val()|| 0;
+            var productId = $('#productId').val();
+            var productCode = $('#productCode').val() || '';
+            debugger;
+            this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                + '&branchId=' + branchId
+                + '&categoryId=' + categoryId
+                + '&subCategoryId=' + subCategoryId
+                + '&supplierId=' + supplierId
+                + '&productId=' + productId
+                + '&productCode=' + productCode;
+        });
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+            $("#productCategoryId").val('').trigger("change");
+            $("#productSubCategoryId").val('').trigger("change");
+            $("#productId").val('').trigger("change");
+            $("#productCode").val('').trigger("change");
+        });
+    </script>
+}

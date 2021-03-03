@@ -3,78 +3,87 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <a href="/APanel/Home" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
-        <h4 class="page-header">Product Information</h4>
-    </div>
-</div>
+
+@*<div class="row">
+        <div class="col-lg-12">
+
+            <h4 class="page-header">Product Information</h4>
+        </div>
+    </div>*@
+
 @using (Html.BeginForm("ProductStockList", "SuperShopProduct", FormMethod.Get))
 {
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   mendatory">Company</label>
-                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
-                @Html.ValidationMessage("companyId", new { @class = "text-danger" })
-            </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-primary h5">
+            Stock Summary
+            <a href="/APanel/Home" class="btn btn-bg pull-right btn-sm" role="button"> Back </a>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Branch</label>
-                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Category</label>
-                @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Sub Category</label>
-                @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label ">Product</label>
-                @Html.SimpleDropDown("productId", "/APanel/ProductMaster/GetProductList", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label>Bar Code</label>
-                <input id="productcode" name="productcode" class="form-control" type="text" />
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Supplier</label>
-                @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
-            </div>
-        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   mendatory">Company</label>
+                        @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                        @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   ">Branch</label>
+                        @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   ">Category</label>
+                        @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   ">Sub Category</label>
+                        @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label ">Product</label>
+                        @Html.SimpleDropDown("productId", "/APanel/ProductMaster/GetProductList", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Bar Code</label>
+                        <input id="productcode" name="productcode" class="form-control" type="text" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   ">Supplier</label>
+                        @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label " title="From date">From date</label>
-                @Html.DatePicker("dateFrom", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">To date</label>
-                @Html.DatePicker("dateTo", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="form-group ">
-                <div class="submit-button">
-                    <button type="submit" class="btn btn-bg">Show</button>
-                    @Html.ActionLink("Report", "RdlcProductStockList", "SuperShopProduct", new { target = "_blank", id = "btnReport", @class = "btn btn-bg pull-middle" })
-                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label " title="From date">From date</label>
+                        @Html.DatePicker("dateFrom", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label   ">To date</label>
+                        @Html.DatePicker("dateTo", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group ">
+                        <div class="submit-button">
+                            <button type="submit" class="btn btn-bg">Show</button>                            
+                            @Html.ActionLink("Report", "RdlcProductStockList", "SuperShopProduct", new { target = "_blank", id = "btnReport", @class = "btn btn-primary" })
+                        <input type="button" value="Clear" class="btn btn-warning offset-1 col-2" id="btnClear" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,7 +180,7 @@
             var companyId = $('#companyId').val();
             var branchId = $('#branchId').val();
             //alert(companyId);
-            if (companyId == '' && branchId == null || branchId =='') {
+            if (companyId == '' && branchId == null || branchId == '') {
                 alert('Please Select Company Name and Branch Name');
                 return false;
             } else {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -24,9 +25,9 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(productCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll(productCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll(productCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductSubCategoryViewModel>>(_productSubCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productSubCategoryService.Add(AutoMapperConfiguration.mapper.Map<ProductSubCategory>(productSubCategoryvm));
+                _productSubCategoryService.Add(Mapper.Map<ProductSubCategory>(productSubCategoryvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/ProductSubCategory/?productCategoryId=" + productSubCategoryvm.ProductCategoryId}')");
             }
             catch (Exception ex)
@@ -84,7 +85,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductSubCategoryViewModel>(_productSubCategoryService.GetById(id)));
+                return View(Mapper.Map<ProductSubCategoryViewModel>(_productSubCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productSubCategoryService.Update(AutoMapperConfiguration.mapper.Map<ProductSubCategory>(productSubCategoryvm));
+                _productSubCategoryService.Update(Mapper.Map<ProductSubCategory>(productSubCategoryvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/ProductSubCategory/?productCategoryId=" + productSubCategoryvm.ProductCategoryId}')");
             }
             catch (Exception ex)

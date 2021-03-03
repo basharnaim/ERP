@@ -1,5 +1,8 @@
-﻿using Library.Crosscutting.Securities;
+﻿using AutoMapper;
+using ERP.WebUI.App_Start;
+using Library.Crosscutting.Securities;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
@@ -19,6 +22,8 @@ namespace ERP.WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Mapper.Initialize(cfg=>cfg.AddProfile<AutoMapperProfile>());
+            //AutoMapperConfig.ConfigureMapping();
         }
 
         ///-------------------------------------------------------------------------------------------------
@@ -60,6 +65,11 @@ namespace ERP.WebUI
                         HttpContext.Current.Response.Redirect("/Login/cpanel");
                     if (HttpContext.Current.Request.Path.ToUpper().StartsWith("/APanel"))
                         HttpContext.Current.Response.Redirect("/Login");
+                }
+                else
+                {
+                    //HttpContext.Current.Response.Redirect("http://localhost:44372");  // = //new RedirectToRouteResult(new RouteValueDictionary { { "action", "Index" }, { "controller", "Login" } });
+                    //HttpContext.Current.RewritePath("http://localhost:44372/");
                 }
             }
             catch (Exception ex)

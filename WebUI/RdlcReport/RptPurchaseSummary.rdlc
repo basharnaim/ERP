@@ -76,28 +76,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.357in</Width>
+                  <Width>0.28548in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8258in</Width>
+                  <Width>0.93137in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.01273in</Width>
+                  <Width>1.1183in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.65766in</Width>
+                  <Width>0.74783in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64226in</Width>
+                  <Width>1.21635in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.11078in</Width>
+                  <Width>1.08452in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.80187in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.0643in</Width>
+                  <Width>1.16987in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -196,41 +193,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox5</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox7">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Supplier</Value>
-                                  <Style>
-                                    <FontFamily>Consolas</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -391,6 +353,62 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="SupplierName">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value xml:space="preserve">      </Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!SupplierName.Value</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>SupplierName</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>7</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -480,41 +498,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>PurchaseDate</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="SupplierName">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!SupplierName.Value</Value>
-                                  <Style>
-                                    <FontFamily>Consolas</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>SupplierName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -670,6 +653,387 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox40">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Total:</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox40</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>3</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalQuantity2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!TotalQuantity.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TotalQuantity2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalAmount2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!TotalAmount.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TotalAmount2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="MemoWiseDiscount1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!MemoWiseDiscount.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>MemoWiseDiscount1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NetAmount2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!NetAmount.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>NetAmount2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.30208in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Ground Total:</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>3</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalQuantity1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!TotalQuantity.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TotalQuantity1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalAmount1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!TotalAmount.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TotalAmount1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="MemoWiseDiscount">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!MemoWiseDiscount.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>MemoWiseDiscount</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NetAmount1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!NetAmount.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Consolas</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>NetAmount1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -681,24 +1045,45 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
+                  <Group Name="SupplierName">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!SupplierName.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!SupplierName.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details" />
+                      <TablixMembers>
+                        <TablixMember />
+                      </TablixMembers>
+                    </TablixMember>
+                    <TablixMember>
+                      <KeepWithGroup>Before</KeepWithGroup>
+                    </TablixMember>
+                  </TablixMembers>
                 </TablixMember>
-                <TablixMember>
-                  <Group Name="Details" />
-                </TablixMember>
+                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Purchase</DataSetName>
             <Top>0.31944in</Top>
             <Left>0.10244in</Left>
-            <Height>0.5in</Height>
-            <Width>7.4724in</Width>
+            <Height>1.30208in</Height>
+            <Width>6.55372in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -712,9 +1097,14 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>To: </Value>
+                    <Style>
+                      <Format>dd-MM-yyyy</Format>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!dto.Value</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
                       <Format>dd-MM-yyyy</Format>
                     </Style>
                   </TextRun>
@@ -723,10 +1113,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>dto</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>3.65789in</Left>
-            <Height>0.25in</Height>
-            <Width>1.69965in</Width>
+            <Top>0.05555in</Top>
+            <Left>5.48976in</Left>
+            <Height>0.23611in</Height>
+            <Width>1.16639in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -745,86 +1135,29 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Date From: </Value>
+                    <Style>
+                      <Format>dd-MM-yyyy</Format>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!dfrom.Value</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
                       <Format>dd-MM-yyyy</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>dfrom</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>1.05666in</Left>
-            <Height>0.25in</Height>
-            <Width>1.76095in</Width>
+            <Top>0.05555in</Top>
+            <Left>3.74in</Left>
+            <Height>0.23611in</Height>
+            <Width>1.69421in</Width>
             <ZIndex>2</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox19">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Date From</Value>
-                    <Style>
-                      <FontFamily>Consolas</FontFamily>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>0.09896in</Left>
-            <Height>0.25in</Height>
-            <Width>0.75173in</Width>
-            <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox20">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Date To</Value>
-                    <Style>
-                      <FontFamily>Consolas</FontFamily>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>2.88705in</Left>
-            <Height>0.25in</Height>
-            <Width>0.60417in</Width>
-            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -842,22 +1175,19 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>:</Value>
-                    <Style>
-                      <FontFamily>Vrinda</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Value>Purchase Summary List</Value>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>0.87847in</Left>
-            <Height>0.25in</Height>
-            <Width>0.10874in</Width>
-            <ZIndex>5</ZIndex>
+            <Top>0.05555in</Top>
+            <Left>0.10244in</Left>
+            <Height>0.23611in</Height>
+            <Width>1.68798in</Width>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -868,47 +1198,26 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox6">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>:</Value>
-                    <Style>
-                      <FontFamily>Vrinda</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>0.04167in</Top>
-            <Left>3.519in</Left>
-            <Height>0.25in</Height>
-            <Width>0.09485in</Width>
-            <ZIndex>6</ZIndex>
+          <Line Name="Line1">
+            <Top>0.02326in</Top>
+            <Left>0.10952in</Left>
+            <Height>0in</Height>
+            <Width>6.54663in</Width>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
             </Style>
-          </Textbox>
+          </Line>
         </ReportItems>
-        <Height>1.08979in</Height>
+        <Height>1.74652in</Height>
         <Style />
       </Body>
-      <Width>7.69984in</Width>
+      <Width>6.74151in</Width>
       <Page>
         <PageHeader>
-          <Height>1.76959in</Height>
+          <Height>1.35292in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -921,7 +1230,8 @@
                     <TextRun>
                       <Value>=IIf(Parameters!cName.Value &lt;&gt; ".", Parameters!cName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
+                        <FontSize>14pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -932,9 +1242,9 @@
               </Paragraphs>
               <rd:DefaultName>cName</rd:DefaultName>
               <Top>0.07576in</Top>
-              <Left>0.09896in</Left>
+              <Left>0.47396in</Left>
               <Height>0.25in</Height>
-              <Width>7.47588in</Width>
+              <Width>5.7988in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -954,7 +1264,7 @@
                     <TextRun>
                       <Value>=IIf(Parameters!bName.Value &lt;&gt; ".", Parameters!bName.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -964,10 +1274,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bName</rd:DefaultName>
-              <Top>0.38826in</Top>
-              <Left>0.09896in</Left>
+              <Top>0.32576in</Top>
+              <Left>0.47396in</Left>
               <Height>0.25in</Height>
-              <Width>7.47588in</Width>
+              <Width>5.7988in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -988,7 +1298,7 @@
                     <TextRun>
                       <Value>=IIf(Parameters!bAddress.Value &lt;&gt; ".", Parameters!bAddress.Value, "")</Value>
                       <Style>
-                        <FontFamily>Consolas</FontFamily>
+                        <FontFamily>arial</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -998,10 +1308,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bAddress</rd:DefaultName>
-              <Top>0.61743in</Top>
-              <Left>0.09896in</Left>
+              <Top>0.57993in</Top>
+              <Left>0.47396in</Left>
               <Height>0.25in</Height>
-              <Width>7.47588in</Width>
+              <Width>5.7988in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1020,6 +1330,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Mobile: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=IIf(Parameters!bPhone.Value &lt;&gt; ".", Parameters!bPhone.Value, "")</Value>
                       <Style />
                     </TextRun>
@@ -1030,10 +1344,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bPhone</rd:DefaultName>
-              <Top>0.93687in</Top>
-              <Left>0.09896in</Left>
+              <Top>0.83687in</Top>
+              <Left>0.47396in</Left>
               <Height>0.25in</Height>
-              <Width>7.47588in</Width>
+              <Width>5.7988in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1052,6 +1366,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Vat Reg No: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, "")</Value>
                       <Style />
                     </TextRun>
@@ -1062,10 +1380,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>bVatRNo</rd:DefaultName>
-              <Top>1.25632in</Top>
-              <Left>0.09896in</Left>
+              <Top>1.09382in</Top>
+              <Left>0.47396in</Left>
               <Height>0.25in</Height>
-              <Width>7.47588in</Width>
+              <Width>5.7988in</Width>
               <ZIndex>4</ZIndex>
               <Style>
                 <Border>

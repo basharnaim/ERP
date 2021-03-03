@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Expenditures;
 using Library.Service.Inventory.Expenditures;
@@ -25,8 +26,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(expenditureCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureSubCategoryViewModel>>(_expenditureSubCategoryService.GetAll(expenditureCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureSubCategoryViewModel>>(_expenditureSubCategoryService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ExpenditureSubCategoryViewModel>>(_expenditureSubCategoryService.GetAll(expenditureCategoryId)));
+                return View(Mapper.Map<IEnumerable<ExpenditureSubCategoryViewModel>>(_expenditureSubCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -74,7 +75,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureSubCategoryService.Add(AutoMapperConfiguration.mapper.Map<ExpenditureSubCategory>(expenditureSubCategoryVM));
+                _expenditureSubCategoryService.Add(Mapper.Map<ExpenditureSubCategory>(expenditureSubCategoryVM));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ExpenditureSubCategory/?ProductCategoryId=" + expenditureSubCategoryVM.ExpenditureCategoryId}')");
             }
             catch (Exception ex)
@@ -90,7 +91,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ExpenditureSubCategoryViewModel>(_expenditureSubCategoryService.GetById(id)));
+                return View(Mapper.Map<ExpenditureSubCategoryViewModel>(_expenditureSubCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -103,7 +104,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureSubCategoryService.Update(AutoMapperConfiguration.mapper.Map<ExpenditureSubCategory>(expenditureSubCategoryVM));
+                _expenditureSubCategoryService.Update(Mapper.Map<ExpenditureSubCategory>(expenditureSubCategoryVM));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ExpenditureSubCategory/?ProductCategoryId=" + expenditureSubCategoryVM.ExpenditureCategoryId}')");
             }
             catch (Exception ex)

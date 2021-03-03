@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using ERP.WebUI.ReportViewer;
 using Library.Model.Inventory.Suppliers;
 using Library.Service.Inventory.Suppliers;
@@ -30,9 +31,9 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(supplierCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
+                    return View(Mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
+                return View(Mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -49,6 +50,17 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 return Json(new SelectList(_supplierService.Lists(), "Value", "Text"), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public JsonResult GetSupplierListBySubCat(string Id)
+        {
+            try
+            {
+                return Json(new SelectList(_supplierService.Lists(Id), "Value", "Text"), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -77,7 +89,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _supplierService.Add(AutoMapperConfiguration.mapper.Map<Supplier>(vm));
+                _supplierService.Add(Mapper.Map<Supplier>(vm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Supplier/"}')");
             }
             catch (Exception ex)
@@ -94,7 +106,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetById(id)));
+                return View(Mapper.Map<SupplierViewModel>(_supplierService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -107,7 +119,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _supplierService.Update(AutoMapperConfiguration.mapper.Map<SupplierViewModel, Supplier>(suppliervm));
+                _supplierService.Update(Mapper.Map<SupplierViewModel, Supplier>(suppliervm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Supplier/"}')");
             }
             catch (Exception ex)
@@ -175,10 +187,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (!string.IsNullOrEmpty(supplierCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
+                    return View(Mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
                 }
 
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
+                return View(Mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -193,7 +205,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 {
                     supplierCategoryId = "";
                 }
-                var suppliers = AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(!string.IsNullOrEmpty(supplierCategoryId) ? _supplierService.GetAll(supplierCategoryId) : _supplierService.GetAll());
+                var suppliers = Mapper.Map<IEnumerable<SupplierViewModel>>(!string.IsNullOrEmpty(supplierCategoryId) ? _supplierService.GetAll(supplierCategoryId) : _supplierService.GetAll());
                 ReportDataSource rpt = new ReportDataSource("Supplier", suppliers);
                 RdlcReportViewerWithoutDate.reportDataSource = rpt;
                 string rPath = "RdlcReport/RptSupllier.rdlc";

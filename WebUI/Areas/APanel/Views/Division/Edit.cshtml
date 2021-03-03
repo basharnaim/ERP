@@ -3,61 +3,74 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <a href="/APanel/Division" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
-        <h4 class="page-header">Update Division</h4>
-    </div>
-    <hr />
-</div>
+@*<div class="row">
+        <div class="col-xl-12">
+            <a href="/APanel/Division" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+            <h4 class="page-header">Update Division</h4>
+        </div>
+        <hr />
+    </div>*@
 @using (Ajax.BeginForm("Edit", "Division", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
-{   
-    @Html.HiddenFor(model => model.Id)            
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sequence, new { @class = "control-label   mendatory" })
-            
-            @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "text-danger" })
+{
+    <div class="card ">
+        <div class="card-header Warehouse_tittle alert-info ">
+            Update District
+            <a href="/APanel/Division" class="btn btn-bg btn-sm pull-right" role="button"><i class="fa fa-undo"></i> Back</a>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
-            @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
-        </div>
+        <div class="card-body">
+            <div class="row">
+                @Html.HiddenFor(model => model.Id)
+                <div class="col-2">
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.Sequence, new { @class = "control-label   mendatory" })
 
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
-            @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Division name" })
-            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <label class="control-label   mendatory ">Country</label>
-            @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryListWithId/", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
-            <label>
-                @Html.CheckBoxFor(model => model.Active)
-            </label>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-12">
-        <div class="form-group text-right">
-            <div class="col-xl-12">
-                <button type="submit" class="btn btn-bg btn_save">Save</button>
+                            @Html.ValidationMessageFor(model => model.Sequence, null, new { @class = "text-danger" })
+                        </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                        @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Division name" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label   mendatory ">Country</label>
+                        @Html.SimpleDropDownFor(model => model.CountryId, "/APanel/Country/GetCountryList/", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <br />
+                        @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                        <label>
+                            @Html.CheckBoxFor(model => model.Active)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group input-group">
+                        <button type="submit" class="btn btn-success offset-11 col-1"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
-@section Scripts {@Scripts.Render("~/bundles/jqueryval")<script type="text/javascript">
+
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
     $(function () {
-        
+
     });
-</script>}
+</script>
+}

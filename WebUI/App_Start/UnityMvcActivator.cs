@@ -1,8 +1,8 @@
-using AutoMapper;
-using ERP.WebUI.AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
+
 using Unity.AspNet.Mvc;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ERP.WebUI.UnityMvcActivator), nameof(ERP.WebUI.UnityMvcActivator.Start))]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(ERP.WebUI.UnityMvcActivator), nameof(ERP.WebUI.UnityMvcActivator.Shutdown))]
 
@@ -18,16 +18,13 @@ namespace ERP.WebUI
         /// </summary>
         public static void Start() 
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<DomainToViewModelMappingProfile>();
-                cfg.AddProfile<ViewModelToDomainMappingProfile>();
-            });
-            AutoMapperConfiguration.mapper = config.CreateMapper();
-            var container = UnityConfig.Container;
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
+
+            // TODO: Uncomment if you want to use PerRequestLifetimeManager
+            // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
 
         /// <summary>

@@ -11,9 +11,10 @@ namespace ERP.WebUI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ProductStockMaser
-    {
+    {        
         public string StockID { get; set; }
         public int BranchID { get; set; }
         public Nullable<int> SupplierID { get; set; }
@@ -21,15 +22,15 @@ namespace ERP.WebUI.Models
         public string ProductID { get; set; }
         public int CompanyID { get; set; }
         public int UOMID { get; set; }
-        public Nullable<decimal> ReceiveQty { get; set; }
-        public Nullable<decimal> ReceiveValue { get; set; }
+        public decimal ReceiveQty { get; set; }
+        public decimal ReceiveValue { get; set; }
         public Nullable<System.DateTime> LastReceiveDate { get; set; }
         public decimal IssueQty { get; set; }
-        public Nullable<decimal> IssueValue { get; set; }
+        public decimal IssueValue { get; set; }
         public Nullable<System.DateTime> LastIssueDate { get; set; }
         public decimal CurrentRate { get; set; }
-        public Nullable<decimal> CurrentStock { get; set; }
-        public Nullable<decimal> CurrentValue { get; set; }
+        public decimal CurrentStock { get; set; }
+        public decimal CurrentValue { get; set; }
         public decimal SalesRate { get; set; }
         public decimal SalesValue { get; set; }
         public Nullable<System.DateTime> LastSalesDate { get; set; }

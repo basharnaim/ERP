@@ -11,9 +11,10 @@ namespace ERP.WebUI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ProductStockDetail
-    {
+    {        
         public string StockDetailID { get; set; }
         public int StockID { get; set; }
         public Nullable<int> BranchID { get; set; }

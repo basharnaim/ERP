@@ -47,26 +47,42 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label class="control-label ">Product</label>
-                                            @Html.SimpleDropDown("productId", "/APanel/ProductMaster/GetProductList", new { @class = "form-control" })
+                                            <label class="control-label ">Supplier</label>
+                                            @Html.CascadingDropDown("supplierId", "/APanel/Supplier/GetSupplierListBySubCat/", "productSubCategoryId", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label ">Supplier</label>
-                                            @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                                        <div class="from-group">
+                                            <label for="productId"> Product </label>
+                                            <select class="form-control customSelect" id="productId" name="productId">
+                                                <option value="">Select</option>
+                                            </select>
                                         </div>
                                     </div>
+
+                                    @*<div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="control-label "> Product </label>
+                                                @Html.CascadingDropDown("productId", "/APanel/ProductMaster/GetProductListbySupplier?Id=", "supplierId", new { @class = "form-control" })
+                                            </div>
+                                        </div>*@
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label>Bar Code</label>
                                             <input id="productcode" name="productcode" class="form-control" type="text" />
-                                            @*<input id="productids" name="productids" value="@ViewBag.ids" class="form-control" type="text" />*@
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-10 mt-4">
+                                            <input id="btnAdd" type="submit" value="Add" class="btn btn-bg " />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-10 mt-4">
-                                            <input id="btnAdd" type="submit" value="Add" class="btn btn-bg " />
+                                            <input id="btnClear" type="submit" value="Clear" class="btn btn-warning " />
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +106,7 @@
         <div class="card ">
             <div class="card-header User_tittle h4 bg-info">Opening Balance Product List</div>
             <div class="card-body">
-                <table id="tblCustomers" class="table">
+                <table id="tblCustomers" class="table demo dataTable NoPaging" data-filter="#filter">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.ProductName)
@@ -108,11 +124,8 @@
                             @Html.DisplayNameFor(model => model.UOMName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ReceiveQty)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ReceiveValue)
-                        </th>
+                            @Html.DisplayNameFor(model => model.ReceiveRate)
+                        </th>                     
                         <th>
                             @Html.DisplayNameFor(model => model.CurrentStock)
                         </th>
@@ -125,7 +138,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.SalesValue)
                         </th>
-                        <th> Action </th>
+                        <th> <input id="btnRemoveAll" type="submit" value="Clear All" class="btn btn-info btn-sm" /> </th>
                     </tr>
                     @if (Model != null && Model.Any())
                     {
@@ -140,21 +153,15 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ProdcutDescription)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.CompanyName)
-                                    </td>*@
+                                </td>                              
                                 <td>
                                     @Html.DisplayFor(modelItem => item.UOMName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ReceiveQty)
-                                </td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveRate)
+                                </td>                                
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ReceiveValue)
-                                </td>
-                                <td>
-                                    <input type="number" id="txtName" name="@item.ProductID" value="@String.Format("{0:0.00}", item.CurrentStock)" class="single-line" min="0" max="100000" />
+                                    <input type="number" id="@item.ProductID" name="@item.ProductID" value="@String.Format("{0:0}", item.CurrentStock)" class="single-line" min="0" max="100000" />
                                     @*@Html.EditorFor(modelItem => item.CurrentStock, new { @name="222", @min = "0", @class = "quantity form-control", Value = String.Format("{0:0.00}", item.CurrentStock),style = "text-align:center;width: 50px;"})*@
                                 </td>
                                 <td>
@@ -168,7 +175,7 @@
                                 </td>
                                 <td>
                                     <div class="col-md-offset-2 col-10 mt-4">
-                                        <input id="btnRemove" name="@item.ProductID" type="submit" value="Remove" class="btn btn-info btn-sm " />
+                                        <input id="btnRemoveItem" name="@item.ProductID" type="submit" value="Remove" class="btn btn-info btn-sm btnRemoveItem" />
                                     </div>
                                 </td>
                             </tr>
@@ -178,9 +185,9 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-offset-10 col-12 ">
-            <input id="btnSaveAll" type="submit" value="Save" class="btn btn-bg " />
+    <div class="col-12">
+        <div class="pull-right">
+            <input id="btnSaveAll" type="submit" value="Save All" class="btn btn-bg " />
         </div>
     </div>
 </div>
@@ -191,18 +198,50 @@
     <script type="text/javascript">
         var stuff = new Array();;
         $(document).ready(function () {
-            
+           
             var data = JSON.parse(localStorage.getItem("stock"));
             var stuff = data; //localStorage.getItem("stock");
             $.each(stuff, function (i, element) {
                 $('#' + element.pid).val(element.qty);
             })
-        });
 
-        var stuff = new Array();
-        $('.single-line').blur((event) => {
-            var pid = event.target.name;
+            $("#supplierId").change(function () {
+                debugger;
+                var suppId = $(this).val();
+                var subId = $('#productSubCategoryId').val();
+                var cId = $('#productCategoryId').val();
+                var url = '/APanel/ProductMaster/GetProductListbySupplier?Id=' + suppId + '&subId=' + subId + '&cId=' + cId;
+                //var data = { Id: suppId, subId: subId};
+                $.ajax({
+                type: "GET",
+                url: url,
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var options = '<option value="">Select</option>';
+                        $.each(response, function (i, item) {
+                            options += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                        });
+                        $('#productId').empty();
+                        $('#productId').append(options);
+                    }
+                    });
+                //$.ajax('GET', url, [], 'json', loadbySupplierSubCategory, false);
+            });
+        });
+        $(".single-line").mousedown((event)=> {            
             var qty = event.target.value;
+            var pid = event.target.name;
+            if (qty == '0') {
+                debugger;
+                $('#'+pid).val('');
+            }            
+        });
+        var stuff = new Array();
+        $('.single-line').blur((event) => {           
+            var pid = event.target.name;
+            var qty = event.target.value;           
             localStorage.clear();
             if (qty > 0) {
                 $.each(stuff, function (i, element) {
@@ -227,17 +266,7 @@
             }
         });
 
-        $("#btnRemove").click(() => {
-            var productId = $('#productId').val();
-            if (productId == '') {
-                alert('Please Select Product');
-                return false;
-            } else {
-                this.href = this.href.split('?')[0] + '?companyId=' + companyId
-                    + '&branchId=' + branchId
-                    + '&productId=' + productId;
-            }
-        });
+
 
         $("body").on("click", "#btnAdd", function () {
             //Loop through the Table rows and build a JSON array.
@@ -249,7 +278,7 @@
             //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
             //    customers.push(customer);
             //});
-            debugger;
+            //debugger;
             //Send the JSON array to Controller using AJAX.
             $.ajax({
                 type: "POST",
@@ -284,9 +313,41 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    alert('Data Save Successfully');
+                    //alert('Data Save Successfully');
                     window.location.href = result.Url
+                }
+            });
+    });
 
+    $(".btnRemoveItem").on("click", (event) => {
+        debugger;
+        var productId = event.target.name;
+        if (productId == '') {
+            alert('Please Select Product');
+            return false;
+        } else {
+            var data = { Id: productId };
+          $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveOneItem")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+        }
+    });
+    $("#btnRemoveAll").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
                 }
             });
         });
@@ -295,9 +356,9 @@
             $("#companyId").val('').trigger("change");
             $("#branchId").val('').trigger("change");
             $("#supplierId").val('').trigger("change");
-            $("#salePersonId").val('').trigger("change");
-            $("#dateFrom").val('').trigger("change");
-            $("#dateTo").val('').trigger("change");
+            $("#productCategoryId").val('').trigger("change");
+            $("#productSubCategoryId").val('').trigger("change");
+            $("#productId").val('').trigger("change");
         });
     </script>
 }

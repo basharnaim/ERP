@@ -385,11 +385,12 @@ function CalculateSuperShopPurchaseSummary() {
         totalQty += parseFloat($($(".quantity")[i]).val()) || 0;
         totalAmount += parseFloat($($(".amount")[i]).val()) || 0;
     }
-    $("#TotalQuantity").val(totalQty);
-    $("#TotalAmount").val(totalAmount);
+    $("#TotalQuantity").val(totalQty.toFixed(4));
+    $("#TotalAmount").val(totalAmount.toFixed(4));
 }
 
 function CalculateSuperShopPurchase() {
+    debugger;
     $(".quantity, .purchasePrice:not(.quantityInited, .purchasePriceInited)").on('click keyup change', function () {
         var el = $(this);
         var check = Number(el.val());
@@ -407,17 +408,14 @@ function CalculateSuperShopPurchase() {
             }
             else {
                 var qty = parseFloat(el.closest("tr").find(".quantity").val()) || 0;
-                var prce = parseFloat(el.closest("tr").find(".purchasePrice").val()) || 0;
+                var prce = parseFloat(el.closest("tr").find(".purchasePrice").val()) || 0;                
                 var totalprcs = qty * prce;
                 el.closest("tr").find(".amount").val(parseFloat(totalprcs).toFixed(2));
                 CalculateSuperShopPurchaseSummary();
-
                 var discount = parseFloat($("#MemoWiseDiscount").val()) || 0;
-
                 var totalAmount = parseFloat($("#TotalAmount").val()) || 0;
                 var netAmount = totalAmount - discount;
-
-                $("#NetAmount").val(netAmount.toFixed(2));
+                $("#NetAmount").val(netAmount.toFixed(4));
             }
         }
         return false;
@@ -425,6 +423,7 @@ function CalculateSuperShopPurchase() {
 }
 
 //SuperShop Sale
+
 function AddHTML(product) {
     var gid = Guid();
     $("#stock").text(product.ProductStock);
@@ -437,12 +436,19 @@ function AddHTML(product) {
         '<input class="productName form-control" style="width: 300px; text-align:left;" id="SaleDetails_' + gid + '_ProductName" name="SaleDetails[' + gid + '].ProductName" readonly="readonly" type="text" value="' + product.ProductName + '" />' +
         '<input class="productId" id="SaleDetails_' + gid + '_ProductId" name="SaleDetails[' + gid + '].ProductId" type="hidden" value="' + product.value + '" />' +
         '<input class="productStock" id="SaleDetails_' + gid + '_ProductStock" name="SaleDetails[' + gid + '].ProductStock" type="hidden" value="' + product.ProductStock + '" />' +
+        '<input class="purchasePrice" id="SaleDetails_' + gid + '_PurchasePrice" name="SaleDetails[' + gid + '].PurchasePrice" type="hidden" value="' + product.PurchasePrice + '" />' +
         '<input class="vatRate" id="SaleDetails_' + gid + '_VatRate" name="SaleDetails[' + gid + '].VatRate" type="hidden" value="' + product.VatRate + '" />' +
         '<input class="uOMId" id="SaleDetails_' + gid + '_UOMId" name="SaleDetails[' + gid + '].UOMId" type="hidden" value="' + product.UOMId + '" />' +
+
+        '<input id="SaleDetails_' + gid + '_ProductCode" name="SaleDetails[' + gid + '].ProductCode" type="hidden" value="' + product.ProductCode + '" />' +
+        '<input id="SaleDetails_' + gid + '_ProductCategoryId" name="SaleDetails[' + gid + '].ProductCategoryId" type="hidden" value="' + product.ProductCategoryId + '" />' +
+        '<input id="SaleDetails_' + gid + '_ProductSubCategoryId" name="SaleDetails[' + gid + '].ProductSubCategoryId" type="hidden" value="' + product.ProductSubCategoryId + '" />' +
+        '<input id="SaleDetails_' + gid + '_ProductSubsidiaryCategoryId" name="SaleDetails[' + gid + '].ProductSubsidiaryCategoryId" type="hidden" value="' + product.ProductSubsidiaryCategoryId + '" />' +
+        '<input id="SaleDetails_' + gid + '_SupplierId" name="SaleDetails[' + gid + '].SupplierId" type="hidden" value="' + product.GradeId + '" />' +         
         '</td> ' +
         '<td class="form-group" style="display: inline-flex;margin: 0;text-align:center">' +
         '<a href="javascript:void(0)" class="decrease"  style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Decrease(this);">-</a>' +
-        '<input Min="1"   class="quantity form-control" id="SaleDetails_' + gid + '_Quantity" name="SaleDetails[' + gid + '].Quantity"  type="text" value="1" style="text-align:center;width: 50px;" onclick="this.select()" onchange="QuantityChange(this);" />' +
+        '<input class="quantity form-control" id="SaleDetails_' + gid + '_Quantity" name="SaleDetails[' + gid + '].Quantity"  type="text" value="0" style="text-align:center;width: 80px;" onclick="this.select()" onchange="QuantityChange(this);" />' +
         '<a href="javascript:void(0)" class="increase" style="padding: 0 5px;font-size: 22px;font-weight: 900;" onclick="Increase(this);">+</a>' +
         '</td> ' +
         '<td class="form-group">' +
@@ -482,10 +488,10 @@ function CalculateSuperShopSaleSummary() {
         var vatAmount = ((vatRate * totalAmount) / 100);
         totalVat += parseFloat(vatAmount);
     }
-    $("#TotalQuantity").val(totalQty);
-    $("#TotalAmount").val(totalAmount.toFixed(2));
-    $("#ProductDiscount").val(parseFloat(totalDiscountAmount + totalDiscountInAmount).toFixed(2));
-    $("#TotalVat").val(totalVat.toFixed(2));
+    $("#TotalQuantity").val(totalQty.toFixed(4));
+    $("#TotalAmount").val(totalAmount.toFixed(4));
+    $("#ProductDiscount").val(parseFloat(totalDiscountAmount + totalDiscountInAmount).toFixed(4));
+    $("#TotalVat").val(totalVat.toFixed(4));
 
     var cusDisRate = parseFloat($("#CustomerDiscountInPercentage").val()) || 0;
     var cusDisAmount = parseFloat((totalAmount * cusDisRate) / 100) || 0;
@@ -500,8 +506,9 @@ function CalculateSuperShopSaleSummary() {
         GetPromotionDiscountAmount(promotionalDiscounts, netAmount);
     }
 
-    $("#NetAmount").val(netAmount);
-    $("h3").text(netAmount);
+    $("#NetAmount").val(netAmount.toFixed(4));
+
+    $("h3").text(parseInt(netAmount.toFixed(0)));
 
     var paidAmt = parseFloat($("#PaidAmount").val()) || 0;
 
@@ -537,10 +544,10 @@ function CalculateMobileShopSaleSummary() {
         var vatAmount = ((vatRate * totalAmount) / 100);
         totalVat += parseFloat(vatAmount);
     }
-    $("#TotalQuantity").val(totalQty);
-    $("#TotalAmount").val(totalAmount.toFixed(2));
-    $("#ProductDiscount").val(parseFloat(totalDiscountAmount + totalDiscountInAmount).toFixed(2));
-    $("#TotalVat").val(totalVat.toFixed(2));
+    $("#TotalQuantity").val(totalQty.toFixed(4));
+    $("#TotalAmount").val(totalAmount.toFixed(4));
+    $("#ProductDiscount").val(parseFloat(totalDiscountAmount + totalDiscountInAmount).toFixed(4));
+    $("#TotalVat").val(totalVat.toFixed(4));
 
     var cusDisRate = parseFloat($("#CustomerDiscountInPercentage").val()) || 0;
     var cusDisAmount = parseFloat((totalAmount * cusDisRate) / 100) || 0;
@@ -555,8 +562,8 @@ function CalculateMobileShopSaleSummary() {
         GetPromotionDiscountAmount(promotionalDiscounts, netAmount);
     }
 
-    $("#NetAmount").val(netAmount);
-    $("h3").text(netAmount);
+    $("#NetAmount").val(netAmount.toFixed(4));
+    $("h3").text(netAmount.toFixed(0));
 
     var paidAmt = parseFloat($("#PaidAmount").val()) || 0;
 
@@ -565,7 +572,7 @@ function CalculateMobileShopSaleSummary() {
 
 
     if (changeAmt > 0) {
-        $("#ChangeAmount").val((changeAmt).toFixed(2));
+        $("#ChangeAmount").val((changeAmt).toFixed(4));
     } else {
         $("#ChangeAmount").val(0);
     }
@@ -573,7 +580,7 @@ function CalculateMobileShopSaleSummary() {
     if (paidAmt >= netAmount) {
         $("#DueAmount").val(0);
     } else {
-        $("#DueAmount").val((dueAmt).toFixed(2));
+        $("#DueAmount").val((dueAmt).toFixed(4));
     }
 }
 
@@ -586,14 +593,14 @@ function Increase(el) {
     $("#price").text(product.RetailPrice);
     var qtryField = $(el).closest("tr").find("input.quantity");
     var qty = qtryField.val();
-    qty = parseInt(qty) + 1;
+    qty = parseFloat(qty) + 1;
     var stock = parseFloat(product.ProductStock);
     if (qty > stock) {
         ShowResult("Product out of stock.", "failure");
         qtryField.val(qty - 1);
     }
     else
-        qtryField.val(qty);
+        qtryField.val(qty.toFixed(4));
     var priceField = $(el).closest("tr").find("input.salePrice");
     var unitPrice = parseFloat(priceField.val()) || 0;
     var amountField = $(el).closest("tr").find("input.amount");
@@ -611,11 +618,11 @@ function Decrease(el) {
     $("#price").text(product.RetailPrice);
     var qtryField = $(el).closest("tr").find("input.quantity");
     var qty = qtryField.val();
-    qty = parseInt(qty) - 1;
-    if (qty < 1) {
-        qty = 1;
+    qty = parseFloat(qty) - 1;
+    if (qty < 0) {
+        qty = 0;
     }
-    qtryField.val(qty);
+    qtryField.val(qty.toFixed(4));
     var priceField = $(el).closest("tr").find("input.salePrice");
     var unitPrice = parseFloat(priceField.val()) || 0;
     var amountField = $(el).closest("tr").find("input.amount");
@@ -625,8 +632,8 @@ function Decrease(el) {
 }
 
 function CalculateAmount(el, qty, unitPrice) {
-    var amount = parseInt(qty) * parseFloat(unitPrice);
-    $(el).val(amount.toFixed(2));
+    var amount = (qty * unitPrice);
+    $(el).val(amount.toFixed(4));
 }
 
 function CalculateDiscountAmount(el) {
@@ -663,6 +670,7 @@ function DeleteRow(lnk) {
 }
 
 function QuantityChange(el) {
+    
     var product = window.productList.find(function (product) { return product.value === $(el).closest("tr").find("input.productId").val(); });
     $("#uom").text(product.UOMName);
     $("#stock").text(product.ProductStock);
@@ -730,12 +738,12 @@ function CalculateMobileShopPurchaseSummary() {
         totalPrice += parseFloat($($(".purchasePrice")[i]).val()) || 0;
         totalAmount += parseFloat($($(".amount")[i]).val()) || 0;
     }
-    $("#TotalQuantity").val(totalQty);
+    $("#TotalQuantity").val(totalQty.toFixed(4));
     $("#TotalPrice").val(totalPrice);
-    $("#TotalAmount").val(parseFloat(totalAmount).toFixed(2));
+    $("#TotalAmount").val(parseFloat(totalAmount).toFixed(4));
 }
 
-function CalculateMobileShopPurchase() {
+function CalculateMobileShopPurchase() {   
     $(".quantity, .purchasePrice:not(.quantityInited, .purchasePriceInited)").on('click keyup change', function () {
         var el = $(this);
         var check = Number(el.val());
@@ -755,18 +763,29 @@ function CalculateMobileShopPurchase() {
                 var qty = parseFloat(el.closest("tr").find(".quantity").val()) || 0;
                 var prce = parseFloat(el.closest("tr").find(".purchasePrice").val()) || 0;
                 var totalprcs = qty * prce;
-                el.closest("tr").find(".amount").val(parseFloat(totalprcs).toFixed(2));
+                el.closest("tr").find(".amount").val(parseFloat(totalprcs).toFixed(4));
                 CalculateMobileShopPurchaseSummary();
 
                 var discount = parseFloat($("#MemoWiseDiscount").val()) || 0;
                 var totalAmount = parseFloat($("#TotalAmount").val()) || 0;
                 var netAmount = totalAmount - discount;
-                $("#NetAmount").val(netAmount.toFixed(2));
+                $("#NetAmount").val(netAmount.toFixed(4));
             }
         }
     }).addClass("quantityInited, purchasePriceInited");
 }
 
+function CalculateSuperShopSaleReturnAmount() {
+    var totalAmount = 0;
+    var totalQty = 0;
+
+    for (var i = 0; i < $(".returnQuantity").length; i++) {
+        totalQty += parseFloat($($(".returnQuantity")[i]).val()) || 0;
+        totalAmount += parseFloat($($(".returnAmount")[i]).val()) || 0;
+    }
+    $("#TotalQuantity").val(totalQty.toFixed(4));
+    $("#TotalAmount").val(totalAmount.toFixed(4));     
+}
 //function CalculateMobileShopSaleSummary() {
 //    var totalQty = Number(0);
 //    var totalDiscount = Number(0);
@@ -821,6 +840,7 @@ function CalculateMobileShopPurchase() {
 //}
 
 function CalculateMobileShopSale() {
+    
     $(".quantity, .purchasePrice:not(.quantityInited, .purchasePriceInited)").on('click keyup change', function () {
         var el = $(this);
         var check = Number(el.val());
@@ -846,7 +866,7 @@ function CalculateMobileShopSale() {
                 var discount = parseFloat($("#MemoWiseDiscount").val()) || 0;
                 var totalAmount = parseFloat($("#TotalAmount").val()) || 0;
                 var netAmount = totalAmount - discount;
-                $("#NetAmount").val(netAmount.toFixed(2));
+                $("#NetAmount").val(netAmount.toFixed(4));
             }
         }
     }).addClass("quantityInited, purchasePriceInited");
@@ -858,7 +878,7 @@ window.MemoWiseDiscount = function () {
     var totalAmount = parseFloat($("#TotalAmount").val());
     var netAmount = parseFloat(totalAmount - discount);
 
-    $("#NetAmount").val(netAmount.toFixed(2));
+    $("#NetAmount").val(netAmount.toFixed(4));
 };
 
 

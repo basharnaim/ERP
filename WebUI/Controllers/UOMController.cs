@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<UomViewModel>>(_uomService.GetAll()));
+                return View(Mapper.Map<IEnumerable<UomViewModel>>(_uomService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _uomService.Add(AutoMapperConfiguration.mapper.Map<Uom>(uOMvm));
+                _uomService.Add(Mapper.Map<Uom>(uOMvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/UOM"}')");
             }
             catch (Exception ex)
@@ -82,7 +83,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<UomViewModel>(_uomService.GetById(id)));
+                return View(Mapper.Map<UomViewModel>(_uomService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -95,7 +96,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _uomService.Update(AutoMapperConfiguration.mapper.Map<Uom>(uOMvm));
+                _uomService.Update(Mapper.Map<Uom>(uOMvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/UOM"}')");
             }
             catch (Exception ex)

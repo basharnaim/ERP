@@ -21,16 +21,17 @@ namespace Library.ViewModel.Inventory.Expenditures
         [Required(ErrorMessage = "Ex.Amount is required.")]
         public decimal ExpenseAmount { get; set; }
         public string Comment { get; set; }
+        public string Description { get; set; }
 
-        
+
         /// <summary>   
         /// This is indicating whether this object is active. 
         /// Db Data Type: bit.
         /// Allow Null: No
         /// <remarks>Jahangir, 26-10-15</remarks>
         /// </summary>
-        
-        
+
+
         public bool Archive { get; set; }
 
         

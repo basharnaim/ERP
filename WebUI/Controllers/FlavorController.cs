@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<FlavorViewModel>>(_flavorService.GetAll()));
+                return View(Mapper.Map<IEnumerable<FlavorViewModel>>(_flavorService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -72,7 +73,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _flavorService.Add(AutoMapperConfiguration.mapper.Map<Flavor>(flavorVm));
+                _flavorService.Add(Mapper.Map<Flavor>(flavorVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Flavor"}')");
             }
             catch (Exception ex)
@@ -90,7 +91,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<FlavorViewModel>(_flavorService.GetById(id)));
+                return View(Mapper.Map<FlavorViewModel>(_flavorService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -105,7 +106,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _flavorService.Update(AutoMapperConfiguration.mapper.Map<Flavor>(flavorVm));
+                _flavorService.Update(Mapper.Map<Flavor>(flavorVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Flavor"}')");
             }
             catch (Exception ex)

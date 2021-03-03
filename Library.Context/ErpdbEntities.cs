@@ -1,5 +1,6 @@
 ﻿using Library.Model.Core.Addresses;
 using Library.Model.Core.Banks;
+using Library.Model.Core.Core;
 using Library.Model.Core.Doctors;
 using Library.Model.Core.Logs;
 using Library.Model.Core.Organizations;
@@ -172,5 +173,7 @@ namespace Library.Context
             #endregion
         }
         #endregion
+
+        public DbQuery<ProductStockVm> ProductStockVms { get; set; } 
     }
 }

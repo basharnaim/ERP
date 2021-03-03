@@ -14,6 +14,7 @@ using Library.Service.Inventory.Accounts;
 using Library.Service.Inventory.Suppliers;
 using Library.ViewModel.Inventory.Accounts;
 using Library.ViewModel.Inventory.Suppliers;
+using AutoMapper;
 
 #endregion
 
@@ -64,23 +65,23 @@ namespace ERP.WebUI.Controllers
                 List<SupplierLedgerViewModel> supplierLedger = new List<SupplierLedgerViewModel>();
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    suppliervm = AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierMobileNumber(phone));
-                    supplierLedger = AutoMapperConfiguration.mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
+                    suppliervm = Mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierMobileNumber(phone));
+                    supplierLedger = Mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(supplierId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    suppliervm = AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierId(supplierId));
-                    supplierLedger = AutoMapperConfiguration.mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", supplierId).ToList());
+                    suppliervm = Mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierId(supplierId));
+                    supplierLedger = Mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", supplierId).ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone))
                 {
-                    suppliervm = AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierMobileNumber(phone));
-                    supplierLedger = AutoMapperConfiguration.mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, "", "", "", phone, "").ToList());
+                    suppliervm = Mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierMobileNumber(phone));
+                    supplierLedger = Mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, "", "", "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(supplierId))
                 {
-                    suppliervm = AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierId(supplierId));
-                    supplierLedger = AutoMapperConfiguration.mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, "", "", "", "", supplierId).ToList());
+                    suppliervm = Mapper.Map<SupplierViewModel>(_supplierService.GetSupplierBySupplierId(supplierId));
+                    supplierLedger = Mapper.Map<List<SupplierLedgerViewModel>>(_rawSqlService.GetAllSupplierLedger(companyId, branchId, "", "", "", "", supplierId).ToList());
                 }
                 return View(new Tuple<IEnumerable<SupplierLedgerViewModel>, SupplierViewModel>(supplierLedger, suppliervm));
             }
@@ -156,7 +157,7 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 supplierLedgervm.CompanyId = identity.CompanyId;
                 supplierLedgervm.BranchId = identity.BranchId;
-                _supplierLedgerService.Add(AutoMapperConfiguration.mapper.Map<SupplierLedger>(supplierLedgervm));
+                _supplierLedgerService.Add(Mapper.Map<SupplierLedger>(supplierLedgervm));
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SupplierLedger?supplierId=" + supplierLedgervm.SupplierId}')");
             }
@@ -173,7 +174,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                SupplierLedgerViewModel supplierLedgervm = AutoMapperConfiguration.mapper.Map<SupplierLedgerViewModel>(_supplierLedgerService.GetById(id));
+                SupplierLedgerViewModel supplierLedgervm = Mapper.Map<SupplierLedgerViewModel>(_supplierLedgerService.GetById(id));
                 Supplier supplier = _supplierService.GetById(supplierLedgervm.SupplierId);
                 supplierLedgervm.SupplierName = supplier.Name;
                 supplierLedgervm.SupplierPhone = supplier.Phone1;
@@ -205,7 +206,7 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 supplierLedgervm.CompanyId = identity.CompanyId;
                 supplierLedgervm.BranchId = identity.BranchId;
-                _supplierLedgerService.Update(AutoMapperConfiguration.mapper.Map<SupplierLedger>(supplierLedgervm));
+                _supplierLedgerService.Update(Mapper.Map<SupplierLedger>(supplierLedgervm));
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/SupplierLedger?supplierId=" + supplierLedgervm.SupplierId}')");
             }

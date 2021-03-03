@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Library.ViewModel.Inventory.Sales
 {
@@ -20,11 +21,22 @@ namespace Library.ViewModel.Inventory.Sales
         [Required(ErrorMessage = "Sale type is required.")]
         public string SaleType { get; set; }
 
+          
         [Display(Name = "Date")]
         [Required(ErrorMessage = "Sale date is required.")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
+        //[DisplayFormat(DataFormatString = "{0:dd MMM yyyy hh:mm:ss tt}", ApplyFormatInEditMode = true)]
         public DateTime SaleDate { get; set; }
+        //private DateTime _createdOn = DateTime.MinValue;
+        //public DateTime CreatedOn;
+        //public DateTime SaleDate 
+        //{
+        //    get
+        //    {
+        //        return (_createdOn == DateTime.MinValue) ? DateTime.Now : _createdOn;
+        //    }
+        //    set { _createdOn = value; }
+        //}
 
         [Display(Name = "L.Charge")]
         [Required(ErrorMessage = "Loading Charge is required.")]
@@ -166,8 +178,8 @@ namespace Library.ViewModel.Inventory.Sales
         #region List
         public List<SuperShopSaleDetailViewModel> SaleDetails { get; set; }
         public List<SuperShopSaleDetailViewModel> DeliveredHistoryItems { get; set; }
-        public CustomerViewModel Customer { get; set; } 
-        
+        public CustomerViewModel Customer { get; set; }
+        public DataSet Sales { get; set; } 
         #endregion
 
         #region Extra
@@ -189,7 +201,7 @@ namespace Library.ViewModel.Inventory.Sales
         public decimal TotalBankDepositAmountByBranch { get; set; }
         public decimal TotalBankWithdrawnAmountByBranch { get; set; }
         public string ProductCategoryId { get; set; }
-        public string ProductCategoryName { get; set; } 
+        public string ProductCategoryName { get; set; }
         public string CourierName { get; set; }
         [Display(Name = "Product")]
         public string ProductId { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Expenditures;
 using Library.Service.Inventory.Expenditures;
 using Library.ViewModel.Inventory.Expenditures;
@@ -23,7 +24,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureCategoryViewModel>>(_expenditureCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ExpenditureCategoryViewModel>>(_expenditureCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _expenditureCategoryService.Add(AutoMapperConfiguration.mapper.Map<ExpenditureCategory>(expenditureCategoryVM));
+                _expenditureCategoryService.Add(Mapper.Map<ExpenditureCategory>(expenditureCategoryVM));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/ExpenditureCategory"}')");
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ExpenditureCategoryViewModel>(_expenditureCategoryService.GetById(id)));
+                return View(Mapper.Map<ExpenditureCategoryViewModel>(_expenditureCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _expenditureCategoryService.Update(AutoMapperConfiguration.mapper.Map<ExpenditureCategory>(expenditureCategoryvm));
+                _expenditureCategoryService.Update(Mapper.Map<ExpenditureCategory>(expenditureCategoryvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/ExpenditureCategory"}')");
             }
             catch (Exception ex)

@@ -18,6 +18,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using System.Configuration;
+using Library.Crosscutting.Helper;
 
 namespace Library.Service.Inventory.Sales
 {
@@ -127,6 +128,12 @@ namespace Library.Service.Inventory.Sales
                 }
                 sale.CustomerPoint = (sale.CustomerPoint + sale.EarningPoint) - sale.ExpensePoint;
                 sale.CustomerPointAmount = (sale.CustomerPointAmount + sale.EarningPointAmount) - sale.ExpensePointAmount;
+                //DateTime saleDate = sale.SaleDate;
+                //DateTime now = DateTime.Now;
+
+                //DateTime saleDate = DateTime.Parse(sale.SaleDate.ToShortDateString()+" "+ now.Hour + ":" + now.Minute + ":" + now.Second); //"24 May 2009 02:19:00"              
+                //sale.SaleDate = saleDate;
+
                 sale.AddedBy = identity.Name;
                 sale.AddedDate = DateTime.Now;
                 sale.AddedFromIp = identity.IpAddress;
@@ -372,7 +379,7 @@ namespace Library.Service.Inventory.Sales
                 sale.UpdatedDate = DateTime.Now;
                 sale.UpdatedFromIp = identity.IpAddress;
                 sale.Archive = saleDb.Archive;
-
+                sale.IsFullyDelivered = true;
 
                 #region sale Detail
                 var detailId = Convert.ToInt32(GenerateAutoId(identity.CompanyId, identity.BranchId, "SaleDetail"));
@@ -481,35 +488,35 @@ namespace Library.Service.Inventory.Sales
                 #endregion
 
                 #region CustomerLedger
-                if (!string.IsNullOrEmpty(customer.Id))
-                {
-                    var customerLedger = new CustomerLedger
-                    {
-                        CompanyId = identity.CompanyId,
-                        BranchId = identity.BranchId,
-                        Id = GenerateAutoId(identity.CompanyId, identity.BranchId, "CustomerLedger"),
-                        Sequence = GetAutoSequence("CustomerLedger"),
-                        SaleId = sale.Id,
-                        TrackingNo = GenerateTrackingNo(identity.CompanyId, identity.BranchId, "CustomerLedger"),
-                        CustomerId = customer.Id,
-                        CustomerMobileNumber = customer.Phone1,
-                        TransactionType = TransactionType.Sales.ToString(),
-                        Particulars = TransactionType.Sales.ToString(),
-                        TransactionDate = DateTime.Now,
-                        DebitAmount = sale.DueAmount > 0 ? sale.PaidAmount : sale.NetAmount,
-                        CreditAmount = sale.NetAmount,
-                        EarningPoint = sale.EarningPoint,
-                        EarningPointAmount = sale.EarningPointAmount,
-                        ExpensePoint = sale.ExpensePoint,
-                        ExpensePointAmount = sale.ExpensePointAmount,
-                        Active = true,
-                        SynchronizationType = SynchronizationType.Server.ToString(),
-                        AddedBy = identity.Name,
-                        AddedDate = DateTime.Now,
-                        AddedFromIp = identity.IpAddress
-                    };
-                    _customerLedgerRepository.Add(customerLedger);
-                }
+                //if (!string.IsNullOrEmpty(customer.Id))
+                //{
+                //    var customerLedger = new CustomerLedger
+                //    {
+                //        CompanyId = identity.CompanyId,
+                //        BranchId = identity.BranchId,
+                //        Id = GenerateAutoId(identity.CompanyId, identity.BranchId, "CustomerLedger"),
+                //        Sequence = GetAutoSequence("CustomerLedger"),
+                //        SaleId = sale.Id,
+                //        TrackingNo = GenerateTrackingNo(identity.CompanyId, identity.BranchId, "CustomerLedger"),
+                //        CustomerId = customer.Id,
+                //        CustomerMobileNumber = customer.Phone1,
+                //        TransactionType = TransactionType.Sales.ToString(),
+                //        Particulars = TransactionType.Sales.ToString(),
+                //        TransactionDate = DateTime.Now,
+                //        DebitAmount = sale.DueAmount > 0 ? sale.PaidAmount : sale.NetAmount,
+                //        CreditAmount = sale.NetAmount,
+                //        EarningPoint = sale.EarningPoint,
+                //        EarningPointAmount = sale.EarningPointAmount,
+                //        ExpensePoint = sale.ExpensePoint,
+                //        ExpensePointAmount = sale.ExpensePointAmount,
+                //        Active = true,
+                //        SynchronizationType = SynchronizationType.Server.ToString(),
+                //        AddedBy = identity.Name,
+                //        AddedDate = DateTime.Now,
+                //        AddedFromIp = identity.IpAddress
+                //    };
+                //    _customerLedgerRepository.Add(customerLedger);
+                //}
                 #endregion
 
                 sale.TotalQuantity = totalQty;
@@ -735,7 +742,10 @@ namespace Library.Service.Inventory.Sales
         {
             try
             {
-                return _saleRepository.GetAll(r => !r.Archive && !r.IsFullyReturned && !r.IsFullyDelivered && r.CompanyId == companyId && r.BranchId == branchId && r.SaleDate >= dateFrom && r.SaleDate <= dateTo, "Customer").OrderByDescending(x => x.SaleDate).AsEnumerable();
+                return _saleRepository.GetAll(r => !r.Archive && !r.IsFullyReturned && !r.IsFullyDelivered && r.CompanyId == companyId && r.BranchId == branchId
+                 && r.SaleDate >= dateFrom && r.SaleDate <= dateTo, "Customer").OrderByDescending(x => x.SaleDate).AsEnumerable();
+                 //&& (r.SaleDate.Date >= dateFrom.Date && r.SaleDate.Date <= dateTo.Date), "Customer"); //.OrderByDescending(x => x.SaleDate.Date).AsEnumerable();
+                 //r.SaleDate.Date >= dateFrom.Date
             }
             catch (Exception ex)
             {
@@ -855,7 +865,7 @@ namespace Library.Service.Inventory.Sales
         {
             try
             {
-                return _saleDetailRepository.GetAll(x => !x.Archive && !x.IsReturned && !x.IsCancelled && x.SaleId == masterId).AsEnumerable();
+                return _saleDetailRepository.GetAll(x => !x.Archive && !x.IsReturned && !x.IsCancelled && x.SaleId == masterId, "UOM").AsEnumerable();
             }
             catch (Exception ex)
             {

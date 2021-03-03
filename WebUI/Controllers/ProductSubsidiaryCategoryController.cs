@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -25,13 +26,13 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(productCategoryId) && !string.IsNullOrEmpty(productSubCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll(productCategoryId, productSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll(productCategoryId, productSubCategoryId)));
                 }
                 if (!string.IsNullOrEmpty(productSubCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll(productSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll(productSubCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductSubsidiaryCategoryViewModel>>(_productSubsidiaryCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -78,7 +79,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productSubsidiaryCategoryService.Add(AutoMapperConfiguration.mapper.Map<ProductSubsidiaryCategory>(productSubsidiaryCategoryvm));
+                _productSubsidiaryCategoryService.Add(Mapper.Map<ProductSubsidiaryCategory>(productSubsidiaryCategoryvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/ProductSubsidiaryCategory?productCategoryId=" + productSubsidiaryCategoryvm.ProductCategoryId + "&&productSubCategoryId=" + productSubsidiaryCategoryvm.ProductSubCategoryId }')");
             }
             catch (Exception ex)
@@ -94,7 +95,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductSubsidiaryCategoryViewModel>(_productSubsidiaryCategoryService.GetById(id)));
+                return View(Mapper.Map<ProductSubsidiaryCategoryViewModel>(_productSubsidiaryCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -107,7 +108,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productSubsidiaryCategoryService.Update(AutoMapperConfiguration.mapper.Map<ProductSubsidiaryCategory>(productSubsidiaryCategoryvm));
+                _productSubsidiaryCategoryService.Update(Mapper.Map<ProductSubsidiaryCategory>(productSubsidiaryCategoryvm));
                 return JavaScript($"ShowResult('{"Data Updated successfully."}','{"success"}','{"redirect"}','{"/ProductSubsidiaryCategory?productCategoryId=" + productSubsidiaryCategoryvm.ProductCategoryId + "&&productSubCategoryId=" + productSubsidiaryCategoryvm.ProductSubCategoryId }')");
             }
             catch (Exception ex)

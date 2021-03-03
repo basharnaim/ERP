@@ -1,4 +1,6 @@
 ﻿using Library.Model.Core.Core;
+using Library.ViewModel.Inventory.Purchases;
+using Library.ViewModel.Inventory.Sales;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,7 +28,7 @@ namespace Library.Context.Repositories
         IEnumerable<ProductVm> GetAllSalesProductListWithPositiveStockByCode(string companyId, string branchId);
         IEnumerable<ProductVm> GetAllSalesProductListWithPositiveStockByName(string companyId, string branchId);
         IEnumerable<CeramicProductVm> GetCeramicProductListForPurchase(string companyId, string branchId);
-        IEnumerable<CeramicProductVm> GetCeramicProductListForSale(string companyId, string branchId);
+        IEnumerable<CeramicProductVm> GetCeramicProductListForSale(string companyId, string branchId);        
         IEnumerable<LowStockProductVm> GetAllLowStockProduct(string companyId, string branchId);
         IEnumerable<ProductStockVm> GetAllProductStock(string companyId, string branchId, string supplierId, string ProductCategoryId, string ProductSubCategoryId, string ProductId, string productCode, string dateFrom, string dateTo);
         IEnumerable<ProductStockVm> GetAllProductStockDetail(string companyId, string branchId, string supplierId, string ProductCategoryId, string ProductSubCategoryId, string ProductId, string dateFrom, string dateTo);
@@ -56,21 +58,33 @@ namespace Library.Context.Repositories
         IEnumerable<AutoComplete> GetProductIdNameForAutoCompleteByCompanyBranchId(string companyId, string branchId);
         IEnumerable<SaleVm> GetAllSalesForMultiplePrint(string saleIds);
         IEnumerable<SaleDetailVm> GetAllSaleDetailsForMultiplePrint(string saleIds);
-        IEnumerable<MultipleInvoicePrint> GetAllForMultiplePrint(string saleIds);
+        IEnumerable<MultipleInvoicePrint> GetAllForMultiplePrint(string saleIds);        
         IEnumerable<MultipleInvoicePrint> GetAllForMultipleLabelPrint(string saleIds);
         IEnumerable<ProductVm> GetReceiveProductForArtisti(string companyId, string branchId);
         IEnumerable<ProductVm> GetReceiveProductForArtisti();
+        IEnumerable<ProductVm> GetBranchwiseProductCodeStockAll(string companyId, string branchId);
         IEnumerable<ProductVm> GetBranchwiseProductStockAll(string companyId, string branchId);
         IEnumerable<ProductVm> GetBranchwiseProductStockGreaterThanZero(string companyId, string branchId);
         IEnumerable<SaleVm> GetAllSalesForMobileCover(string companyId, string branchId, string dateFrom, string dateTo, string customerId, string courierId, string orderStatus, string phone);
+        
         IEnumerable<SaleVm> GetCategoryWiseItemSales(string companyId, string branchId, string supplierId, string dateFrom, string dateTo);
         IEnumerable<SaleVm> GetCategoryWiseDailySale(string companyId, string branchId, string supplierId, string dateFrom, string dateTo);
 
-        /// <summary>
-        /// Return DataTable
-        /// </summary>
-        /// <returns></returns>
-        DataSet GetPurchaseSummary(string companyId, string branchId, string supplierId);
+        DataSet GetPurchaseSummary(string companyId, string branchId, string supplierId, string fdate, string todate); 
+        IEnumerable<ProductVm> GetProductlistbySupplierId(string companyId, string branchId, string supplierId);
+        DataSet GetProductReorder(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productCoce);
+        DataSet GetProductExpired(string companyId, string branchId, string supplierId);
+        DataSet GetProductExpire(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productCoce, string expireDate, string isExpired);
+        DataSet GetDashboard(string companyId, string branchId, string supplierId);
+        DataSet GetStockInProductList(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productcode);
+        DataSet GetStockOutProductList(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productcode);
+        DataSet GetCategoryWiseSaleProfitLoss(string companyId, string branchId, string supplierId, string categoryId, string subCategoryId, string productId, string productcode, string dateFrom, string dateTo);
 
+        string AddSaleItems(SuperShopSaleViewModel salevm);
+        DataSet ReportLevelPrint(string id);
+        DataSet getSalesList(string companyId, string branchId, string customerId, string dateFrom, string dateTo);
+        string AddStockOuttems(SuperShopStockOutViewModel stockout);
+        DataSet GetProductStockAll(string companyId, string branchId, string dateFrom, string dateTo);
+        DataSet ReportGetAllSaleClosing(string companyId, string branchId, string dateFrom, string dateTo, string salePersonId);
     }
-}
+} 

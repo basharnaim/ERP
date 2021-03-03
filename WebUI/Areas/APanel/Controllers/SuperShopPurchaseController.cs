@@ -1,12 +1,16 @@
-﻿using ERP.WebUI.ReportViewer;
+﻿using AutoMapper;
+using ERP.WebUI.ReportViewer;
 using Library.Context.Repositories;
+using Library.Model.Core.Core;
 using Library.Service.Inventory.Purchases;
+using Library.ViewModel.Inventory.Products;
 using Library.ViewModel.Inventory.Purchases;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ERP.WebUI.Areas.APanel.Controllers
@@ -16,7 +20,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         #region Ctor
         private readonly IPurchaseService _purchaseService;
         private readonly IRawSqlService _rawSqlService;
-        public SuperShopPurchaseController( IPurchaseService purchaseService, IRawSqlService rawSqlService )
+        public SuperShopPurchaseController(IPurchaseService purchaseService, IRawSqlService rawSqlService)
         {
             _purchaseService = purchaseService;
             _rawSqlService = rawSqlService;
@@ -44,7 +48,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopPurchaseViewModel> purchases = new List<SuperShopPurchaseViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchases = Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 return View(purchases);
             }
@@ -89,7 +93,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopPurchaseViewModel> purchases = new List<SuperShopPurchaseViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchases = Mapper.Map<IEnumerable<SuperShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Purchase", purchases);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -122,7 +126,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopPurchaseDetailViewModel> purchaseDetails = new List<SuperShopPurchaseDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchaseDetails = Mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 return View(purchaseDetails);
             }
@@ -171,7 +175,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopPurchaseDetailViewModel> purchaseDetails = new List<SuperShopPurchaseDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchaseDetails = Mapper.Map<IEnumerable<SuperShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 ReportDataSource rpt = new ReportDataSource("PurchaseDetail", purchaseDetails);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -189,8 +193,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAllForReport(purchaseId));
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId));
+                var master = Mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAllForReport(purchaseId));
+                var detail = Mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId));
                 ReportDataSource rpt1 = new ReportDataSource("Purchase", master);
                 ReportDataSource rpt2 = new ReportDataSource("PurchaseDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -209,45 +213,93 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var dataSet = new DataSet();
-                var dataTable = new DataTable();
-                //if (!string.IsNullOrEmpty(companyId))
-                //{
-                   
-                //}
-                dataSet = _rawSqlService.GetPurchaseSummary(companyId, branchId, supplierId);
-                return View();
-
+                var dataSet = _rawSqlService.GetPurchaseSummary(companyId, branchId, supplierId, dateFrom, dateTo);                
+                return View(dataSet);
             }
             catch (Exception ex)
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
-            }            
+            }
         }
-         
-        public ActionResult RdlcReport_PurchaseSummary(string companyId, string branchId, string supplierId, string dateFrom, string dateTo)
+
+        public ActionResult RdlcReport_PurchaseSummary(string companyId, string branchId, string supplierId, string fdate, string todate)
         {
             try
             {
                 var dataSet = new DataSet();
-                var dataTable = new DataTable();
-                if (!string.IsNullOrEmpty(companyId))
-                {
-                    dataSet = _rawSqlService.GetPurchaseSummary(companyId, branchId, supplierId);
-                }
-                dataTable = dataSet.Tables[0];
-                ReportDataSource rpt = new ReportDataSource("Sale", dataSet.Tables[0]);
+                dataSet = _rawSqlService.GetPurchaseSummary(companyId, branchId, supplierId, fdate, todate);
+                ReportDataSource rpt = new ReportDataSource("Purchase", dataSet.Tables[0]);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
-                string rPath = "RdlcReport/RptCategoryWiseDailySales.rdlc";
-                Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + dateFrom + "&dto=" + dateFrom + "&companyId=" + companyId + "&branchId=" + branchId);
+                string rPath = "RdlcReport/RptPurchaseSummary.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + fdate + "&dto=" + todate + "&companyId=" + companyId + "&branchId=" + branchId);
+                return View();
+                //ReportDataSource rpt = new ReportDataSource("Purchase", dataSet.Tables[0]);
+                //RdlcReportViewerWithDate.reportDataSource = rpt;
+                //string rPath = "RdlcReport/RptCategoryWiseDailySales.rdlc";
+                //Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + fdate + "&dto=" + todate + "&companyId=" + companyId + "&branchId=" + branchId);
+                //return View();
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
+        #endregion
+
+        public ActionResult RdlcReport_Reorder(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productCode)
+        {
+            try
+            {                
+                var dataSet = _rawSqlService.GetProductReorder(companyId, branchId, categoryId, subCategoryId, supplierId, productId, productCode);
+                ReportDataSource rpt = new ReportDataSource("Product", dataSet.Tables["ProductReorder"]);
+                RdlcReportViewerWithoutDate.reportDataSource = rpt;
+                string rPath = "RdlcReport/RptProductListReorder.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerWithoutDate.aspx?rPath=" + rPath + "&companyId=" + companyId + "&branchId=" + branchId);
                 return View();
             }
             catch (Exception ex)
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
-            
         }
-        #endregion
+
+        public ActionResult ReorderList(string companyId, string branchId, string productCategoryId, string productSubCategoryId, string supplierId, string productId, string productCode)
+        {
+            try
+            {               
+                return View(_rawSqlService.GetProductReorder(companyId, branchId, productCategoryId, productSubCategoryId, supplierId, productId, productCode));
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
+        public ActionResult ExpireList(string companyId, string branchId, string productCategoryId, string productSubCategoryId, string supplierId, string productId, string productCoce, string expireDate, string isExpired)
+        {
+            try
+            {
+                return View(_rawSqlService.GetProductExpire(companyId, branchId, productCategoryId, productSubCategoryId, supplierId, productId, productCoce, expireDate, isExpired));
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
+        public ActionResult RdlcReport_ExpireList(string companyId, string branchId, string productCategoryId, string productSubCategoryId, string supplierId, string productId, string productCoce, string expireDate, string isExpired)
+        {
+            try
+            {
+                var data = _rawSqlService.GetProductExpire(companyId, branchId, productCategoryId, productSubCategoryId, supplierId, productId, productCoce, expireDate, isExpired);
+                ReportDataSource rpt = new ReportDataSource("Product", data.Tables["ProductExpire"]);
+                RdlcReportViewerWithoutDate.reportDataSource = rpt;
+                string rPath = "RdlcReport/RptProductListExpire.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerWithoutDate.aspx?rPath=" + rPath + "&companyId=" + companyId + "&branchId=" + branchId);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
     }
 }

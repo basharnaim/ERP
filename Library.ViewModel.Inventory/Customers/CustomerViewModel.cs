@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Library.ViewModel.Inventory.Customers
 {
@@ -81,5 +82,7 @@ namespace Library.ViewModel.Inventory.Customers
         public string CustomerSubCategoryId { get; set; }
         #endregion
 
-        public List<CustomerViewModel> ACustomers { get; set; }    }
+        public List<CustomerViewModel> ACustomers { get; set; }
+        public DataSet SalesInvoice { get; set; }  
+    }
 }

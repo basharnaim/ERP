@@ -1,4 +1,5 @@
-﻿using Library.Crosscutting.Securities;
+﻿using AutoMapper;
+using Library.Crosscutting.Securities;
 using Library.Model.Inventory.Customers;
 using Library.Service.Core.Enums;
 using Library.Service.Inventory.Customers;
@@ -37,9 +38,9 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 if (!string.IsNullOrEmpty(customerCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(identity.CompanyId, identity.BranchId, customerCategoryId)));
+                    return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(identity.CompanyId, identity.BranchId, customerCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(identity.CompanyId, identity.BranchId)));
+                return View(Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll(identity.CompanyId, identity.BranchId)));
             }
             catch (Exception ex)
             {
@@ -116,7 +117,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerService.Add(AutoMapperConfiguration.mapper.Map<Customer>(customervm));
+                _customerService.Add(Mapper.Map<Customer>(customervm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Customer/?companyId=" + customervm.CompanyId + "&&branchId=" + customervm.BranchId}')");
             }
             catch (Exception ex)
@@ -132,7 +133,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var cstmr = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetById(id));
+                var cstmr = Mapper.Map<CustomerViewModel>(_customerService.GetById(id));
                 return View(cstmr);
             }
             catch (Exception ex)
@@ -146,7 +147,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerService.Update(AutoMapperConfiguration.mapper.Map<Customer>(customervm));
+                _customerService.Update(Mapper.Map<Customer>(customervm));
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Customer/?companyId=" + customervm.CompanyId + "&&branchId=" + customervm.BranchId}')");
             }

@@ -3,22 +3,22 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-xl-12">
         <div class="top-button">
-            <a href="/APanel/District/Create" class="btn btn-bg" role="button">Add New</a>
+            <a href="/APanel/District/Create" class="btn btn-bg" role="button"><i class="fa fa-plus-circle"></i> Add New District</a>
             <a href="/APanel" class="btn btn-bg pull-right" role="button">Back</a>
             <hr />
         </div>
     </div>
-</div>
-@using (Html.BeginForm("Index", "ProductBasicConfiguration", FormMethod.Get))
+</div>*@
+@using (Html.BeginForm("Index", "District", FormMethod.Get))
 {
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-3">
             <div class="form-group">
-                <label class="control-label ">District Information</label>
-                @Html.SimpleDropDown("productBasicConfigurationCategoryId", "/APanel/ProductBasicConfigurationCategory/GetConfigurationCategoryList/", new { @class = "form-control" })
+                <label class="control-label">Division Name</label>
+                @Html.SimpleDropDown("divisionId", "/APanel/Division/GetDivisionLists/", new { @class = "form-control" })               
             </div>
         </div>
         <div class="col-md-4">
@@ -33,7 +33,14 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="panel panel-default card">
-            <div class="card-header District_tittle">District Information</div>
+            @*<div class="card-header District_tittle alert-info">
+                District Information
+            </div>*@
+            <div class="card-header Warehouse_tittle alert-info">
+                <a href="/APanel/District/Create" class="btn btn-bg btn-sm" role="button"><i class="fa fa-plus-circle"></i> Add New </a> District Information
+
+                <a href="/APanel" class="btn btn-bg top-button-back float-right btn-sm" role="button"><i class="fa fa-undo"></i> Back</a>
+            </div>
             <div class="panel-body card-body">
                 <div class="dataTable_wrapper">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -59,6 +66,9 @@
                                     <td>
                                         @Html.DisplayFor(modelDistrict => district.Name)
                                     </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelDistrict => district.DivisionName)
+                                </td>*@
                                     <td>
                                         @Html.YesNoFor(modelItem => district.Active)
                                     </td>

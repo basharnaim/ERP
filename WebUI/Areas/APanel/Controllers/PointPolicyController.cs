@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Promotions;
 using Library.Service.Inventory.Promotions;
@@ -42,7 +43,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PointPolicyViewModel>>(_PointPolicyService.GetAll(dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PointPolicyViewModel>>(_PointPolicyService.GetAll(dfrom.Value, dto.Value)));
                 }
                 return View();
             }
@@ -108,8 +109,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (PointPolicyVm.PointPolicyDetails.All(x => x.SaleAmount > 0))
                 {
-                    var PointPolicy = AutoMapperConfiguration.mapper.Map<PointPolicy>(PointPolicyVm);
-                    var PointPolicyDetails = AutoMapperConfiguration.mapper.Map<List<PointPolicyDetail>>(PointPolicyVm.PointPolicyDetails);
+                    var PointPolicy = Mapper.Map<PointPolicy>(PointPolicyVm);
+                    var PointPolicyDetails = Mapper.Map<List<PointPolicyDetail>>(PointPolicyVm.PointPolicyDetails);
                     PointPolicy.PointPolicyDetails = new List<PointPolicyDetail>();
                     foreach (var item in PointPolicyDetails)
                     {
@@ -133,8 +134,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var PointPolicy = AutoMapperConfiguration.mapper.Map<PointPolicyViewModel>(_PointPolicyService.GetById(id));
-                var PointPolicyDetails = AutoMapperConfiguration.mapper.Map<List<PointPolicyDetailViewModel>>(_PointPolicyService.GetAllPointPolicyDetailbyMasterId(id));
+                var PointPolicy = Mapper.Map<PointPolicyViewModel>(_PointPolicyService.GetById(id));
+                var PointPolicyDetails = Mapper.Map<List<PointPolicyDetailViewModel>>(_PointPolicyService.GetAllPointPolicyDetailbyMasterId(id));
                 PointPolicy.PointPolicyDetails = new List<PointPolicyDetailViewModel>();
                 PointPolicy.PointPolicyDetails.AddRange(PointPolicyDetails);
                 return View(PointPolicy);
@@ -153,8 +154,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (PointPolicyVm.PointPolicyDetails.All(x => x.SaleAmount > 0))
                 {
-                    var PointPolicy = AutoMapperConfiguration.mapper.Map<PointPolicy>(PointPolicyVm);
-                    var PointPolicyDetails = AutoMapperConfiguration.mapper.Map<List<PointPolicyDetail>>(PointPolicyVm.PointPolicyDetails);
+                    var PointPolicy = Mapper.Map<PointPolicy>(PointPolicyVm);
+                    var PointPolicyDetails = Mapper.Map<List<PointPolicyDetail>>(PointPolicyVm.PointPolicyDetails);
                     PointPolicy.PointPolicyDetails = new List<PointPolicyDetail>();
                     foreach (var item in PointPolicyDetails)
                     {

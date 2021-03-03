@@ -15,9 +15,11 @@ using Library.Service.Inventory.Purchases;
 using Library.Context.Pos;
 using Library.Context;
 using System.Linq;
+using AutoMapper;
 
 namespace ERP.WebUI.Areas.APanel.Controllers
 {
+    [Authorize]
     public class SuperShopProductController : BaseController
     {
         #region Ctor
@@ -25,7 +27,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         private readonly IRawSqlService _rawSqlService;
         //private readonly IPurchaseService _purchaseService;
         private IPurchaseRepository _purchaseRepository;
-        public SuperShopProductController( IProductService productService, IRawSqlService rawSqlService, IPurchaseService purchaseService)
+        public SuperShopProductController(IProductService productService, IRawSqlService rawSqlService, IPurchaseService purchaseService)
         {
             _productService = productService;
             _rawSqlService = rawSqlService;
@@ -39,10 +41,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(productCategoryId) && !string.IsNullOrEmpty(productSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
                 if (!string.IsNullOrEmpty(productCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
+                return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -78,7 +80,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productService.Add(AutoMapperConfiguration.mapper.Map<Product>(productVm));
+                _productService.Add(Mapper.Map<Product>(productVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/SuperShopProduct/?productCategoryId=" + productVm.ProductCategoryId + "&&productSubCategoryId=" + productVm.ProductSubCategoryId}')");
             }
             catch (Exception ex)
@@ -94,7 +96,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductViewModel>(_productService.GetById(id)));
+                return View(Mapper.Map<ProductViewModel>(_productService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -107,7 +109,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productService.Update(AutoMapperConfiguration.mapper.Map<Product>(productVm));
+                _productService.Update(Mapper.Map<Product>(productVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/SuperShopProduct/?productCategoryId=" + productVm.ProductCategoryId + "&&productSubCategoryId=" + productVm.ProductSubCategoryId}')");
 
             }
@@ -124,7 +126,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         public ActionResult Upload()
         {
             try
-            { 
+            {
                 //var data = from ob in _purchaseRepository.GetOpeningBlances() select ob;
                 return View();
             }
@@ -171,10 +173,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(productCategoryId) && !string.IsNullOrEmpty(productSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
                 if (!string.IsNullOrEmpty(productCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
+                return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -195,11 +197,11 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 IEnumerable<ProductViewModelForReport> items;
                 if (!string.IsNullOrEmpty(productCategoryId) && !string.IsNullOrEmpty(productSubCategoryId))
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(productCategoryId, productSubCategoryId));
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(productCategoryId, productSubCategoryId));
                 else if (!string.IsNullOrEmpty(productCategoryId))
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(productCategoryId));
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll(productCategoryId));
                 else
-                    items = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll());
+                    items = Mapper.Map<IEnumerable<ProductViewModelForReport>>(_productService.GetAll());
                 ReportDataSource rpt = new ReportDataSource("Product", items);
                 RdlcReportViewerWithoutDate.reportDataSource = rpt;
                 string rPath = "RdlcReport/RptProductList.rdlc";
@@ -229,7 +231,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -293,7 +295,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<ProductStockViewModel> productStocks = new List<ProductStockViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    productStocks = AutoMapperConfiguration.mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo));
+                    productStocks = Mapper.Map<IEnumerable<ProductStockViewModel>>(_rawSqlService.GetAllProductStock(companyId, branchId, supplierId, productCategoryId, productSubCategoryId, productId, productCode, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("ProductStock", productStocks);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -309,7 +311,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
 
         public ActionResult RdlcPurchaseSummary(string companyId, string branchId, string supplierId)
         {
-            return null;             
+            return null;
         }
         #endregion
     }

@@ -23,6 +23,7 @@ namespace Library.Service.Inventory.Suppliers
         IEnumerable<Supplier> GetAllSupplierBySupplierId(string supplierId);
         IEnumerable<Supplier> GetAll(string supplierCategoryId);
         IEnumerable<object> Lists();
+        IEnumerable<object> Lists(string Id);
         string GetSupplierNameById(string id);
         int GetAutoSequence();
     }

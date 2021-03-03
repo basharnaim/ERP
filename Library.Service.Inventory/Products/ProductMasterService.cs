@@ -23,11 +23,7 @@ namespace Library.Service.Inventory.Products
         private readonly IRepository<ProductMaster> _productMasterRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductMasterService(
-            IRepository<ProductMaster> productMasteryRepository,
-            IRepository<Product> productRepository,
-            IUnitOfWork unitOfWork
-            ) : base(productMasteryRepository)
+        public ProductMasterService( IRepository<ProductMaster> productMasteryRepository, IRepository<Product> productRepository, IUnitOfWork unitOfWork ) : base(productMasteryRepository)
         {
             _productMasterRepository = productMasteryRepository;
             _productRepository = productRepository;
@@ -208,10 +204,8 @@ namespace Library.Service.Inventory.Products
             try
             {
                 IEnumerable<string> productMasterIds = _productMasterRepository.GetAll(r => !r.Archive && r.Active).GroupBy(x => x.ProductId).Select(r => r.FirstOrDefault().ProductId);
-                return from r in _productRepository.GetAll(r => !r.Archive && r.Active && productMasterIds.Contains(r.Id))
-                                            .OrderBy(r => r.Sequence)
+                return from r in _productRepository.GetAll(r => !r.Archive && r.Active && productMasterIds.Contains(r.Id)).OrderBy(r => r.Sequence)
                        select new { Value = r.Id, Text = r.Name };
-
             }
             catch
             {
@@ -219,7 +213,31 @@ namespace Library.Service.Inventory.Products
             }
         }
 
-
+        public IEnumerable<object> ListsBySupplier(string supplierId, string subId, string cid)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(subId))
+                {
+                    return from r in _productRepository.GetAll(r => r.Active && r.SupplierId == supplierId && r.ProductSubCategoryId == subId).OrderBy(r => r.Sequence)
+                           select new { Value = r.Id, Text = r.Name };
+                }
+                else if(!string.IsNullOrEmpty(cid))
+                {
+                    return from r in _productRepository.GetAll(r => r.Active && r.SupplierId == supplierId && r.ProductCategoryId == cid).OrderBy(r => r.Sequence)
+                           select new { Value = r.Id, Text = r.Name };
+                }
+                else
+                {
+                    return from r in _productRepository.GetAll(r => r.Active && r.SupplierId == supplierId).OrderBy(r => r.Sequence)
+                           select new { Value = r.Id, Text = r.Name };
+                }                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

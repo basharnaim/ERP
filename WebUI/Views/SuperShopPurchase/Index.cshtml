@@ -3,43 +3,45 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <div class="d-flex justify-content-between pb-1">
-            <a href="/SuperShopPurchase/Create" class="btn btn-bg" role="button">Add New</a>
-            <a href="/Home" class="btn btn-bg top-button-back float-right" role="button">Back</a>
-        </div>
-        <hr />
-    </div>
-</div>
+
 @using (Html.BeginForm("Index", "SuperShopPurchase", FormMethod.Get))
 {
-<div class="row">
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label ">From date</label>
-            @Html.DatePicker("dateFrom", new { @class = "form-control" })
+    <div class="card card-inverse">
+        <div class="card-header alert-warning h4">
+            Add Purchase Direct <a href="/SuperShopPurchase/Create" class="btn btn-bg btn-sm" role="button">Add New</a>
+            <a href="/Home" class="btn btn-dark pull-right btn-sm" role="button">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label ">From date</label>
+                            @Html.DatePicker("dateFrom", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label ">To date</label>
+                            @Html.DatePicker("dateTo", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label mendatory">Supplier</label>
+                            @Html.SimpleDropDown("supplierId", "/Supplier/GetSupplierList", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
+                            <input type="button" value="Clear" class="btn btn-warning ml-1 mr-1" id="btnClear" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label ">To date</label>
-            @Html.DatePicker("dateTo", new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label class="control-label mendatory">Supplier</label>
-            @Html.SimpleDropDown("supplierId", "/Supplier/GetSupplierList", new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="col-md-2 d-flex align-items-end">
-        <div class="form-group">
-            <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
-            <input type="button" value="Clear" class="btn btn-warning ml-1 mr-1" id="btnClear" />
-        </div>
-    </div>
-</div>
 }
 <div class="row">
     <div class="col-xl-12">
@@ -52,6 +54,7 @@
                             <tr>
                                 <th>Purchase No.</th>
                                 <th>Purchase Date</th>
+                                @*<th>Expiry Date</th>*@
                                 <th>Supplier name</th>
                                 <th>Memo No.</th>
                                 <th>Total Quantity</th>
@@ -73,6 +76,9 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.PurchaseDate)
                                         </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.ExpiryDate)
+                                            </td>*@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.SupplierName)
                                         </td>
@@ -102,7 +108,7 @@
                         <tfoot>
                             @if (Model != null && Model.Any())
                             {
-                                 <tr class="text-right font-bold">
+                                <tr class="text-right font-bold">
                                     <td colspan="4">Total:</td>
                                     <td>@Html.Raw(Model.Sum(x => Math.Round(x.TotalQuantity, 2)))</td>
                                     <td>@Html.Raw(Model.Sum(x => Math.Round(x.TotalAmount, 2)))</td>

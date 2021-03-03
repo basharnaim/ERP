@@ -2,58 +2,52 @@
 @using ERP.WebUI.Html
 @{
     ViewBag.Title = "Create";
+}
 
-<div class="row">
-    <div class="col-xl-12">
-        <div class="d-flex justify-content-end pb-1">
-            <a href="/APanel/ProductSubCategory" class="btn btn-bg" role="button">Back</a>
-        </div>
-        <hr />
-    </div>
-</div>
 @using (Ajax.BeginForm("Create", "ProductSubCategory", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
 {
-    <div class="row ">
-        <div class="col-xl-12">
-            <div class="card ">
-                <div class="card-header ProductCategory_tittle">Product Category Information</div>
-                <div class="card-body">
-                    <div class="row ">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
-                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
-                                @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
-                                @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Subcategory name" })
-                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label mendatory" title="Item Category">Category</label>
-                                @Html.SimpleDropDownFor(model => model.ProductCategoryId, "/APanel/ProductCategory/GetProductCategoryList", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProductCategoryId, null, new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
-                                @Html.CheckBoxFor(model => model.Active)
-                            </div>
-                            
-                            <div class="row">
-                                <div class="offset-xl-10 col-xl-2">
-                                    <div class="form-group input-group">
-                                        <button type="submit" class="btn btn-bg pull-right">Save</button>
-                                    </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-success h5">
+            Product Category Information
+            <a href="/APanel/ProductSubCategory" class="btn btn-bg btn-sm pull-right" role="button">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, new { @class = "control-label   mendatory" })
+                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(model => model.Code, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, new { @class = "control-label   mendatory" })
+                            @Html.TextBoxFor(model => model.Name, new { autofocus = "", @class = "form-control", placeholder = "Subcategory name" })
+                            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label mendatory" title="Item Category">Category</label>
+                            @Html.SimpleDropDownFor(model => model.ProductCategoryId, "/APanel/ProductCategory/GetProductCategoryList", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductCategoryId, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label  " })
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Write something ......" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Active, new { @class = "control-label  " })
+                            @Html.CheckBoxFor(model => model.Active)
+                        </div>
+
+                        <div class="row">
+                            <div class="offset-xl-10 col-xl-2">
+                                <div class="form-group input-group">
+                                    <button type="submit" class="btn btn-bg pull-right">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -62,15 +56,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-
         $(function () {
 
         });
-
         $("#BranchId").on("change", function () {
             var companyId = $("#CompanyId").val();
             $("#id").val(companyId);
         });
-
     </script>
 }

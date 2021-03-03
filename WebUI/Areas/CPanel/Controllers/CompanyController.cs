@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Core.Organizations;
 using Library.Service.Core.Organizations;
 using Library.ViewModel.Core.Organizations;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAllForCPanel()));
+                return View(Mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAllForCPanel()));
             }
             catch (Exception ex)
             {
@@ -62,7 +63,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _companyService.Add(AutoMapperConfiguration.mapper.Map<Company>(comvm));
+                _companyService.Add(Mapper.Map<Company>(comvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CPanel/Company"}')");
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
+                return View(Mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -92,7 +93,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _companyService.Update(AutoMapperConfiguration.mapper.Map<Company>(comvm));
+                _companyService.Update(Mapper.Map<Company>(comvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CPanel/Company"}')");
             }
             catch (Exception ex)

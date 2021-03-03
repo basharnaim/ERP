@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Addresses;
 using Library.Service.Core.Addresses;
@@ -23,7 +24,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CountryViewModel>>(_countryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<CountryViewModel>>(_countryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -58,7 +59,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _countryService.Add(AutoMapperConfiguration.mapper.Map<Country>(countryVm));
+                _countryService.Add(Mapper.Map<Country>(countryVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -74,7 +75,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CountryViewModel>(_countryService.GetById(id)));
+                return View(Mapper.Map<CountryViewModel>(_countryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _countryService.Update(AutoMapperConfiguration.mapper.Map<Country>(countryVm));
+                _countryService.Update(Mapper.Map<Country>(countryVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"../"}')");
             }
             catch (Exception ex)

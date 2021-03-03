@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Addresses;
 using Library.Service.Core.Addresses;
@@ -12,9 +14,11 @@ namespace ERP.WebUI.Areas.APanel.Controllers
     {
         #region Ctor
         private readonly IDivisionService _divisionService;
-        public DivisionController(IDivisionService divisionService)
+        private readonly IDistrictService _districtService; 
+        public DivisionController(IDivisionService divisionService, IDistrictService districtService)
         {
             _divisionService = divisionService;
+            _districtService = districtService;
         }
         #endregion
 
@@ -23,7 +27,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<DivisionViewModel>>(_divisionService.GetAll()));
+                return View(Mapper.Map<IEnumerable<DivisionViewModel>>(_divisionService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -32,13 +36,38 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         }
         #endregion
 
-        #region JSon
+        #region Json
         public JsonResult GetDivisionList(string id)
-        {
+        {           
             return Json(new SelectList(_divisionService.GetDivisionList(id), "Value", "Text"), JsonRequestBehavior.AllowGet);
         }
         #endregion
+        #region JSon
+        public JsonResult GetDivisionLists() 
+        {
+            try
+            {
+                return Json(new SelectList(_divisionService.Lists(), "Value", "Text"), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public JsonResult GetDivisionListByCountryId(string CountryId) 
+        {
+            if (!string.IsNullOrEmpty(CountryId))
+            {
+                var model = new List<DistrictViewModel>();
+                var districtData = Mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll());
+                model = districtData.Where(x => x.CountryId == CountryId).ToList();
+                return Json(new SelectList(model, "Value", "Text"), JsonRequestBehavior.AllowGet);
+            }
+            //var data = _divisionService.GetDivisionList(id).ToList();
+            return Json(new SelectList(_divisionService.GetDivisionList(CountryId), "Value", "Text"), JsonRequestBehavior.AllowGet);
+        }
 
+        #endregion
         #region Create
         [HttpGet]
         public ActionResult Create()
@@ -58,7 +87,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _divisionService.Add(AutoMapperConfiguration.mapper.Map<Division>(divisionvm));
+                _divisionService.Add(Mapper.Map<Division>(divisionvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -74,7 +103,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<DivisionViewModel>(_divisionService.GetById(id)));
+                return View(Mapper.Map<DivisionViewModel>(_divisionService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -87,8 +116,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _divisionService.Update(AutoMapperConfiguration.mapper.Map<Division>(divisionvm));
-                return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"../"}')");
+                _divisionService.Update(Mapper.Map<Division>(divisionvm));
+                return JavaScript($"ShowResult('{"Data update successfully."}','{"success"}','{"redirect"}','{"../"}')");
             }
             catch (Exception ex)
             {

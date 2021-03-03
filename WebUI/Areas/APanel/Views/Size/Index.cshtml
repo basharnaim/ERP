@@ -3,19 +3,22 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-xl-12">
         <div class="d-flex justify-content-between pb-1">
-            <a href="/APanel/Size/Create" class="btn btn-bg" role="button">Add New</a>
-            <a href="/APanel/Size/Upload" class="btn btn-bg" role="button">Upload</a>
-            <a href="/APanel" class="btn btn-bg top-button-back float-right" role="button">Back</a>
+           
         </div>
     </div>
-</div>
+</div>*@
 <div class="row ">
     <div class="col-xl-12">
         <div class="card ">
-            <div class="card-header Flavor_tittle">Flavor Information</div>
+            <div class="card-header Flavor_tittle alert-success">
+                Flavor Information
+                <a href="/APanel/Size/Create" class="btn btn-bg btn-sm" role="button">Add New</a>
+                <a href="/APanel/Size/Upload" class="btn btn-warning btn-sm" role="button">Upload</a>
+                <a href="/APanel" class="btn btn-bg top-button-back float-right btn-sm" role="button">Back</a>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">

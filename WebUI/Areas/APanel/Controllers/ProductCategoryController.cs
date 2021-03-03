@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -26,7 +27,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductCategoryViewModel>>(_productCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ProductCategoryViewModel>>(_productCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -69,7 +70,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productCategoryService.Add(AutoMapperConfiguration.mapper.Map<ProductCategory>(productCategoryVm));
+                _productCategoryService.Add(Mapper.Map<ProductCategory>(productCategoryVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ProductCategory"}')");
             }
             catch (Exception ex)
@@ -85,7 +86,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductCategoryViewModel>(_productCategoryService.GetById(id)));
+                return View(Mapper.Map<ProductCategoryViewModel>(_productCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -98,7 +99,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _productCategoryService.Update(AutoMapperConfiguration.mapper.Map<ProductCategory>(productCategoryvm));
+                _productCategoryService.Update(Mapper.Map<ProductCategory>(productCategoryvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/ProductCategory"}')");
             }
             catch (Exception ex)

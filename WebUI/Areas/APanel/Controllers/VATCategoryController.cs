@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
@@ -25,7 +26,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<VatCategoryViewModel>>(_vatCategoryService.GetAll()));
+                return View(Mapper.Map<IEnumerable<VatCategoryViewModel>>(_vatCategoryService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -67,7 +68,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _vatCategoryService.Add(AutoMapperConfiguration.mapper.Map<VatCategory>(vatCategoryVm));
+                _vatCategoryService.Add(Mapper.Map<VatCategory>(vatCategoryVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/VATCategory"}')");
             }
             catch (Exception ex)
@@ -85,7 +86,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<VatCategoryViewModel>(_vatCategoryService.GetById(id)));
+                return View(Mapper.Map<VatCategoryViewModel>(_vatCategoryService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _vatCategoryService.Update(AutoMapperConfiguration.mapper.Map<VatCategory>(vatCategoryVm));
+                _vatCategoryService.Update(Mapper.Map<VatCategory>(vatCategoryVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/VATCategory"}')");
             }
             catch (Exception ex)

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Data;
+using AutoMapper;
 
 namespace ERP.WebUI.Areas.APanel.Controllers
 {
@@ -17,10 +18,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         #region Ctor
         private readonly ISaleService _saleService;
         private readonly IRawSqlService _rawSqlService;
-        public SuperShopSaleController(
-            ISaleService saleService,
-            IRawSqlService rawSqlService
-            )
+        public SuperShopSaleController( ISaleService saleService, IRawSqlService rawSqlService)
         {
             _saleService = saleService;
             _rawSqlService = rawSqlService;
@@ -47,7 +45,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
                 }
                 return View(sales);
             }
@@ -92,7 +90,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(companyId, branchId, dateFrom, dateTo, customerId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -125,7 +123,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId));
+                     sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId));                   
                 }
                 return View(sales);
             }
@@ -139,40 +137,43 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                if (branchId == "null")
-                {
-                    branchId = "";
-                }
-                if (dateFrom == "null")
-                {
-                    dateFrom = "";
-                }
-                if (dateTo == "null")
-                {
-                    dateTo = "";
-                }
-                if (salePersonId == "null")
-                {
-                    salePersonId = "";
-                }
-                if (!string.IsNullOrEmpty(dateFrom))
-                {
-                    DateTime? dfrom = Convert.ToDateTime(dateFrom);
-                    dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
-                    dateFrom = dfrom.Value.ToString(CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(dateTo))
-                {
-                    DateTime? dto = Convert.ToDateTime(dateTo);
-                    dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
-                    dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
-                }
-                IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
-                if (!string.IsNullOrEmpty(companyId))
-                {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId));
-                }
-                ReportDataSource rpt = new ReportDataSource("Sale", sales);
+                //if (branchId == "null")
+                //{
+                //    branchId = "";
+                //}
+                //if (dateFrom == "null")
+                //{
+                //    dateFrom = "";
+                //}
+                //if (dateTo == "null")
+                //{
+                //    dateTo = "";
+                //}
+                //if (salePersonId == "null")
+                //{
+                //    salePersonId = "";
+                //}
+                //if (!string.IsNullOrEmpty(dateFrom))
+                //{
+                //    DateTime? dfrom = Convert.ToDateTime(dateFrom);
+                //    dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
+                //    dateFrom = dfrom.Value.ToString(CultureInfo.InvariantCulture);
+                //}
+                //if (!string.IsNullOrEmpty(dateTo))
+                //{
+                //    DateTime? dto = Convert.ToDateTime(dateTo);
+                //    dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
+                //    dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
+                //}
+                //
+                //if (!string.IsNullOrEmpty(companyId))
+                //{
+                //   dataSet = _rawSqlService.ReportGetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId);
+                //    //sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId));
+                //}
+
+                var dataSet = _rawSqlService.ReportGetAllSaleClosing(companyId, branchId, dateFrom, dateTo, salePersonId);
+                ReportDataSource rpt = new ReportDataSource("Sale", dataSet.Tables[0]);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
                 string rPath = "RdlcReport/RptSaleClosing.rdlc";
                 Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + dateFrom + "&dto=" + dateTo + "&companyId=" + companyId + "&branchId=" + branchId);
@@ -203,7 +204,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCategoryWiseSale(companyId, branchId, supplierId, dateFrom, dateTo));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCategoryWiseSale(companyId, branchId, supplierId, dateFrom, dateTo));
                 }
                 return View(sales);
             }
@@ -281,7 +282,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCounterWiseSale(companyId, branchId, dateFrom, dateTo));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCounterWiseSale(companyId, branchId, dateFrom, dateTo));
                 }
                 return View(sales);
             }
@@ -322,7 +323,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCounterWiseSale(companyId, branchId, dateFrom, dateTo));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCounterWiseSale(companyId, branchId, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -354,7 +355,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, productCategoryId, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, productCategoryId, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -407,7 +408,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<SuperShopSaleDetailViewModel> salesDetail = new List<SuperShopSaleDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    salesDetail = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, itemId, dateFrom, dateTo));
+                    salesDetail = Mapper.Map<IEnumerable<SuperShopSaleDetailViewModel>>(_rawSqlService.GetAllSaleDetail(companyId, branchId, customerId, saleNo, itemId, dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("SaleDetail", salesDetail);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -425,8 +426,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id));
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id));
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id));
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id));
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -459,7 +460,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo)));
+                    return View(Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCashBalanceBetweenDate(companyId, branchId, dateFrom, dateTo)));
                 }
                 return View();
             }
@@ -563,26 +564,30 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             }
         }
 
-        public ActionResult ReportDailySales(string companyId, string branchId, string supplierId, string dateFrom, string dateTo)
+        public ActionResult ReportDailySales(string companyId, string branchId, string supplierId, string dateFrom)
         {
             try
             {
+                string dateTo = "";
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
                     DateTime? dfrom = Convert.ToDateTime(dateFrom);
                     dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
                     dateFrom = dfrom.Value.ToString(CultureInfo.InvariantCulture);
-                }
-                if (!string.IsNullOrEmpty(dateTo))
-                {
-                    DateTime? dto = Convert.ToDateTime(dateTo);
+                    DateTime? dto = Convert.ToDateTime(dateFrom);
                     dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
                     dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
                 }
+                //if (!string.IsNullOrEmpty(dateTo))
+                //{
+                //    DateTime? dto = Convert.ToDateTime(dateTo);
+                //    dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
+                //    dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
+                //}
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCategoryWiseSale(companyId, branchId, supplierId, dateFrom, dateTo));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCategoryWiseSale(companyId, branchId, supplierId, dateFrom, dateTo));
                 }
                 return View(sales);
             }
@@ -590,7 +595,6 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
-
         }
 
         public ActionResult RdlcReportDailySales(string companyId, string branchId, string supplierId, string dateFrom, string dateTo)
@@ -640,8 +644,110 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
-        }                
+        }
 
+        public ActionResult ReportCategoryWiseSaleProfitLoss(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productCode, string dateFrom, string dateTo)
+        {
+            try
+            {
+                var dataSet = _rawSqlService.GetCategoryWiseSaleProfitLoss(companyId, branchId, supplierId, categoryId, subCategoryId, productId, productCode, dateFrom, dateTo);
+                return View(dataSet);
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+           
+            //try
+            //{
+            //    if (!string.IsNullOrEmpty(dateFrom))
+            //    {
+            //        DateTime? dfrom = Convert.ToDateTime(dateFrom);
+            //        dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
+            //        dateFrom = dfrom.Value.ToString(CultureInfo.InvariantCulture);
+            //    }
+            //    if (!string.IsNullOrEmpty(dateTo))
+            //    {
+            //        DateTime? dto = Convert.ToDateTime(dateTo);
+            //        dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
+            //        dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
+            //    }
+            //    IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
+            //    if (!string.IsNullOrEmpty(companyId))
+            //    {
+            //        sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetCategoryWiseSaleProfitLoss(companyId, branchId, supplierId, categoryId, subCategoryId, productId, productCode, dateFrom, dateTo));
+            //    }
+            //    return View(sales);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return JavaScript($"ShowResult('{ex.Message}','failure')");
+            //}
+        }
+
+        public ActionResult RdlcReportCategoryWiseSaleProfitLoss(string companyId, string branchId, string categoryId, string subCategoryId, string supplierId, string productId, string productCode, string dateFrom, string dateTo)
+        {
+            try
+            {
+                //var dataSet = new DataSet();
+                var dataSet = _rawSqlService.GetCategoryWiseSaleProfitLoss(companyId, branchId, supplierId, categoryId, subCategoryId, productId, productCode, dateFrom, dateTo);
+                ReportDataSource rpt = new ReportDataSource("ProfitLoss", dataSet.Tables[0]);
+                RdlcReportViewerWithDate.reportDataSource = rpt;
+                string rPath = "RdlcReport/RptCategoryWiseSalesProfitLoss.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + dateFrom + "&dto=" + dateTo + "&companyId=" + companyId + "&branchId=" + branchId);
+                return View();                
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+
+            //try
+            //{
+            //    if (branchId == "null")
+            //    {
+            //        branchId = "";
+            //    }
+            //    if (supplierId == "null")
+            //    {
+            //        supplierId = "";
+            //    }
+            //    if (dateFrom == "null")
+            //    {
+            //        dateFrom = "";
+            //    }
+            //    if (dateTo == "null")
+            //    {
+            //        dateTo = "";
+            //    }
+            //    if (!string.IsNullOrEmpty(dateFrom))
+            //    {
+            //        DateTime? dfrom = Convert.ToDateTime(dateFrom);
+            //        dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
+            //        dateFrom = dfrom.Value.ToString(CultureInfo.InvariantCulture);
+            //    }
+            //    if (!string.IsNullOrEmpty(dateTo))
+            //    {
+            //        DateTime? dto = Convert.ToDateTime(dateTo);
+            //        dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
+            //        dateTo = dto.Value.ToString(CultureInfo.InvariantCulture);
+            //    }
+            //    IEnumerable<SaleVm> sales = new List<SaleVm>();
+            //    if (!string.IsNullOrEmpty(companyId))
+            //    {
+            //        sales = _rawSqlService.GetCategoryWiseSale(companyId, branchId, supplierId, dateFrom, dateTo);
+            //    }
+            //    ReportDataSource rpt = new ReportDataSource("Sale", sales);
+            //    RdlcReportViewerWithDate.reportDataSource = rpt;
+            //    string rPath = "RdlcReport/RptCategoryWiseSalesProfitLoss.rdlc";
+            //    Response.Redirect("~/ReportViewer/RdlcReportViewerWithDate.aspx?rPath=" + rPath + "&dfrom=" + dateFrom + "&dto=" + dateTo + "&companyId=" + companyId + "&branchId=" + branchId);
+            //    return View();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return JavaScript($"ShowResult('{ex.Message}','failure')");
+            //}
+        }
         #endregion
     }
 }

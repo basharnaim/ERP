@@ -3,79 +3,84 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <a href="/APanel" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
-        <h4 class="page-header">Supplier Ledger Information</h4>
-    </div>
-</div>
+@*<div class="row">
+        <div class="col-xl-12">
+            <a href="/APanel" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
+            <h4 class="page-header">Supplier Ledger Information</h4>
+        </div>
+    </div>*@
 @using (Html.BeginForm("Index", "SupplierLedger", FormMethod.Get, new { id = "SearchForm" }))
 {
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   mendatory">Company</label>
-                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
-                @Html.ValidationMessage("companyId", new { @class = "text-danger" })
-            </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-danger h5">
+            Supplier Ledger Information
+            <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button"> Back </a>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   mendatory">Branch</label>
-                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList/", "companyId", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
-                @Html.ValidationMessage("branchId", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label  " title="Supplier name">Supplier</label>
-                @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label  ">Phone</label>
-                @Html.TextBox("phone", null, new { autofocus = "", @class = "form-control", tabindex = "1" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   " title="From date">From date</label>
-                @Html.DatePicker("dateFrom", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">To date</label>
-                @Html.DatePicker("dateTo", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group ">
-                <div class="submit-button">
-                    <button type="submit" class="btn btn-bg">Show</button>
-                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
-                    @Html.ActionLink("Report", "RdlcReportSupplierLedger", "SupplierLedger", new { target = "_blank", id = "btnReport", @class = "btn btn-bg pull-middle" })
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="control-label   mendatory">Company</label>
+                        @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                        @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="control-label mendatory">Branch</label>
+                        @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList/", "companyId", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                        @Html.ValidationMessage("branchId", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="control-label" title="Supplier name">Supplier</label>
+                        @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="control-label">Phone</label>
+                        @Html.TextBox("phone", null, new { autofocus = "", @class = "form-control", tabindex = "1" })
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group">
+                        <label class="control-label" title="From date">From date</label>
+                        @Html.DatePicker("dateFrom", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group">
+                        <label class="control-label">To date</label>
+                        @Html.DatePicker("dateTo", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group ">
+                        <div class="submit-button">
+                            <button type="submit" class="btn btn-bg">Show</button>
+                            @Html.ActionLink("Report", "RdlcReportSupplierLedger", "SupplierLedger", new { target = "_blank", id = "btnReport", @class = "btn btn-bg pull-middle" })
+                            <input type="button" value="Clear" class="btn btn-warning offset-1 col-3" id="btnClear" />
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 }
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-2">
         <div class="form-group">
-            <label class="control-label   " title="Supplier name">Supplier</label>
+            <label class="control-label" title="Supplier name">Supplier</label>
             @Html.TextBoxFor(model => model.Item2.Name, null, new { @class = "form-control", @readonly = "readonly" })
-
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-2">
         <div class="form-group">
-            <label class="control-label   " title="Supplier address">Address</label>
+            <label class="control-label" title="Supplier address">Address</label>
             @Html.TextBoxFor(model => model.Item2.Address1, null, new { @class = "form-control", @readonly = "readonly" })
-
         </div>
     </div>
 </div>

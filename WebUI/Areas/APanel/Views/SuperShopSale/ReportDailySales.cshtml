@@ -3,60 +3,63 @@
 @{
     ViewBag.Title = "Sales Summary Report";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-lg-12">
-        <a href="/APanel" class="btn btn-primary pull-right top-button-back" role="button">Back</a>
+        
         <h4 class="page-header">Sales Information</h4>
     </div>
-</div>
-@using (Html.BeginForm("ReportDailySale", "SuperShopSale", FormMethod.Get))
+</div>*@
+@using (Html.BeginForm("ReportDailySales", "SuperShopSale", FormMethod.Get))
 {
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label mendatory">Company</label>
-                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "this is required" })
-                @Html.ValidationMessage("companyId", new { @class = "text-danger" })
-            </div>
+    <div class="card card-inverse  ">
+        <div class="card-header alert-success h5">Sales Summary
+            <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button">Back</a>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label">Branch</label>
-                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
-                @Html.ValidationMessage("branchId", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label">Supplier</label>
-                @Html.SimpleDropDown("supplierId", "/Supplier/GetSupplierList", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-1">
-            <div class="form-group">
-                <label class="control-label mendatory" title="From date"> Date</label>
-                @Html.DatePicker("dateFrom", new { @class = "form-control", data_val = "true", data_val_required = "this is required" })
-            </div>
-        </div>
-        <div class="col-md-1" hidden>
-            <div class="form-group">
-                <label class="control-label   mendatory">To date</label>
-                @Html.DatePicker("dateTo", new { @class = "form-control", data_val = "true", data_val_required = "this is required" })
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group ">
-                <div class="submit-button">
-                    <button type="submit" class="btn btn-bg">Show</button>
-                    @Html.ActionLink("Report", "RdlcReportDailySales", "SuperShopSale", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle" })
-                    <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label mendatory">Company</label>
+                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "this is required" })
+                            @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label">Branch</label>
+                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                            @Html.ValidationMessage("branchId", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label">Supplier</label>
+                            @Html.SimpleDropDown("supplierId", "/Supplier/GetSupplierList", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="control-label mendatory" title="From date"> Date</label>
+                            @Html.DatePicker("dateFrom", new { @class = "form-control", data_val = "true", data_val_required = "this is required" })
+                        </div>
+                    </div>                   
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <div class="submit-button">
+                                <button type="submit" class="btn btn-bg">Show</button>
+                                @Html.ActionLink("Report", "RdlcReportDailySales", "SuperShopSale", new { target = "_blank", id = "btnReport", @class = "btn btn-primary" })
+                                <input type="button" value="Clear" class="btn btn-warning offset-1 col-2" id="btnClear" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 }
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -132,6 +135,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
@@ -151,14 +155,11 @@
             } else {
                 var supplierId = $('#supplierId').val();
                 var dateFrom = $('#dateFrom').val();
-                var dateTo = $('#dateTo').val();
-                var salePersonId = $('#salePersonId').val();
-                this.href = this.href.split('?')[0] + '?companyId=' + companyId
-                    + '&branchId=' + branchId
-                    + '&supplierId=' + supplierId
-                    + '&dateFrom=' + dateFrom
-                    + '&dateTo=' + dateTo
-                    + '&salePersonId=' + salePersonId;
+                //var dateTo = $('#dateTo').val();
+                //var salePersonId = $('#salePersonId').val();
+                this.href = this.href.split('?')[0] + '?companyId=' + companyId + '&branchId=' + branchId + '&supplierId=' + supplierId + '&dateFrom=' + dateFrom;
+                //+ '&dateTo=' + dateTo
+                //+ '&salePersonId=' + salePersonId;
             }
         });
         $("#btnReportDetails").click(function () {

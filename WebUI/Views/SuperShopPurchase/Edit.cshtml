@@ -1,111 +1,120 @@
 ﻿@model Library.ViewModel.Inventory.Purchases.SuperShopPurchaseViewModel
 @using ERP.WebUI.Html
 @{
-    ViewBag.Title = "PurchaseDirect";
-    ViewBag.YouAreHere = "PurchaseDirect > New";
+    ViewBag.Title = "Purchase Direct";
+    ViewBag.YouAreHere = "Purchase Direct > New";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <a href="/SuperShopPurchase" class="btn btn-bg pull-right top-button-back" role="button">Back</a>
-        <h4 class="page-header">Add Purchase Direct</h4>
-    </div>
-</div>
+
 @using (Ajax.BeginForm("Edit", "SuperShopPurchase", null, new AjaxOptions { HttpMethod = "POST" }, new { id = "DialogForm" }))
 {
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Id, new { title = "Purchase No", @class = "control-label  mendatory" })
-                @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.Id, null, new { @class = "text-danger" })
-            </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-warning h4">
+            Update Purchase Direct
+            <a href="/SuperShopPurchase" class="btn btn-dark pull-right btn-sm" role="button"> Back </a>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MemoNo, new { title = "Memo No", @class = "control-label " })
-                @Html.TextBoxFor(model => model.MemoNo, new { autofocus = "", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MemoNo, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label class="control-label mendatory">Supplier</label>
-                @Html.SimpleDropDownFor(model => model.SupplierId, "/Supplier/GetSupplierList", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SupplierId, null, new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.PurchaseDate, new { @class = "control-label  mendatory" })
-                @Html.DatePickerFor(model => model.PurchaseDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PurchaseDate, null, new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Id, new { title = "Purchase No", @class = "control-label  mendatory" })
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.Id, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MemoNo, new { title = "Memo No", @class = "control-label " })
+                            @Html.TextBoxFor(model => model.MemoNo, new { autofocus = "", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MemoNo, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label mendatory">Supplier</label>
+                            @Html.SimpleDropDownFor(model => model.SupplierId, "/Supplier/GetSupplierList", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SupplierId, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PurchaseDate, new { @class = "control-label  mendatory" })
+                            @Html.DatePickerFor(model => model.PurchaseDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PurchaseDate, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <table id="tbl" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="input-size-width">Product</th>
-                        <th>UOM</th>
-                        <th>Stock</th>
-                        <th>Quantity </th>
-                        <th>Purchase Price</th>
-                        <th>Net Amount</th>
-                        <th class="td-width-button"></th>
-                    </tr>
-                </thead>
-                <tbody id="editorItemRows">
-                    @if (Model != null && Model.PurchaseDetails != null && Model.PurchaseDetails.Any())
-                    {
-                        foreach (var item in Model.PurchaseDetails)
-                        {
-                            Html.RenderPartial("_PurchaseItemRow", item);
-                        }
-                    }
-                </tbody>
-            </table>
-            <p>
-                <a href="javascript:void(0);" class="AddRow" data-url="/SuperShopPurchase/BlankItem" data-container="editorItemRows"><span class="btn-sm btn-bg fa fa-plus-square">Add New</span></a>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.HiddenFor(model => model.TotalQuantity, new { @class = "totalQty right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalQuantity) })
-            </div>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TotalAmount, new { @class = "control-label " })
-                <div class="col-xs-8">
-                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "totalAmount right form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+                <div class="row">
+                    <div class="col-12">
+                        <table id="tbl" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="">Code</th>
+                                    <th class="">Product</th>
+                                    <th class="">UOM</th>
+                                    <th class="">Expiry Date</th>
+                                    <th class="">Stock</th>
+                                    <th class="">Quantity </th>
+                                    <th class="">Purchase Price</th>
+                                    <th class="">Net Amount</th>
+                                    @*<th class="td-width-button"></th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="editorItemRows">
+                                @if (Model != null && Model.PurchaseDetails != null && Model.PurchaseDetails.Any())
+                                {
+                                    foreach (var item in Model.PurchaseDetails)
+                                    {
+                                        Html.RenderPartial("_PurchaseItemRow", item);
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        @*<p>
+                            <a href="javascript:void(0);" class="AddRow" data-url="/SuperShopPurchase/BlankItem" data-container="editorItemRows">
+                                <span class="btn-sm btn-bg fa fa-plus-square">Add New</span>
+                            </a>
+                        </p>*@
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.MemoWiseDiscount, new { @class = "control-label " })
-                <div class="col-xs-8">
-                    @Html.TextBoxFor(model => model.MemoWiseDiscount, new { @class = "right form-control text-right", onclick = "this.select()", tabindex = "4", Value = String.Format("{0:0.00}", Model.MemoWiseDiscount) })
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.TotalQuantity, new { @class = "totalQty right form-control", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalQuantity) })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TotalAmount, new { @class = "control-label " })
+                            <div class="col-xs-8">
+                                @Html.TextBoxFor(model => model.TotalAmount, new { @class = "totalAmount right form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.TotalAmount) })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MemoWiseDiscount, new { @class = "control-label " })
+                            <div class="col-xs-8">
+                                @Html.TextBoxFor(model => model.MemoWiseDiscount, new { @class = "right form-control text-right", onclick = "this.select()", tabindex = "4", Value = String.Format("{0:0.00}", Model.MemoWiseDiscount) })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NetAmount, new { @class = "control-label " })
+                            <div class="col-xs-8">
+                                @Html.TextBoxFor(model => model.NetAmount, new { @class = "right form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.NetAmount) })
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.NetAmount, new { @class = "control-label " })
-                <div class="col-xs-8">
-                    @Html.TextBoxFor(model => model.NetAmount, new { @class = "right form-control text-right", @readonly = "readonly", Value = String.Format("{0:0.00}", Model.NetAmount) })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-12 bottom-height">
-            <div class="form-group pull-right">
-                <div class="col-xs-12">
-                    <button type="submit" class="btn btn-bg">Save</button>
+                <div class="row ">
+                    <div class="col-md-12 bottom-height">
+                        <div class="form-group pull-right">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-bg">Save</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,6 +124,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
+
         var productList = eval('@Html.Raw(ViewBag.ItemList)');
 
         function ProductCodeAutoComplete() {
@@ -160,21 +170,25 @@
             $("#NetAmount").val(netAmount.toFixed(2));
         });
 
-    $(document).keyup(function (e) {
-        if (e.keyCode == 45) {
+        $(document).keyup(function (e) {
+
+            if (e.keyCode == 45) {
+
             e.preventDefault();
             $.ajax({
                 url: '/SuperShopPurchase/BlankItem',
                 type: 'POST',
                 cache: false,
                 success: function (html) {
+
                     $("#editorItemRows").append(html);
                     $(".productName").closest("tr").find("input.productName").focus();
                 }
             });
         }
 
-        else if (e.keyCode == 46) {
+            else if (e.keyCode == 46) {
+
             e.preventDefault();
             var len = $('#tbl tr').length;
             if (len > 2) {
@@ -187,8 +201,69 @@
             }
 
         }
-    });
+        });
 
+        $(".quantity, .purchasePrice:not(.quantityInited, .purchasePriceInited)").on('click keyup change', function () {
+            var el = $(this);
+            var qty = parseFloat(el.closest("tr").find(".quantity").val()) || 0;
+            if (qty < 1) {
+                el.closest("tr").find(".quantity").val('');
+            } else {
+
+                var price = parseFloat(el.closest("tr").find(".purchasePrice").val()) || 0; // parseFloat($($(".salePrice")[i]).val()) || 0;
+                var amout = qty * price;
+                el.closest("tr").find(".amount").val(amout.toFixed(2));
+                $('#TotalAmount').val(amout.toFixed(2));
+
+                var discount = $('#MemoWiseDiscount').val();
+                var netAmount = (amout - discount);
+                $('#NetAmount').val(netAmount.toFixed(2));
+            }
+        });
+
+        function CalculateSuperShopPurchaseSummary() {
+            var totalQty = Number(0);
+            var totalAmount = Number(0);
+            for (var i = 0; i < $(".productId").length; i++) {
+                totalQty += parseFloat($($(".quantity")[i]).val()) || 0;
+                totalAmount += parseFloat($($(".amount")[i]).val()) || 0;
+            }
+            $("#TotalQuantity").val(totalQty);
+            $("#TotalAmount").val(totalAmount);
+        }
+
+        function CalculateSuperShopPurchase() {
+            debugger;
+            $(".quantity, .purchasePrice:not(.quantityInited, .purchasePriceInited)").on('click keyup change', function () {
+                var el = $(this);
+                var check = Number(el.val());
+                if (check.toString() == "NaN") {
+                    $(this).val("");
+                    ShowResult("Pleasse enter number", "failure");
+                    return false;
+                }
+                else {
+                    var productId = el.closest("tr").find(".productId").val();
+                    if (productId == "") {
+                        $(this).val(0);
+                        ShowResult("Pleasse select an product", "failure");
+                        return false;
+                    }
+                    else {
+                        var qty = parseFloat(el.closest("tr").find(".quantity").val()) || 0;
+                        var prce = parseFloat(el.closest("tr").find(".purchasePrice").val()) || 0;
+                        var totalprcs = qty * prce;
+                        el.closest("tr").find(".amount").val(parseFloat(totalprcs).toFixed(2));
+                        CalculateSuperShopPurchaseSummary();
+                        var discount = parseFloat($("#MemoWiseDiscount").val()) || 0;
+                        var totalAmount = parseFloat($("#TotalAmount").val()) || 0;
+                        var netAmount = totalAmount - discount;
+                        $("#NetAmount").val(netAmount.toFixed(2));
+                    }
+                }
+                return false;
+            }).addClass("quantityInited, purchasePriceInited");
+        }
     </script>
 }
 

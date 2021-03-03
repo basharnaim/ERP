@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Library.ViewModel.Inventory.Sales.SuperShopSaleViewModel>
+﻿
+@using System.Data
+@model DataSet
+@{ var data = Model.Tables["Sale"].AsEnumerable(); }
+
 @using ERP.WebUI.Html
 @using Library.Crosscutting.Securities;
 @using System.Threading;
@@ -7,44 +11,57 @@
     ViewBag.Title = "Index";
     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
 }
-<div class="row">
-    <div class="col-xl-12">
-        <div class="top-button">
-            <h4 class="page-header">Sales Information</h4>
-            <a href="/SuperShopSale/Create" class="btn btn-bg" role="button">Add New</a>
-            <a href="/Home" class="btn btn-bg pull-right" role="button">Back</a>
-        </div>
-        <hr />
-    </div>
-</div>
+
 @using (Html.BeginForm("Index", "SuperShopSale", FormMethod.Get))
 {
     @Html.Hidden("itemIds")
+
+    @*<div class="card card-inverse">
+        <div class="card-header alert-success h4">
+            Sales Summary <a href="/SuperShopSale/Create" class="btn btn-sm btn-dark" role="button">Add New</a>
+            <a href="/Home" class="btn btn-dark pull-right btn-sm" role="button">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">*@
     <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label ">From</label>
-                @Html.DatePicker("dateFrom", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label">To</label>
-                @Html.DatePicker("dateTo", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label ">Customer</label>
-                @Html.SimpleDropDown("customerId", "/Customer/GetCustomerListByBranch?branchId=" + identity.BranchId, new { @class = "form-control " })
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group  submit-button">
-                <button type="submit" class="btn btn-bg">Show</button>
-                <input type="button" value="Clear" class="btn btn-warning" id="btnClear" />
-                @Html.ActionLink("All Invoice", "ReportPrintMultipleInvoice", "SuperShopSale", new { onclick = "SubmitItemIds()", target = "_blank", id = "btnReportForInvoice", @class = "btn btn-bg pull-middle" })
-                @Html.ActionLink("All Label", "ReportPrintMultipleLevel", "SuperShopSale", new { onclick = "SubmitItemIds()", target = "_blank", id = "btnReportForLabel", @class = "btn btn-bg pull-middle" })
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header alert-success">
+                    Sales Summary
+                    <a href="/SuperShopSale/Create" class="btn btn-bg btn-sm" role="button"><i class="fa fa-plus-circle"></i> Add New</a>
+                    <a href="/Home" class="btn btn-bg btn-sm pull-right btn-sm" role="button"><i class="fa fa-undo"></i> Back </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="control-label ">From</label>
+                                @Html.DatePicker("dateFrom", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="control-label">To</label>
+                                @Html.DatePicker("dateTo", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="control-label ">Customer</label>
+                                @Html.SimpleDropDown("customerId", "/Customer/GetCustomerListByBranch?branchId=" + identity.BranchId, new { @class = "form-control " })
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="form-group  submit-button">
+                                <button type="submit" class="btn btn-bg">Show</button>
+                                @Html.ActionLink("All Invoice", "ReportPrintMultipleInvoice", "SuperShopSale", new { onclick = "SubmitItemIds()", target = "_blank", id = "btnReportForInvoice", @class = "btn btn-bg pull-middle" })
+                                @Html.ActionLink("All Label", "ReportPrintMultipleLevel", "SuperShopSale", new { onclick = "SubmitItemIds()", target = "_blank", id = "btnReportForLabel", @class = "btn btn-bg pull-middle" })
+                                <input type="button" value="Clear" class="btn btn-warning offset-1 col-2" id="btnClear" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -71,46 +88,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model != null && Model.Any())
+
+                            @foreach (DataRow Product in Model.Tables["Sale"].Rows)
                             {
-                                foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.CheckBox("Select", new { @class = "ItemIdSelect" })
-                                            @Html.HiddenFor(modelItem => item.Id, new { @class = "ItemId" })
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Id)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SaleDate)
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.DisplayFor(modelItem => item.CustomerName)
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.DisplayFor(modelItem => item.CustomerMobileNumber)
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.DisplayFor(modelItem => item.TotalQuantity)
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.DisplayFor(modelItem => item.TotalAmount)
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.DisplayFor(modelItem => item.NetAmount)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-bg fa fa-edit" })
-                                            @Html.ActionLink("Report", "ReportSaleMasterDetail", "SuperShopSale", new { id = item.Id }, new { target = "_blank", @class = "btn-sm btn-bg fa fa-edit" })
-                                            @Html.ActionLink("Label", "ReportLevelPrint", "SuperShopSale", new { id = item.Id }, new { target = "_blank", @class = "btn-sm btn-bg fa fa-edit" })
-                                            @*<a href="javascript:void(0);" onclick="DirectRdlcReportPrint('@item.Id','@item.CompanyId','@item.BranchId')" class="btn-sm btn-bg fa fa-edit">Print</a>*@
-                                            @* @Html.ActionLink("Print", "ReportInvoicePrint", "SuperShopSale", new { id = item.Id }, new { target = "_blank", @class = "btn-sm btn-bg fa fa-edit" })*@
-                                        </td>
-                                    </tr>
-                                }
+                            <tr>
+                                <td>
+                                    @Html.CheckBox("Select", new { @class = "ItemIdSelect" })
+                                    <input type="hidden" value="@Product["Id"]" class="ItemId" />
+                                </td>
+                                <td>
+                                    @Product["Id"]
+                                </td>
+                                <td>
+                                    @Product["SaleDate"]
+                                </td>
+                                <td class="text-right">
+                                    @Product["CustomerName"]
+                                </td>
+                                <td class="text-right">
+                                    @Product["CustomerMobileNumber"]
+                                </td>
+                                <td class="text-right">
+                                    @Product["TotalQuantity"]
+                                </td>
+                                <td class="text-right">
+                                    @Product["TotalAmount"]
+                                </td>
+                                <td class="text-right">
+                                    @Product["NetAmount"]
+                                </td>                               
+                                <td>
+                                    @*@Html.ActionLink(" ", "Edit", new { id = @Product["Id"] }, new { @class = "btn-sm btn-bg fa fa-edit" })*@
+                                    @Html.ActionLink(" Invoice", "ReportSaleMasterDetail", "SuperShopSale", new { id = @Product["Id"] }, new { target = "_blank", @class = "btn-sm btn-success fas fa-file-invoice" })
+                                    @Html.ActionLink(" Challan", "ReportSaleChallan", "SuperShopSale", new { id = @Product["Id"] }, new { target = "_blank", @class = "btn-sm btn-success fa fa-truck" })
+                                    @Html.ActionLink(" Label", "ReportLevelPrint", "SuperShopSale", new { id = @Product["Id"] }, new { target = "_blank", @class = "btn-sm btn-bg fa fa-edit" })
+                                    @*<a href="javascript:void(0);" onclick="DirectRdlcReportPrint('@item.Id','@item.CompanyId','@item.BranchId')" class="btn-sm btn-bg fa fa-edit">Print</a>*@
+                                    @* @Html.ActionLink("Print", "ReportInvoicePrint", "SuperShopSale", new { id = item.Id }, new { target = "_blank", @class = "btn-sm btn-bg fa fa-edit" })*@
+                                </td>
+                            </tr>
                             }
+
                         </tbody>
                     </table>
                 </div>
@@ -118,8 +135,10 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
     <script type="text/javascript">
         $(document).ready(function(){
 			 DirectRdlcReportPrint("@ViewBag.Id","@identity.CompanyId","@identity.BranchId");
@@ -143,9 +162,9 @@
 
         function SubmitItemIds() {
             var id = [];
-            for (var i = 0; i < $(".productId").length; i++) {
+            for (var i = 0; i < $(".ItemId").length; i++) {
                 if ($($(".ItemIdSelect")[i]).is(":checked")) {
-                    id.push($($(".productId")[i]).val());
+                    id.push($($(".ItemId")[i]).val());
                 }
             }
             if (id.length > 0) {

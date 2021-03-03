@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Promotions;
 using Library.Service.Inventory.Promotions;
@@ -42,7 +43,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<PromotionalFreeItemViewModel>>(_promotionalFreeItemService.GetAll(dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<PromotionalFreeItemViewModel>>(_promotionalFreeItemService.GetAll(dfrom.Value, dto.Value)));
                 }
                 return View();
             }
@@ -106,8 +107,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (promotionalFreeItemVm.PromotionalFreeItemDetails.All(x => x.EligibleQuantity > 0))
                 {
-                    var promotionalFreeItem = AutoMapperConfiguration.mapper.Map<PromotionalFreeItem>(promotionalFreeItemVm);
-                    var promotionalFreeItemDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalFreeItemDetail>>(promotionalFreeItemVm.PromotionalFreeItemDetails);
+                    var promotionalFreeItem = Mapper.Map<PromotionalFreeItem>(promotionalFreeItemVm);
+                    var promotionalFreeItemDetails = Mapper.Map<List<PromotionalFreeItemDetail>>(promotionalFreeItemVm.PromotionalFreeItemDetails);
                     promotionalFreeItem.PromotionalFreeItemDetails = new List<PromotionalFreeItemDetail>();
                     foreach (var item in promotionalFreeItemDetails)
                     {
@@ -131,8 +132,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var promotionalFreeItem = AutoMapperConfiguration.mapper.Map<PromotionalFreeItemViewModel>(_promotionalFreeItemService.GetById(id));
-                var promotionalFreeItemDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalFreeItemDetailViewModel>>(_promotionalFreeItemService.GetAllTradeOfferOnFreeItemDetailbyMasterId(id));
+                var promotionalFreeItem = Mapper.Map<PromotionalFreeItemViewModel>(_promotionalFreeItemService.GetById(id));
+                var promotionalFreeItemDetails = Mapper.Map<List<PromotionalFreeItemDetailViewModel>>(_promotionalFreeItemService.GetAllTradeOfferOnFreeItemDetailbyMasterId(id));
                 promotionalFreeItem.PromotionalFreeItemDetails = new List<PromotionalFreeItemDetailViewModel>();
                 promotionalFreeItem.PromotionalFreeItemDetails.AddRange(promotionalFreeItemDetails);
                 return View(promotionalFreeItem);
@@ -151,8 +152,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (promotionalFreeItemVm.PromotionalFreeItemDetails.All(x => x.EligibleQuantity > 0))
                 {
-                    var promotionalFreeItem = AutoMapperConfiguration.mapper.Map<PromotionalFreeItem>(promotionalFreeItemVm);
-                    var promotionalFreeItemDetails = AutoMapperConfiguration.mapper.Map<List<PromotionalFreeItemDetail>>(promotionalFreeItemVm.PromotionalFreeItemDetails);
+                    var promotionalFreeItem = Mapper.Map<PromotionalFreeItem>(promotionalFreeItemVm);
+                    var promotionalFreeItemDetails = Mapper.Map<List<PromotionalFreeItemDetail>>(promotionalFreeItemVm.PromotionalFreeItemDetails);
                     promotionalFreeItem.PromotionalFreeItemDetails = new List<PromotionalFreeItemDetail>();
                     foreach (var item in promotionalFreeItemDetails)
                     {

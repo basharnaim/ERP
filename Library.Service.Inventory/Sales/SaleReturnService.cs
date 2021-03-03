@@ -180,32 +180,32 @@ namespace Library.Service.Inventory.Sales
                 #region CustomerLedger
                 saleReturn.TotalAmount = totalAmt;
                 Customer customer = _customerRepository.GetOne(x => x.Id == saleReturn.CustomerId);
-                if (saleReturn.CustomerId != null)
-                {
-                    CustomerLedger customerLedger = new CustomerLedger
-                    {
-                        Id = GenerateAutoId(identity.CompanyId, identity.BranchId, "CustomerLedger"),
-                        Sequence = GetAutoSequence("CustomerLedger"),
-                        TrackingNo = GenerateTrackingNo(identity.CompanyId, identity.BranchId, "CustomerLedger"),
-                        SaleId = saleReturn.SaleId,
-                        CustomerId = customer.Id,
-                        CustomerMobileNumber = customer.Phone1,
-                        TransactionType = TransactionType.Sales.ToString(),
-                        Particulars = TransactionType.Sales.ToString(),
-                        TransactionDate = DateTime.Now,
-                        DebitAmount = saleReturn.TotalAmount,
-                        CreditAmount = 0,
-                        RunningBalance=0,
-                        CompanyId = identity.CompanyId,
-                        BranchId = identity.BranchId,
-                        Active = true,
-                        SynchronizationType = SynchronizationType.Server.ToString(),
-                        AddedBy = identity.Name,
-                        AddedDate = DateTime.Now,
-                        AddedFromIp = identity.IpAddress
-                    };
-                    _customerLedgerRepository.Add(customerLedger);
-                }
+                //if (saleReturn.CustomerId != null)
+                //{
+                //    CustomerLedger customerLedger = new CustomerLedger
+                //    {
+                //        Id = GenerateAutoId(identity.CompanyId, identity.BranchId, "CustomerLedger"),
+                //        Sequence = GetAutoSequence("CustomerLedger"),
+                //        TrackingNo = GenerateTrackingNo(identity.CompanyId, identity.BranchId, "CustomerLedger"),
+                //        SaleId = saleReturn.SaleId,
+                //        CustomerId = customer.Id,
+                //        CustomerMobileNumber = customer.Phone1,
+                //        TransactionType = TransactionType.Sales.ToString(),
+                //        Particulars = TransactionType.Sales.ToString(),
+                //        TransactionDate = DateTime.Now,
+                //        DebitAmount = saleReturn.TotalAmount,
+                //        CreditAmount = 0,
+                //        RunningBalance=0,
+                //        CompanyId = identity.CompanyId,
+                //        BranchId = identity.BranchId,
+                //        Active = true,
+                //        SynchronizationType = SynchronizationType.Server.ToString(),
+                //        AddedBy = identity.Name,
+                //        AddedDate = DateTime.Now,
+                //        AddedFromIp = identity.IpAddress
+                //    };
+                //    _customerLedgerRepository.Add(customerLedger);
+                //}
                 #endregion
                 saleReturn.TotalQuantity = totalQty;
                 saleReturn.TotalAmount = totalAmt;

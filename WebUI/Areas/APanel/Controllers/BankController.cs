@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Banks;
 using Library.Service.Core.Banks;
@@ -29,7 +30,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BankViewModel>>(_bankService.GetAll()));
+                return View(Mapper.Map<IEnumerable<BankViewModel>>(_bankService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -71,7 +72,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _bankService.Add(AutoMapperConfiguration.mapper.Map<Bank>(bankvm));
+                _bankService.Add(Mapper.Map<Bank>(bankvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Bank"}')");
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BankViewModel>(_bankService.GetById(id)));
+                return View(Mapper.Map<BankViewModel>(_bankService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _bankService.Update(AutoMapperConfiguration.mapper.Map<Bank>(bankvm));
+                _bankService.Update(Mapper.Map<Bank>(bankvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Bank"}')");
             }
             catch (Exception ex)

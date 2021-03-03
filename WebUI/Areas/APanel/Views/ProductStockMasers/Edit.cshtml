@@ -1,265 +1,304 @@
-﻿@model ERP.WebUI.Models.ProductStockMaser
+﻿@model IEnumerable<ERP.WebUI.Models.ViewModels.VmProductStockMaster>
+@using ERP.WebUI.Html
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Product";
 }
 
-<h2>Edit</h2> 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ProductStockMasers", FormMethod.Get))
 {
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>ProductStockMaser</h4>
+        <h4> Product Stock Out</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.StockID)
+        <div class="row ">
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-header User_tittle h4 bg-info">Stock Out/Damage/Loss/Product Add</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label   mendatory">Company</label>
+                                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                                            @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label   ">Branch</label>
+                                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Category</label>
+                                            @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Sub Category</label>
+                                            @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Supplier</label>
+                                            @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label ">Product</label>
+                                            @Html.SimpleDropDown("productId", "/APanel/ProductMaster/GetProductList", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Bar Code</label>
+                                            <input id="productcode" name="productcode" class="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-10 mt-4">
+                                            <input id="btnAdd" type="submit" value="Add" class="btn btn-bg " />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BranchID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BranchID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BranchID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupplierID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupplierID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CompanyID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UOMID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UOMID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UOMID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiveQty, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiveQty, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiveQty, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceiveValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceiveValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceiveValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastReceiveDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastReceiveDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastReceiveDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IssueQty, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IssueQty, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IssueQty, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IssueValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IssueValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IssueValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastIssueDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastIssueDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastIssueDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentRate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentRate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentRate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentStock, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentStock, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentStock, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CurrentValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurrentValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesRate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesRate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesRate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastSalesDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastSalesDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastSalesDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsActive)
-                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreateOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatePc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatePc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatePc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdateBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdateBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdateBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdateOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdateOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdateOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdatePc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UpdatePc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UpdatePc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDeleted)
-                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeleteBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DeleteBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeleteBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeleteOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DeleteOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeleteOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeletePc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DeletePc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeletePc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+@*@using (Html.BeginForm("GetItem", "ProductStockMasers", FormMethod.Post))
+    {*@
+<a href="/ProductStockMasers/GetItem"></a>
+@*@Html.AntiForgeryToken()*@
+<div class="row ">
+    <div class="col-12">
+        <div class="card ">
+            <div class="card-header User_tittle h4 bg-info">Stock Out Product List</div>
+            <div class="card-body">
+                <table id="tblCustomers" class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProdcutDescription)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.UOMName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReceiveQty)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReceiveValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentStock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SalesRate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SalesValue)
+                        </th>
+                        <th> Action </th>
+                    </tr>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProdcutDescription)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CompanyName)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UOMName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveQty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveValue)
+                                </td>
+                                <td>
+                                    <input type="number" id="txtName" name="@item.ProductID" value="@String.Format("{0:0.00}", item.CurrentStock)" class="single-line" min="0" max="100000" />
+                                    @*@Html.EditorFor(modelItem => item.CurrentStock, new { @name="222", @min = "0", @class = "quantity form-control", Value = String.Format("{0:0.00}", item.CurrentStock),style = "text-align:center;width: 50px;"})*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesValue)
+                                </td>
+                                <td>
+                                    <div class="col-md-offset-2 col-10 mt-4">
+                                        <input id="btnRemove" name="@item.ProductID" type="submit" value="Remove" class="btn btn-info btn-sm " />
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-offset-10 col-12 ">
+            <input id="btnSaveAll" type="submit" value="Save" class="btn btn-bg " />
+        </div>
+    </div>
 </div>
+@*}*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var stuff = new Array();;
+        $(document).ready(function () {
+
+            var data = JSON.parse(localStorage.getItem("stock"));
+            var stuff = data; //localStorage.getItem("stock");
+            $.each(stuff, function (i, element) {
+                $('#' + element.pid).val(element.qty);
+            })
+        });
+
+        var stuff = new Array();
+        $('.single-line').blur((event) => {
+            var pid = event.target.name;
+            var qty = event.target.value;
+            localStorage.clear();
+            if (qty > 0) {
+                $.each(stuff, function (i, element) {
+                    if (element['pid'] == pid) {
+                        stuff.splice(stuff.indexOf(element), 1);
+                        return false;
+                    }
+                });
+
+                stuff.push({ ProductID: pid, ReceiveQty: qty });
+
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                    success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+            }
+        });
+
+        $("#btnRemove").click(() => {
+            var productId = $('#productId').val();
+            if (productId == '') {
+                alert('Please Select Product');
+                return false;
+            } else {
+                this.href = this.href.split('?')[0] + '?companyId=' + companyId
+                    + '&branchId=' + branchId
+                    + '&productId=' + productId;
+            }
+        });
+
+        $("body").on("click", "#btnAdd", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+            debugger;
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetOneItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                }
+            });
+        });
+
+
+    $("body").on("click", "#btnSaveAll", function () {
+            //Loop through the Table rows and build a JSON array.
+            //var customers = new Array();
+            //$("#tblCustomers TBODY TR").each(function () {
+            //    var row = $(this);
+            //    var customer = {};
+            //    customer.ProductID = 1;  //row.find("TD").eq(0).html();
+            //    customer.ReceiveValue = 5; //row.find("TD").eq(1).html();
+            //    customers.push(customer);
+            //});
+
+        //Send the JSON array to Controller using AJAX.
+        $('#productId').val('');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    alert('Data Save Successfully');
+                    window.location.href = result.Url
+
+                }
+            });
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+            $("#salePersonId").val('').trigger("change");
+            $("#dateFrom").val('').trigger("change");
+            $("#dateTo").val('').trigger("change");
+        });
+    </script>
+}

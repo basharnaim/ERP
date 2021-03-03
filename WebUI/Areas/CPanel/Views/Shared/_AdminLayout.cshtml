@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>POS</title>
+    <title>one pos</title>
     @Styles.Render("~/Content/bootstrapcss")
     @Styles.Render("~/Content/metisMenucss")
     @Styles.Render("~/Content/dataTablescss")
@@ -20,8 +20,9 @@
     <div id="wrapper">
         <!-- Navigation -->
         <header class="align-items-start app-header flex-column flex-md-row navbar navbar-expand-md navbar-light">
-            <div class="align-items-baseline d-flex flex-row navbar-brand p-lg-3 pl-3 pr-3 pt-3">
-                 <a class="" href="#">One-ICT</a>
+            <div class="align-items-baseline d-flex flex-row navbar-brand p-1 ml-2">
+                <img src="~/Content/images/logo.png" alt="company logo" class="logo" style="height: 40px; background: white; border-radius: 18px;" />
+                <a class="" href="/APanel"> ONE POS </a>
                 <button class="collapsed ml-auto navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#side-menu-wrapper" aria-controls="side-menu" aria-expanded="false"
                         aria-label="Toggle navigation" style="">
@@ -102,7 +103,12 @@
                 @Scripts.Render("~/bundles/customjs")
                 @RenderSection("Scripts", false)
             </div>
-            <!-- /#page-wrapper -->
+            <div class="copyright-wrap footer pb-2">
+                <div class="blockquote-footer offset-2">
+                    <i> Copyright (2018) - One Information and Communications Technology Ltd </i><a href="/APanel" title="ONE-ICT"> (ONE-ICT)</a>
+                    <div class="col-1 pull-right"><strong> version </strong> 2.0.1</div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /#wrapper -->

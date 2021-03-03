@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Core.Securities;
 using Library.Service.Core.Menus;
 using Library.Service.Core.Securities;
@@ -116,7 +117,7 @@ namespace ERP.WebUI.Controllers
                                       Id = rd.Id
                                   };
                 userroles.AddRange(roleDetails);
-                var userrole = AutoMapperConfiguration.mapper.Map< List<UserRole>>(userroles);
+                var userrole = Mapper.Map< List<UserRole>>(userroles);
                 _userRoleService.Add(userrole, companyId, branchId, usergroupId);
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/UserRole/?companyId=" + userrolevm.CompanyId + "&&branchId=" + userrolevm.BranchId + "&&module=" + userrolevm.Module + "&&UserGroupId=" + userrolevm.UserGroupId}')");

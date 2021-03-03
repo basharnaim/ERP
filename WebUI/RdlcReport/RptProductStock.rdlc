@@ -116,34 +116,34 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.4624in</Width>
+                  <Width>0.34782in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.86329in</Width>
+                  <Width>0.65902in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.42074in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73324in</Width>
+                  <Width>0.84782in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.33281in</Width>
+                  <Width>0.44393in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63852in</Width>
+                  <Width>0.54477in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64583in</Width>
+                  <Width>0.5in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.61458in</Width>
+                  <Width>0.45833in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.9624in</Width>
+                  <Width>0.6742in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.76042in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -871,15 +871,17 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>Total:</Value>
                                   <Style>
+                                    <FontStyle>Normal</FontStyle>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -913,7 +915,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ProductStock.Value)</Value>
+                                  <Value>=Round(Sum(Fields!ProductStock.Value),2)</Value>
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -948,7 +950,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!ProductStockValue.Value)</Value>
+                                  <Value>=Round(Sum(Fields!ProductStockValue.Value),2)</Value>
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1041,10 +1043,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>ProductStock</DataSetName>
-            <Top>2.21528in</Top>
+            <Top>1.63277in</Top>
             <Left>0.07003in</Left>
             <Height>0.75in</Height>
-            <Width>7.67381in</Width>
+            <Width>6.65705in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1060,7 +1062,8 @@
                   <TextRun>
                     <Value>=IIf(Parameters!cName.Value &lt;&gt; ".", Parameters!cName.Value, "")</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
+                      <FontFamily>arial</FontFamily>
+                      <FontSize>14pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1070,8 +1073,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>cName</rd:DefaultName>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
+            <Top>0.025in</Top>
+            <Left>1.05961in</Left>
+            <Height>0.23333in</Height>
             <Width>4.80923in</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1093,7 +1097,7 @@
                   <TextRun>
                     <Value>=IIf(Parameters!bName.Value &lt;&gt; ".", Parameters!bName.Value, "")</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
+                      <FontFamily>arial</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1103,9 +1107,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bName</rd:DefaultName>
-            <Top>0.3125in</Top>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
+            <Top>0.275in</Top>
+            <Left>1.05961in</Left>
+            <Height>0.20833in</Height>
             <Width>4.80923in</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -1127,7 +1131,7 @@
                   <TextRun>
                     <Value>=IIf(Parameters!bAddress.Value &lt;&gt; ".", Parameters!bAddress.Value, "")</Value>
                     <Style>
-                      <FontFamily>Consolas</FontFamily>
+                      <FontFamily>arial</FontFamily>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1137,9 +1141,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bAddress</rd:DefaultName>
-            <Top>0.54167in</Top>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
+            <Top>0.50417in</Top>
+            <Left>1.05961in</Left>
+            <Height>0.20833in</Height>
             <Width>4.80923in</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -1159,6 +1163,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Mobile No: </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=IIf(Parameters!bPhone.Value &lt;&gt; ".", Parameters!bPhone.Value, "")</Value>
                     <Style />
                   </TextRun>
@@ -1169,9 +1177,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bPhone</rd:DefaultName>
-            <Top>0.86111in</Top>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
+            <Top>0.73611in</Top>
+            <Left>1.05961in</Left>
+            <Height>0.20833in</Height>
             <Width>4.80923in</Width>
             <ZIndex>4</ZIndex>
             <Style>
@@ -1191,6 +1199,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Vat Reg No: </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=IIf(Parameters!bVatRNo.Value &lt;&gt; ".", Parameters!bVatRNo.Value, "")</Value>
                     <Style />
                   </TextRun>
@@ -1201,9 +1213,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>bVatRNo</rd:DefaultName>
-            <Top>1.18055in</Top>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
+            <Top>0.96805in</Top>
+            <Left>1.05961in</Left>
+            <Height>0.20833in</Height>
             <Width>4.80923in</Width>
             <ZIndex>5</ZIndex>
             <Style>
@@ -1235,10 +1247,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>1.49999in</Top>
-            <Left>1.44503in</Left>
-            <Height>0.25in</Height>
-            <Width>4.80923in</Width>
+            <Top>1.27707in</Top>
+            <Left>0.08045in</Left>
+            <Height>0.20778in</Height>
+            <Width>3.60179in</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -1257,6 +1269,12 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>To : </Value>
+                    <Style>
+                      <FontFamily>Arial Narrow</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=CDate(Parameters!dto.Value).ToString("dd-MMM-yyyy")</Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
@@ -1264,14 +1282,16 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>dto</rd:DefaultName>
-            <Top>1.86943in</Top>
-            <Left>2.61855in</Left>
-            <Height>0.25in</Height>
-            <Width>1.05327in</Width>
+            <Top>1.27707in</Top>
+            <Left>5.4869in</Left>
+            <Height>0.20778in</Height>
+            <Width>1.11518in</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -1290,6 +1310,12 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Date From: </Value>
+                    <Style>
+                      <FontFamily>Arial Narrow</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=CDate(Parameters!dfrom.Value).ToString("dd-MMM-yyyy")</Value>
                     <Style>
                       <FontFamily>Arial Narrow</FontFamily>
@@ -1297,14 +1323,16 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>dfrom</rd:DefaultName>
-            <Top>1.86943in</Top>
-            <Left>0.77773in</Left>
-            <Height>0.25in</Height>
-            <Width>1.00053in</Width>
+            <Top>1.27707in</Top>
+            <Left>4.06007in</Left>
+            <Height>0.20778in</Height>
+            <Width>1.3678in</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -1316,75 +1344,12 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox19">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Date From :</Value>
-                    <Style>
-                      <FontFamily>Arial Narrow</FontFamily>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>1.86943in</Top>
-            <Left>0.07003in</Left>
-            <Height>0.25in</Height>
-            <Width>0.68339in</Width>
-            <ZIndex>9</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox20">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Date To : </Value>
-                    <Style>
-                      <FontFamily>Arial Narrow</FontFamily>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>1.86943in</Top>
-            <Left>1.97271in</Left>
-            <Height>0.25in</Height>
-            <Width>0.5764in</Width>
-            <ZIndex>10</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Line Name="Line1">
-            <Top>1.80083in</Top>
+            <Top>1.55083in</Top>
+            <Left>0.07003in</Left>
             <Height>0in</Height>
-            <Width>7.95217in</Width>
-            <ZIndex>11</ZIndex>
+            <Width>6.65705in</Width>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1392,13 +1357,13 @@
             </Style>
           </Line>
         </ReportItems>
-        <Height>3.36806in</Height>
+        <Height>2.47223in</Height>
         <Style />
       </Body>
-      <Width>7.9844in</Width>
+      <Width>6.7969in</Width>
       <Page>
         <PageFooter>
-          <Height>0.38542in</Height>
+          <Height>0.19792in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <Style>

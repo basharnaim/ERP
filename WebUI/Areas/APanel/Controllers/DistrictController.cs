@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Core.Addresses;
 using Library.Service.Core.Addresses;
@@ -19,11 +21,18 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         #endregion
 
         #region Get
-        public ActionResult Index()
+        public ActionResult Index(string divisionId)
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll()));
+                if (!string.IsNullOrEmpty(divisionId))
+                {
+                    var model = new List<DistrictViewModel>();
+                    var districtData = Mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll());
+                    model = districtData.Where(x => x.DivisionId == divisionId).ToList();
+                    return View(model);
+                }
+                return View(Mapper.Map<IEnumerable<DistrictViewModel>>(_districtService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -58,7 +67,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _districtService.Add(AutoMapperConfiguration.mapper.Map<District>(districtvm));
+                _districtService.Add(Mapper.Map<District>(districtvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"."}')");
             }
             catch (Exception ex)
@@ -74,7 +83,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<DistrictViewModel>(_districtService.GetById(id)));
+                return View(Mapper.Map<DistrictViewModel>(_districtService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -87,8 +96,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _districtService.Update(AutoMapperConfiguration.mapper.Map<District>(districtvm));
-                return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"../"}')");
+                _districtService.Update(Mapper.Map<District>(districtvm));
+                return JavaScript($"ShowResult('{"Data update successfully."}','{"success"}','{"redirect"}','{"../"}')");
             }
             catch (Exception ex)
             {

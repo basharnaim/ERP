@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 
 #endregion
 
@@ -36,7 +37,7 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductMasterViewModel>>(_productMasterService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<ProductMasterViewModel>>(_productMasterService.GetAll(companyId, branchId)));
                 }
                 return View();
             }
@@ -96,7 +97,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return PartialView("_ProductList", AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductDialogProductList(identity.CompanyId, identity.BranchId)));
+                return PartialView("_ProductList", Mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductDialogProductList(identity.CompanyId, identity.BranchId)));
             }
             catch (Exception ex)
             {
@@ -109,7 +110,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                return Json(AutoMapperConfiguration.mapper.Map<ProductStockViewModel>(_rawSqlService.GetProductDetailWithStock(identity.CompanyId, identity.BranchId, productId)));
+                return Json(Mapper.Map<ProductStockViewModel>(_rawSqlService.GetProductDetailWithStock(identity.CompanyId, identity.BranchId, productId)));
             }
             catch (Exception ex)
             {
@@ -126,7 +127,7 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductMasterTemplate(companyId, branchId, productCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productMasterService.GetProductMasterTemplate(companyId, branchId, productCategoryId)));
                 }
                 return View();
             }

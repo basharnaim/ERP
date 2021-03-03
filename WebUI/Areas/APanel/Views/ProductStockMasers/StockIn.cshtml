@@ -1,0 +1,419 @@
+﻿@*@using System.Data
+    @model DataSet
+    @{ var data = Model.Tables["ProductInStock"].AsEnumerable(); }*@
+
+@using ERP.WebUI.Html
+@model IEnumerable<ERP.WebUI.Models.ViewModels.VmProductStockMaster>
+@{
+    ViewBag.Title = "Product Stock In";
+}
+
+@using (Html.BeginForm("StockIn", "ProductStockMasers", FormMethod.Get))
+{
+    <div class="card card-inverse">
+        <div class="card-header alert-info h5">
+            Product Stock In
+            <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label mendatory"> Company </label>
+                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control", data_val = "true", data_val_required = "Company is required" })
+                            @Html.ValidationMessage("companyId", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label ">Branch</label>
+                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label"> Category </label>
+                            @Html.SimpleDropDown("productCategoryId", "/APanel/ProductCategory/GetProductCategoryList/", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label ">Sub Category</label>
+                            @Html.SimpleDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategory_List", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label ">Sub Category</label>
+                                @Html.CascadingDropDown("productSubCategoryId", "/APanel/ProductSubCategory/GetProductSubCategoryList?productCategoryId=", "productCategoryId", new { @class = "form-control" })
+                            </div>
+                        </div>*@
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label "> Supplier </label>
+                            @Html.SimpleDropDown("supplierId", "/APanel/Supplier/GetSupplierList/", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label ">Supplier</label>
+                                @Html.CascadingDropDown("supplierId", "/APanel/Supplier/GetSupplierListBySubCat/", "productSubCategoryId", new { @class = "form-control" })
+                            </div>
+                        </div>*@
+
+                    <div class="col-md-2">
+                        <div class="from-group">
+                            <label for="productId"> Product </label>
+                            <select class="form-control customSelect" id="productId" name="productId">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label "> Product </label>
+                                @Html.CascadingDropDown("productId", "/APanel/ProductMaster/GetProductListbySupplier?Id=", "supplierId", new { @class = "form-control" })
+                            </div>
+                        </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label>Bar Code</label>
+                            <input id="productcode" name="productcode" class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-10 mt-4">
+                            <input id="btnAdd" type="button" value="Add" class="btn btn-bg " />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-10 mt-4">
+                            <input id="btnClear" type="submit" value="Clear" class="btn btn-warning " />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header ProductBasicConfigurationCategory_tittle alert-secondary">
+            Opening Balance Product List
+        </div>
+        <div class="card-body">
+            <table id="tblCustomers" class="table demo dataTable NoPaging" data-filter="#filter">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProdcutDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UOMName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReceiveRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CurrentStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CurrentValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SalesRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SalesValue)
+                    </th>
+                    <th> <input id="btnRemoveAll" type="submit" value="Clear All" class="btn btn-info btn-sm" /> </th>
+                </tr>
+                @*@if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProdcutDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UOMName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceiveRate)
+                                </td>
+                                <td>
+                                    <input type="number" id="@item.ProductID" name="@item.ProductID" value="@String.Format("{0:0}", item.CurrentStock)" class="single-line" min="0" max="100000" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesRate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalesValue)
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        }
+                    }*@
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="col-12">
+        <div class="pull-right">
+            <input id="btnSaveAll" type="submit" value="Save All" class="btn btn-bg " />
+        </div>
+    </div>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var stuff = new Array();;
+
+    $(document).ready(function () {
+        $('#btnAdd').click(function () {
+            var companyId = 0;
+            companyId = $('#companyId').val();
+            if (companyId == "") { companyId = 0 }
+            var branchId = 0;
+            branchId = $('#branchId').val();
+            if (branchId == "") { branchId = 0 }
+
+            var productCategoryId = 0;
+            productCategoryId = $('#productCategoryId').val();
+            if (productCategoryId == "") { productCategoryId = 0 }
+
+            var productSubCategoryId = 0;
+            productSubCategoryId = $('#productSubCategoryId').val();
+            if (productSubCategoryId == "") { productSubCategoryId = 0 }
+
+            var supplierId = 0;
+            supplierId = $('#supplierId').val();
+            if (supplierId == "") { supplierId = 0 }
+
+            var productId = 0;
+            productId = $('#productId').val();
+            if (productId == "") { productId = 0 }
+
+            var productcode = "";
+            productcode = $('#productcode').val();
+           // if (productcode == "") { productcode = 0 }
+
+           // var url = '/APanel/ProductStockMaster/StockInJson/'+companyId + '/' + branchId + '/' + productCategoryId + '/' + productSubCategoryId + '/' + supplierId + '/' + productId + '/' + productcode;
+            //var data = { Id: suppId, subId: subId};
+            $.ajax({
+               
+                //url: url,
+                //data: JSON.stringify(data),
+                url: '/APanel/ProductStockMaster/StockInJson', type: "GET", dataType: "json",
+                data: { companyId: companyId, branchId: branchId, productCategoryId: productCategoryId, productSubCategoryId: productSubCategoryId, supplierId: supplierId, productId: productId, productcode: productcode },
+                contentType: "application/json; charset=utf-8",
+               
+                success: function (response) {
+
+
+                    var index = 1;
+                    $.each(response, function (key, ite) {
+
+                        var trHtml = '<tr id=' + index + '>' +
+
+                            '<td>' + ite?.ProductName + '</td>' +
+                            '<td>' + ite?.ProductCode + '</td>' +
+                            '<td>' + ite?.ProdcutDescription + '</td>' +
+                            '<td>' + ite?.UOMName + '</td>' +
+                            '<td>' + ite?.ReceiveRate + '</td>' +
+                            '<td> <input type="number" id="' + ite.ProductID + '" name="' + ite.ProductID + '" value="' + String.Format("{0:0}", ite.CurrentStock) + '" class="single-line" min="0" max="100000" /></td>' +
+                            '<td>' + ite?.CurrentValue + '</td>' +
+                            '<td>' + ite?.SalesRate + '</td>' +
+                            '<td>' + ite?.SalesValue + '</td>' +
+                            '<td></td>' +
+
+                            '</tr>';
+                        tableBody.append(trHtml);
+                        index = index + 1;
+                        $("#rowCount").val(index);
+                    })
+
+
+
+                }
+            });
+
+
+
+
+
+        });
+            var data = JSON.parse(localStorage.getItem("stock"));
+            var stuff = data; //localStorage.getItem("stock");
+            $.each(stuff, function (i, element) {
+                $('#' + element.pid).val(element.qty);
+            })
+
+            $("#supplierId, #productCategoryId, #productSubCategoryId").change(function () {
+                debugger;
+                var suppId = $(this).val();
+                var subId = $('#productSubCategoryId').val();
+                var cId = $('#productCategoryId').val();
+                var url = '/APanel/ProductMaster/GetProductListbySupplier?Id=' + suppId + '&subId=' + subId + '&cId=' + cId;
+                //var data = { Id: suppId, subId: subId};
+                $.ajax({
+                type: "GET",
+                url: url,
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var options = '<option value="">Select</option>';
+                        $.each(response, function (i, item) {
+                            options += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                        });
+                        $('#productId').empty();
+                        $('#productId').append(options);
+                    }
+                    });
+                //$.ajax('GET', url, [], 'json', loadbySupplierSubCategory, false);
+            });
+        });
+
+        $(".single-line").mousedown((event) => {
+            debugger;
+            var qty = event.target.value;
+            var pid = event.target.name;
+            if (qty == '0') {
+
+                $('#'+pid).val('');
+            }
+        });
+
+        var stuff = new Array();
+        $('.single-line').blur((event) => {
+            debugger;
+            var stuff = new Array();
+            var pid = event.target.name;
+            var qty = event.target.value;
+            localStorage.clear();
+
+            if (qty > 0) {
+                //$.each(stuff, function (i, element) {
+                //    if (element['pid'] == pid) {
+                //        stuff.splice(stuff.indexOf(element), 1);
+                //        return false;
+                //    }
+                //});
+
+                stuff.push({ ProductID: pid, ReceiveQty: qty});
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("StockIn")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                    success: function (result) {
+                    //window.location.href = result.Url
+                }
+            });
+            }
+        });
+
+        @*$("body").on("click", "#btnAdd", function () {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("StockIn")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    //alert(r + " record(s) inserted.");
+                }
+            });
+        });*@
+
+
+    $("body").on("click", "#btnSaveAll", function () {
+
+        $('#productId').val('');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("StockIn")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+    });
+
+    $(".btnRemoveItem").on("click", (event) => {
+        debugger;
+        var productId = event.target.name;
+        if (productId == '') {
+            alert('Please Select Product');
+            return false;
+        } else {
+            var data = { Id: productId };
+          $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveOneItem")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+        }
+    });
+    $("#btnRemoveAll").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveItem")',
+                data: JSON.stringify(stuff),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = result.Url
+                }
+            });
+        });
+
+        $("#btnClear").on("click", function () {
+            $("#companyId").val('').trigger("change");
+            $("#branchId").val('').trigger("change");
+            $("#supplierId").val('').trigger("change");
+            $("#productCategoryId").val('').trigger("change");
+            $("#productSubCategoryId").val('').trigger("change");
+            $("#productId").val('').trigger("change");
+        });
+    </script>
+}

@@ -1,0 +1,41 @@
+﻿@using Library.Crosscutting.Securities;
+@using System.Threading;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>POS Tmart</title>
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/metisMenucss")
+    @Styles.Render("~/Content/dataTablescss")
+    @Styles.Render("~/Content/sbAdmincss")
+    @Styles.Render("~/Content/fontawesomecss")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/metisMenujs")
+    @Scripts.Render("~/bundles/dataTablesjs")
+    @Scripts.Render("~/bundles/sbAdminjs")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/customjs")
+</head>
+<body style="font-size: .8rem;">
+    <div id="wrapper">
+        <!-- Navigation -->      
+        <div class="d-md-flex">            
+            <div id="page-wrapper" class="p-2">
+                <div class="container-fluid">
+                    @RenderBody()
+                    @Scripts.Render("~/bundles/tabjs")
+                    @RenderSection("Scripts", false)
+                </div>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
+</body>
+</html>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.ReportViewer;
 using Library.Context.Repositories;
 using Library.Service.Inventory.Purchases;
@@ -46,7 +47,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopPurchaseViewModel> purchases = new List<MobileShopPurchaseViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchases = Mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 return View(purchases);
             }
@@ -91,7 +92,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopPurchaseViewModel> purchases = new List<MobileShopPurchaseViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchases = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchases = Mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_rawSqlService.GetAllPurchaseSummary(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Purchase", purchases);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -124,7 +125,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopPurchaseDetailViewModel> purchaseDetails = new List<MobileShopPurchaseDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchaseDetails = Mapper.Map<IEnumerable<MobileShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 return View(purchaseDetails);
             }
@@ -173,7 +174,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<MobileShopPurchaseDetailViewModel> purchaseDetails = new List<MobileShopPurchaseDetailViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    purchaseDetails = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
+                    purchaseDetails = Mapper.Map<IEnumerable<MobileShopPurchaseDetailViewModel>>(_rawSqlService.GetAllPurchaseDetail(companyId, branchId, dateFrom, dateTo, supplierId));
                 }
                 ReportDataSource rpt = new ReportDataSource("PurchaseDetail", purchaseDetails);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -191,8 +192,8 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAllForReport(purchaseId));
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId));
+                var master = Mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAllForReport(purchaseId));
+                var detail = Mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId));
                 ReportDataSource rpt1 = new ReportDataSource("Purchase", master);
                 ReportDataSource rpt2 = new ReportDataSource("PurchaseDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };

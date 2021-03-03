@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
@@ -22,7 +23,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<RackViewModel>>(_rackService.GetAll()));
+                return View(Mapper.Map<IEnumerable<RackViewModel>>(_rackService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -67,7 +68,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _rackService.Add(AutoMapperConfiguration.mapper.Map<Rack>(rackvm));
+                _rackService.Add(Mapper.Map<Rack>(rackvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Rack"}')");
             }
             catch (Exception ex)
@@ -85,7 +86,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<RackViewModel>(_rackService.GetById(id)));
+                return View(Mapper.Map<RackViewModel>(_rackService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _rackService.Update(AutoMapperConfiguration.mapper.Map<Rack>(rackvm));
+                _rackService.Update(Mapper.Map<Rack>(rackvm));
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Rack"}')");
             }

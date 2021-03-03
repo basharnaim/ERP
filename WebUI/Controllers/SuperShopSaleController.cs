@@ -18,6 +18,8 @@ using System.Web.Script.Serialization;
 using Library.ViewModel.Inventory.Customers;
 using Library.Service.Inventory.Customers;
 using Library.Model.Inventory.Customers;
+using System.Data;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -52,31 +54,8 @@ namespace ERP.WebUI.Controllers
             {
                 ViewBag.Id = id;
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                DateTime? dfrom = null;
-                DateTime? dto = null;
-                if (!string.IsNullOrEmpty(dateFrom))
-                {
-                    dfrom = Convert.ToDateTime(dateFrom);
-                    dfrom = new DateTime(dfrom.Value.Year, dfrom.Value.Month, dfrom.Value.Day, 0, 0, 0);
-                }
-                if (!string.IsNullOrEmpty(dateTo))
-                {
-                    dto = Convert.ToDateTime(dateTo);
-                    dto = new DateTime(dto.Value.Year, dto.Value.Month, dto.Value.Day, 23, 59, 59);
-                }
-                if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo) && !string.IsNullOrEmpty(customerId))
-                {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, customerId)));
-                }
-                if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
-                {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)));
-                }
-                if (!string.IsNullOrEmpty(customerId))
-                {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_saleService.GetAllByCustomer(customerId)));
-                }
-                return View();
+                var dataSet = _rawSqlService.getSalesList(identity.CompanyId, identity.BranchId, customerId, dateFrom, dateTo);
+                return View(dataSet);
             }
             catch (Exception ex)
             {
@@ -118,7 +97,7 @@ namespace ERP.WebUI.Controllers
 
         #region Create
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
             try
             {
@@ -127,15 +106,23 @@ namespace ERP.WebUI.Controllers
                 ViewBag.ProductList = serializer.Serialize(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId));
                 ViewBag.PromotionalDiscountList = serializer.Serialize(_rawSqlService.GetPromotionalPointAndDiscount(DateTime.Today));
                 ViewBag.ItemList = serializer.Serialize(_rawSqlService.GetBranchwiseProductStockAll(identity.CompanyId, identity.BranchId));
-
-                var customers = AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll());
+                ViewData["SaleDate"] = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
+                ViewData["open"] = 0;
+                var dataSet = new DataSet();
+                var customers = Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAll());
                 var customer = new CustomerViewModel { ACustomers = customers.ToList() };
+                if(!string.IsNullOrEmpty(id))
+                {
+                    ViewData["open"] = 1;
+                    dataSet = _rawSqlService.ReportLevelPrint(id);
+                }                
                 SuperShopSaleViewModel vm = new SuperShopSaleViewModel
                 {
                     Id = _saleService.GenerateAutoId(identity.CompanyId, identity.BranchId, "Sale"),
                     SaleDate = DateTime.Now,
                     PaymentType = PaymentType.Cash.ToString(),
-                    Customer = customer
+                    Customer = customer,
+                    Sales = dataSet
                 };
                 return View(vm);
             }
@@ -150,11 +137,15 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var id = _saleService.Add(AutoMapperConfiguration.mapper.Map<Sale>(salevm));
+                //var ids = _saleService.Add(Mapper.Map<Sale>(salevm));
+                var id = _rawSqlService.AddSaleItems(salevm);
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Invoice")
                     return Redirect("/SuperShopSale/ReportSaleMasterDetail/" + id);
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Label")
                     return Redirect("/SuperShopSale/ReportLevelPrint/" + id);
+                if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Html")
+                    return Redirect("/SuperShopSale/HtmlReportPrint/"+ id);
+                //return JavaScript($"ShowResult('{"Data save successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Print")
                 {
                     return Redirect("/SuperShopSale?id=" + id);
@@ -172,8 +163,20 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerService.Add(AutoMapperConfiguration.mapper.Map<Customer>(customervm));
-                return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
+                var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                customervm.CompanyId = identity.CompanyId;
+                customervm.BranchId = identity.BranchId;
+                customervm.Active = true;
+                if (string.IsNullOrEmpty(customervm.Id))
+                {
+                    _customerService.Add(Mapper.Map<Customer>(customervm));
+                    return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
+                }
+                else
+                {
+                    _customerService.Update(Mapper.Map<Customer>(customervm));
+                    return JavaScript($"ShowResult('{"Data update successfully."}','{"success"}','{"redirect"}','{"/SuperShopSale/Create"}')");
+                }
             }
             catch (Exception ex)
             {
@@ -190,9 +193,9 @@ namespace ERP.WebUI.Controllers
                 var serializer = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue };
                 ViewBag.ProductList = serializer.Serialize(_rawSqlService.GetBranchwiseProductStockGreaterThanZero(identity.CompanyId, identity.BranchId));
                 ViewBag.PromotionalDiscountList = serializer.Serialize(_rawSqlService.GetPromotionalPointAndDiscount(DateTime.Today));
-                SuperShopSaleViewModel salevm = AutoMapperConfiguration.mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(id));
-                List<SuperShopSaleDetailViewModel> saleItems = AutoMapperConfiguration.mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
-
+                SuperShopSaleViewModel salevm = Mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(id));
+                List<SuperShopSaleDetailViewModel> saleItems = Mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
+                ViewBag.NetAmount = salevm.NetAmount;
                 salevm.SaleDetails = new List<SuperShopSaleDetailViewModel>();
                 salevm.SaleDetails.AddRange(saleItems);
                 return View(salevm);
@@ -208,7 +211,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var id = _saleService.Update(AutoMapperConfiguration.mapper.Map<Sale>(salevm));
+                var id = _saleService.Update(Mapper.Map<Sale>(salevm));
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Invoice")
                     return Redirect("/SuperShopSale/ReportSaleMasterDetail/" + id);
                 if (!string.IsNullOrEmpty(salevm.ActionType) && salevm.ActionType == "Label")
@@ -233,8 +236,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                SuperShopSaleViewModel salevm = AutoMapperConfiguration.mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(id));
-                List<SuperShopSaleDetailViewModel> saleItems = AutoMapperConfiguration.mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
+                SuperShopSaleViewModel salevm = Mapper.Map<SuperShopSaleViewModel>(_saleService.GetById(id));
+                List<SuperShopSaleDetailViewModel> saleItems = Mapper.Map<List<SuperShopSaleDetailViewModel>>(_saleService.GetAllSaleDetailbyMasterId(id).ToList());
 
                 salevm.SaleDetails = new List<SuperShopSaleDetailViewModel>();
                 salevm.SaleDetails.AddRange(saleItems);
@@ -251,8 +254,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                Sale sale = AutoMapperConfiguration.mapper.Map<Sale>(salevm);
-                List<SaleDetail> saleItems = AutoMapperConfiguration.mapper.Map<List<SaleDetail>>(salevm.SaleDetails);
+                Sale sale = Mapper.Map<Sale>(salevm);
+                List<SaleDetail> saleItems = Mapper.Map<List<SaleDetail>>(salevm.SaleDetails);
                 sale.SaleDetails = new List<SaleDetail>();
                 foreach (var item in saleItems)
                 {
@@ -292,7 +295,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
                 }
                 return View(sales);
             }
@@ -334,7 +337,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSalesSummary(identity.CompanyId, identity.BranchId, dateFrom, dateTo, customerId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -368,7 +371,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
                 }
                 return View(sales);
             }
@@ -406,7 +409,7 @@ namespace ERP.WebUI.Controllers
                 IEnumerable<SuperShopSaleViewModel> sales = new List<SuperShopSaleViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
+                    sales = Mapper.Map<IEnumerable<SuperShopSaleViewModel>>(_rawSqlService.GetAllSaleClosing(identity.CompanyId, identity.BranchId, dateFrom, dateTo, identity.Name));
                 }
                 ReportDataSource rpt = new ReportDataSource("Sale", sales);
                 RdlcReportViewerWithDate.reportDataSource = rpt;
@@ -419,14 +422,13 @@ namespace ERP.WebUI.Controllers
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-
         public ActionResult ReportSaleMasterDetail(string id)
         {
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Sale", master);
                 ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -440,16 +442,34 @@ namespace ERP.WebUI.Controllers
                 return JavaScript($"ShowResult('{ex.Message}','failure')");
             }
         }
-
+        public ActionResult ReportSaleChallan(string id) 
+        {
+            try
+            {
+                var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+                var master = Mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
+                var detail = Mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
+                ReportDataSource rpt1 = new ReportDataSource("Sale", master);
+                ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
+                List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
+                RdlcReportViewerMultipleDataSet.reportDataSource = rptl;
+                string rPath = "RdlcReport/RptSalesChallanForMobileshop.rdlc";
+                Response.Redirect("~/ReportViewer/RdlcReportViewerMultipleDataSet.aspx?rPath=" + rPath + "&companyId=" + identity.CompanyId + "&branchId=" + identity.BranchId);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return JavaScript($"ShowResult('{ex.Message}','failure')");
+            }
+        }
         public ActionResult ReportLevelPrint(string id)
         {
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleViewModelForReport>>(_saleService.GetAllForReport(id)).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<SaleDetailViewModelForReport>>(_saleService.GetAllSaleDetailbyMasterIdForReport(id).ToList()).ToList();
-                ReportDataSource rpt1 = new ReportDataSource("Sale", master);
-                ReportDataSource rpt2 = new ReportDataSource("SaleDetail", detail);
+                var dataSet = _rawSqlService.ReportLevelPrint(id);
+                ReportDataSource rpt1 = new ReportDataSource("Sale", dataSet.Tables[0]);
+                ReportDataSource rpt2 = new ReportDataSource("SaleDetail", dataSet.Tables[1]);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
                 RdlcReportViewerMultipleDataSet.reportDataSource = rptl;
                 string rPath = "RdlcReport/RptSalesInvoiceForSuperShop.rdlc";
@@ -520,5 +540,13 @@ namespace ERP.WebUI.Controllers
             return View();
         }
         #endregion
+
+        public ActionResult HtmlReportPrint(string id)
+        {
+            var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
+            var dataSet = _rawSqlService.ReportLevelPrint(id);
+            //Response.Redirect("~/ReportViewer/RdlcReportViewerMultipleDataSet.aspx");
+            return View(dataSet);
+        }
     }
 }

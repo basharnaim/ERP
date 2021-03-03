@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 
 namespace ERP.WebUI
 {
@@ -16,6 +17,11 @@ namespace ERP.WebUI
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
             // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
             //config.EnableQuerySupport();
+        }
+
+        internal static void Register(object configuration)
+        {
+            throw new NotImplementedException();
         }
     }
 }

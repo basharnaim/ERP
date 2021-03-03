@@ -2,19 +2,23 @@
 @{
     ViewBag.Title = "Index";
 }
-    <div class="row">
+    @*<div class="row">
         <div class="col-xl-12">
             <div class="d-flex justify-content-between pb-1">
-                <a href="/APanel/Warehouse/Create" class="btn btn-bg" role="button">Add New</a>
+                <a href="/APanel/Warehouse/Create" class="btn btn-bg" role="button"><i class="fa fa-plus-circle"></i> Add New Warehouse</a>
                 <a href="/APanel" class="btn btn-bg top-button-back float-right" role="button">Back</a>
             </div>
             <hr />
         </div>
-    </div>
+    </div>*@
 <div class="row">
     <div class="col-xl-12">
         <div class="panel panel-default card">
-            <div class="card-header Warehouse_tittle">Warehouse Information</div>
+            <div class="card-header Warehouse_tittle alert-info">
+                Warehouse Information
+                <a href="/APanel/Warehouse/Create" class="btn btn-bg btn-sm" role="button"><i class="fa fa-plus-circle"></i> Add New </a>
+                <a href="/APanel" class="btn btn-bg top-button-back float-right btn-sm" role="button"><i class="fa fa-undo"></i> Back</a>
+            </div>
             <div class="panel-body card-body">
                 <div class="dataTable_wrapper">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">

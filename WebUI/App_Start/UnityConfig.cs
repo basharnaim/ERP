@@ -1,3 +1,4 @@
+using System;
 using Library.Context;
 using Library.Context.Core;
 using Library.Context.UnitOfWorks;
@@ -36,7 +37,7 @@ using Library.Service.Inventory.Promotions;
 using Library.Service.Inventory.Purchases;
 using Library.Service.Inventory.Sales;
 using Library.Service.Inventory.Suppliers;
-using System;
+
 using Unity;
 using Unity.AspNet.Mvc;
 
@@ -74,6 +75,7 @@ namespace ERP.WebUI
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+
             #region Service Only
             container
                 .RegisterType<ErpdbEntities, ErpdbEntities>(new PerRequestLifetimeManager())
@@ -300,10 +302,14 @@ namespace ERP.WebUI
                 .RegisterType<IRepository<PromotionalFreeItemDetail>, Repository<PromotionalFreeItemDetail>>()
                 .RegisterType<IPromotionalFreeItemService, PromotionalFreeItemService>()
                 .RegisterType<IRepository<PromotionalFreeItemMapping>, Repository<PromotionalFreeItemMapping>>()
-                .RegisterType<IPromotionalFreeItemMappingService, PromotionalFreeItemMappingService>()
+                .RegisterType<IPromotionalFreeItemMappingService, PromotionalFreeItemMappingService>();
             #endregion
+            // NOTE: To load from web.config uncomment the line below.
+            // Make sure to add a Unity.Configuration to the using statements.
+            // container.LoadConfiguration();
 
-            ;
+            // TODO: Register your type's mappings here.
+            // container.RegisterType<IProductRepository, ProductRepository>();
         }
     }
 }

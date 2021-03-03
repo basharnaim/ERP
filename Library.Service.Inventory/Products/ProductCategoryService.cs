@@ -156,7 +156,7 @@ namespace Library.Service.Inventory.Products
                         new DataColumn("Error)", typeof(string))
                     });
                     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                    var secondTable = dt.AsEnumerable().GroupBy(row => row.Field<string>("Name")).Select(group => group.First()).CopyToDataTable();
+                    var secondTable = dt; //.AsEnumerable().GroupBy(row => row.Field<string>("Name")).Select(group => group.First()).CopyToDataTable();
                     var productCategoryListDb = _productCategoryRepository.GetAll(x => !x.Archive).ToList();
                     var productCategoryList = new List<ProductCategory>();
                     var productCategoryAutoId = Convert.ToInt32(GetAutoNumber());

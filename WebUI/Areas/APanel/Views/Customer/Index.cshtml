@@ -3,54 +3,61 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-xl-12">
-        <div class="d-flex justify-content-between border-bottom pb-1">
-            <a href="/APanel/Customer/Create" class="btn btn-bg" role="button">Add New</a>
-            <a href="/APanel" class="btn btn-bg top-button-back float-right" role="button">Back</a>
-        </div>
-    </div>
-</div>
+
+
 @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
 {
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Company</label>
-                @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
-            </div>
+    <div class="card card-inverse">
+        <div class="card-header alert-secondary h5">
+            Opening Balance Product Add
+            <a href="/APanel/Customer/Create" class="btn btn-bg btn-sm" role="button"> Add New </a>
+            <a href="/APanel" class="btn btn-bg pull-right btn-sm" role="button"> Back </a>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Branch</label>
-                @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label class="control-label   ">Category</label>
-                @Html.SimpleDropDown("customerCategoryId", "/APanel/CustomerCategory/GetCustomerCategoryList/", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <div class="form-group">
-                <button type="submit" class="btn btn-bg ml-1 mr-1">Show</button>
-                <input type="button" value="Clear" class="btn btn-warning ml-1 mr-1" id="btnClear" />
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Company</label>
+                            @Html.SimpleDropDown("companyId", "/APanel/Company/GetCompanyList/", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Branch</label>
+                            @Html.CascadingDropDown("branchId", "/APanel/Branch/GetBranchList?id=", "companyId", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label   ">Category</label>
+                            @Html.SimpleDropDown("customerCategoryId", "/APanel/CustomerCategory/GetCustomerCategoryList/", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-bg m-4">Show</button>
+                            @Html.ActionLink("Report", "RdlcReportCustomerList", "Customer", new { target = "_blank", id = "btnReport", @class = "btn btn-primary pull-middle" })
+                            <input type="button" value="Clear" class="btn btn-warning offset-1" id="btnClear" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
+
 <div class="row">
     <div class="col-xl-12">
         <div class="panel panel-default card">
-            <div class="card-header ProductBasicConfigurationCategory_tittle">Customer Information</div>
+            <div class="card-header ProductBasicConfigurationCategory_tittle alert-secondary"> Opening Balance Product List</div>
             <div class="panel-body card-body">
                 <div class="dataTable_wrapper">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead class="thead-heading">
                             <tr>
-                                <th>Sequence</th>
                                 <th>Code</th>
+                                <th>Mobile</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Status</th>
@@ -64,10 +71,10 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Sequence)
+                                            @Html.DisplayFor(modelItem => item.Code)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Code)
+                                            @Html.DisplayFor(modelItem => item.Phone1)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
@@ -79,9 +86,9 @@
                                             @Html.YesNoFor(modelItem => item.Active)
                                         </td>
                                         <td>
-                                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-bg fa fa-edit" })
+                                            @Html.ActionLink(" ", "Create", new { id = item.Id }, new { @class = "btn-sm btn-bg fa fa-edit" })
                                             <a href="#" data-url="/APanel/Customer/Delete/@item.Id" class="btn-sm btn-bg fa fa-trash btnRemove"></a>
-                                        </td>
+                                        </td>                                       
                                     </tr>
                                 }
                             }
@@ -92,6 +99,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">

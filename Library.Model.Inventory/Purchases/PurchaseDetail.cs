@@ -16,6 +16,7 @@ namespace Library.Model.Inventory.Purchases
         public string Id { get; set; }
         public int Sequence { get; set; }
         public DateTime PurchaseDate { get; set; }
+        public DateTime? ExpiryDate { get; set; }
         public DateTime PurchaseDetailDate { get; set; }
         public decimal ProductStock { get; set; }
         public decimal Quantity { get; set; }

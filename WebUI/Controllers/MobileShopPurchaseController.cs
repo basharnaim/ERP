@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -51,15 +52,15 @@ namespace ERP.WebUI.Controllers
                 List<MobileShopPurchaseViewModel> sales = new List<MobileShopPurchaseViewModel>();
                 if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo) && !string.IsNullOrEmpty(supplierId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, supplierId)).ToList();
+                    sales = Mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value, supplierId)).ToList();
                 }
                 else if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)).ToList();
+                    sales = Mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAll(identity.CompanyId, identity.BranchId, dfrom.Value, dto.Value)).ToList();
                 }
                 else if (!string.IsNullOrEmpty(supplierId))
                 {
-                    sales = AutoMapperConfiguration.mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAllBySupplier(supplierId)).ToList();
+                    sales = Mapper.Map<IEnumerable<MobileShopPurchaseViewModel>>(_purchaseService.GetAllBySupplier(supplierId)).ToList();
                 }
                 return View(sales);
             }
@@ -112,8 +113,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                Purchase purchase = AutoMapperConfiguration.mapper.Map<Purchase>(purchasevm);
-                List<PurchaseDetail> purchaseItems = AutoMapperConfiguration.mapper.Map<List<PurchaseDetail>>(purchasevm.PurchaseDetails);
+                Purchase purchase = Mapper.Map<Purchase>(purchasevm);
+                List<PurchaseDetail> purchaseItems = Mapper.Map<List<PurchaseDetail>>(purchasevm.PurchaseDetails);
                 purchase.PurchaseDetails = new List<PurchaseDetail>();
                 foreach (var item in purchaseItems)
                 {
@@ -136,8 +137,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                MobileShopPurchaseViewModel purchase = AutoMapperConfiguration.mapper.Map<MobileShopPurchaseViewModel>(_purchaseService.GetById(id));
-                List<MobileShopPurchaseDetailViewModel> purchaseItems = AutoMapperConfiguration.mapper.Map<List<MobileShopPurchaseDetailViewModel>>(_purchaseService.GetAllPurchaseDetailbyMasterId(id).ToList());
+                MobileShopPurchaseViewModel purchase = Mapper.Map<MobileShopPurchaseViewModel>(_purchaseService.GetById(id));
+                List<MobileShopPurchaseDetailViewModel> purchaseItems = Mapper.Map<List<MobileShopPurchaseDetailViewModel>>(_purchaseService.GetAllPurchaseDetailbyMasterId(id).ToList());
                 purchase.PurchaseDetails = new List<MobileShopPurchaseDetailViewModel>();
                 purchase.PurchaseDetails.AddRange(purchaseItems);
                 ViewBag.ItemList = new JavaScriptSerializer().Serialize(_rawSqlService.GetPurchaseImeiList(identity.CompanyId, identity.BranchId));
@@ -154,8 +155,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                Purchase purchase = AutoMapperConfiguration.mapper.Map<Purchase>(purchasevm);
-                List<PurchaseDetail> purchaseItems = AutoMapperConfiguration.mapper.Map<List<PurchaseDetail>>(purchasevm.PurchaseDetails);
+                Purchase purchase = Mapper.Map<Purchase>(purchasevm);
+                List<PurchaseDetail> purchaseItems = Mapper.Map<List<PurchaseDetail>>(purchasevm.PurchaseDetails);
                 purchase.PurchaseDetails = new List<PurchaseDetail>();
                 foreach (var item in purchaseItems)
                 {
@@ -177,8 +178,8 @@ namespace ERP.WebUI.Controllers
             try
             {
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == id).ToList()).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(id).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == id).ToList()).ToList();
+                var detail = Mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(id).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Purchase", master);
                 ReportDataSource rpt2 = new ReportDataSource("PurchaseDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };
@@ -268,8 +269,8 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var master = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == purchaseId).ToList()).ToList();
-                var detail = AutoMapperConfiguration.mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId).ToList()).ToList();
+                var master = Mapper.Map<IEnumerable<PurchaseViewModelForReport>>(_purchaseService.GetAll().Where(x => x.Id == purchaseId).ToList()).ToList();
+                var detail = Mapper.Map<IEnumerable<PurchaseDetailViewModelForReport>>(_purchaseService.GetAllPurchaseDetailbyMasterIdForReport(purchaseId).ToList()).ToList();
                 ReportDataSource rpt1 = new ReportDataSource("Purchase", master);
                 ReportDataSource rpt2 = new ReportDataSource("PurchaseDetail", detail);
                 List<ReportDataSource> rptl = new List<ReportDataSource> { rpt1, rpt2 };

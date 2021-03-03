@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ERP.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Controllers
 {
@@ -50,7 +51,6 @@ namespace ERP.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(productStockMaser);
         }
 

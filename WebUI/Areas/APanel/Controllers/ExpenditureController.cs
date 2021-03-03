@@ -11,6 +11,8 @@ using Library.Context.Repositories;
 using Library.Service.Inventory.Expenditures;
 using Library.ViewModel.Inventory.Expenditures;
 using Microsoft.Reporting.WebForms;
+using System.Linq;
+using AutoMapper;
 
 #endregion
 
@@ -51,26 +53,27 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(expenditureCategoryId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId, expenditureCategoryId, dfrom.Value, dto.Value)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId, expenditureCategoryId, dfrom.Value, dto.Value)));
                 }
 
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(expenditureCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId, expenditureCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId, expenditureCategoryId)));
                 }
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId, branchId)));
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll(companyId)));
                 }
-                return View();
+                var data = _expenditureService.GetAll().ToList();
+                return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_expenditureService.GetAll()));
             }
             catch (Exception ex)
             {
-                return JavaScript($"ShowResult('{ex.Message}','failure')");
+                return JavaScript($"ShowResult('{ex}','failure')");
             }
         }
 
@@ -96,7 +99,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(new ExpenditureViewModel { Active=true, Sequence= _expenditureService.GetAutoSequence() });
+                return View(new ExpenditureViewModel { Active = true, Sequence = _expenditureService.GetAutoSequence() });
             }
             catch (Exception ex)
             {
@@ -109,7 +112,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureService.Add(AutoMapperConfiguration.mapper.Map<Expenditure>(expenditurevm));
+                _expenditureService.Add(Mapper.Map<Expenditure>(expenditurevm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Expenditure/?companyId=" + expenditurevm.CompanyId + "&&branchId=" + expenditurevm.BranchId}')");
             }
             catch (Exception ex)
@@ -125,7 +128,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ExpenditureViewModel>(_expenditureService.GetById(id)));
+                return View(Mapper.Map<ExpenditureViewModel>(_expenditureService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -138,8 +141,10 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _expenditureService.Update(AutoMapperConfiguration.mapper.Map<Expenditure>(expenditurevm));
-                return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Expenditure/?companyId=" + expenditurevm.CompanyId + "&&branchId=" + expenditurevm.BranchId}')");
+                _expenditureService.Update(Mapper.Map<Expenditure>(expenditurevm));
+                return JavaScript($"ShowResult('{"Data update successfully."}','{"success"}','{"redirect"}','{"/APanel/Expenditure/?companyId=" + expenditurevm.CompanyId + "&&branchId=" + expenditurevm.BranchId}')");
+
+                //return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Expenditure/?companyId=" + expenditurevm.CompanyId + "&&branchId=" + expenditurevm.BranchId}')");
             }
             catch (Exception ex)
             {
@@ -167,7 +172,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_rawSqlService.GetExpenses(companyId, branchId, dateFrom, dateTo, expenditureCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ExpenditureViewModel>>(_rawSqlService.GetExpenses(companyId, branchId, dateFrom, dateTo, expenditureCategoryId)));
                 }
                 return View();
             }
@@ -208,7 +213,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<ExpenditureViewModel> expenses = new List<ExpenditureViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    expenses = AutoMapperConfiguration.mapper.Map<IEnumerable<ExpenditureViewModel>>(_rawSqlService.GetExpenses(companyId, branchId, dateFrom, dateTo, expenditureCategoryId));
+                    expenses = Mapper.Map<IEnumerable<ExpenditureViewModel>>(_rawSqlService.GetExpenses(companyId, branchId, dateFrom, dateTo, expenditureCategoryId));
                 }
                 ReportDataSource rpt = new ReportDataSource("Expenditure", expenses);
                 RdlcReportViewerWithDate.reportDataSource = rpt;

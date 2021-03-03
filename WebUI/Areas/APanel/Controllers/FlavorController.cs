@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
@@ -26,7 +27,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<FlavorViewModel>>(_flavorService.GetAll()));
+                return View(Mapper.Map<IEnumerable<FlavorViewModel>>(_flavorService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _flavorService.Add(AutoMapperConfiguration.mapper.Map<Flavor>(flavorVm));
+                _flavorService.Add(Mapper.Map<Flavor>(flavorVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Flavor"}')");
             }
             catch (Exception ex)
@@ -91,7 +92,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<FlavorViewModel>(_flavorService.GetById(id)));
+                return View(Mapper.Map<FlavorViewModel>(_flavorService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _flavorService.Update(AutoMapperConfiguration.mapper.Map<Flavor>(flavorVm));
+                _flavorService.Update(Mapper.Map<Flavor>(flavorVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Flavor"}')");
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using ERP.WebUI.Controllers;
+﻿using AutoMapper;
+using ERP.WebUI.Controllers;
 using Library.Model.Core.Organizations;
 using Library.Service.Core.Addresses;
 using Library.Service.Core.Organizations;
@@ -35,7 +36,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<BranchViewModel>>(_branchService.GetAllForCPanel()));
+                return View(Mapper.Map<IEnumerable<BranchViewModel>>(_branchService.GetAllForCPanel()));
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _branchService.Add(AutoMapperConfiguration.mapper.Map<Branch>(branchvm));
+                _branchService.Add(Mapper.Map<Branch>(branchvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CPanel/Branch"}')");
             }
             catch (Exception ex)
@@ -84,7 +85,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BranchViewModel>(_branchService.GetById(id)));
+                return View(Mapper.Map<BranchViewModel>(_branchService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -98,7 +99,7 @@ namespace ERP.WebUI.Areas.CPanel.Controllers
         {
             try
             {
-                _branchService.Update(AutoMapperConfiguration.mapper.Map<Branch>(branchvm));
+                _branchService.Update(Mapper.Map<Branch>(branchvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CPanel/Branch"}')");
             }
             catch (Exception ex)

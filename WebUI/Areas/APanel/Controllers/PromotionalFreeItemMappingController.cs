@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Service.Inventory.Customers;
 using Library.Service.Inventory.Promotions;
@@ -31,7 +32,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return !string.IsNullOrEmpty(promotionalFreeItemId) ? View(AutoMapperConfiguration.mapper.Map<IEnumerable<PromotionalFreeItemMappingViewModel>>(_promotionalFreeItemMappingService.GetAll(promotionalFreeItemId))) : View();
+                return !string.IsNullOrEmpty(promotionalFreeItemId) ? View(Mapper.Map<IEnumerable<PromotionalFreeItemMappingViewModel>>(_promotionalFreeItemMappingService.GetAll(promotionalFreeItemId))) : View();
             }
             catch (Exception ex)
             {
@@ -44,7 +45,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         #region Json
         public ActionResult GetCustomerList(string customerCategoryId, string unitId, string regionId, string areaId, string territoryId, string customerId)
         {
-            return View("_CustomerList", AutoMapperConfiguration.mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAllCustomerForMapping(customerCategoryId, unitId, regionId, areaId, territoryId, customerId)));
+            return View("_CustomerList", Mapper.Map<IEnumerable<CustomerViewModel>>(_customerService.GetAllCustomerForMapping(customerCategoryId, unitId, regionId, areaId, territoryId, customerId)));
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ManufacturerViewModel>>(_manufacturerService.GetAll()));
+                return View(Mapper.Map<IEnumerable<ManufacturerViewModel>>(_manufacturerService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _manufacturerService.Add(AutoMapperConfiguration.mapper.Map<Manufacturer>(manufacturerVm));
+                _manufacturerService.Add(Mapper.Map<Manufacturer>(manufacturerVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Manufacturer"}')");
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<Manufacturer, ManufacturerViewModel>(_manufacturerService.GetById(id)));
+                return View(Mapper.Map<Manufacturer, ManufacturerViewModel>(_manufacturerService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -96,7 +97,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _manufacturerService.Update(AutoMapperConfiguration.mapper.Map<Manufacturer>(manufacturerVm));
+                _manufacturerService.Update(Mapper.Map<Manufacturer>(manufacturerVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Manufacturer"}')");
             }
             catch (Exception ex)

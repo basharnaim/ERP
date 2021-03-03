@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.ReportViewer;
 using Library.Model.Inventory.Suppliers;
 using Library.Service.Inventory.Suppliers;
@@ -29,9 +30,9 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(supplierCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
+                    return View(Mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
                 }
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
+                return View(Mapper.Map<IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -76,7 +77,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _supplierService.Add(AutoMapperConfiguration.mapper.Map<Supplier>(vm));
+                _supplierService.Add(Mapper.Map<Supplier>(vm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Supplier/"}')");
             }
             catch (Exception ex)
@@ -93,7 +94,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<SupplierViewModel>(_supplierService.GetById(id)));
+                return View(Mapper.Map<SupplierViewModel>(_supplierService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _supplierService.Update(AutoMapperConfiguration.mapper.Map<SupplierViewModel, Supplier>(suppliervm));
+                _supplierService.Update(Mapper.Map<SupplierViewModel, Supplier>(suppliervm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Supplier/"}')");
             }
             catch (Exception ex)
@@ -138,10 +139,10 @@ namespace ERP.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(supplierCategoryId))
                 {
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
+                    return View(Mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll(supplierCategoryId)));
                 }
 
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
+                return View(Mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierViewModel>>(_supplierService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -156,7 +157,7 @@ namespace ERP.WebUI.Controllers
                 {
                     supplierCategoryId = "";
                 }
-                var suppliers = AutoMapperConfiguration.mapper.Map<IEnumerable<SupplierViewModel>>(!string.IsNullOrEmpty(supplierCategoryId) ? _supplierService.GetAll(supplierCategoryId) : _supplierService.GetAll());
+                var suppliers = Mapper.Map<IEnumerable<SupplierViewModel>>(!string.IsNullOrEmpty(supplierCategoryId) ? _supplierService.GetAll(supplierCategoryId) : _supplierService.GetAll());
                 ReportDataSource rpt = new ReportDataSource("Supplier", suppliers);
                 RdlcReportViewerWithoutDate.reportDataSource = rpt;
                 string rPath = "RdlcReport/RptSupllier.rdlc";

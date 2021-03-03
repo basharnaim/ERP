@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using AutoMapper;
 using Library.Crosscutting.Securities;
 using Library.Model.Inventory.Accounts;
 using Library.Service.Inventory.Accounts;
@@ -34,7 +35,7 @@ namespace ERP.WebUI.Controllers
                 var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                 List<BankLedgerViewModel> bankLedgerVm = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(accountNo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(identity.CompanyId, identity.BranchId, accountNo).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(identity.CompanyId, identity.BranchId, accountNo).ToList());
                 return View(bankLedgerVm);
             }
             catch (Exception ex)
@@ -49,7 +50,7 @@ namespace ERP.WebUI.Controllers
             {
                 List<BankLedgerViewModel> bankLedgerVm = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(accountNo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
                 return View(bankLedgerVm);
             }
             catch (Exception ex)
@@ -84,7 +85,7 @@ namespace ERP.WebUI.Controllers
             {
                 if (bankLedgerVm.Amount > 0)
                 {
-                    _bankLedgerService.Add(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                    _bankLedgerService.Add(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                     return JavaScript(
                         $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/BankLedger?accountNo=" + bankLedgerVm.AccountNo}')");
                 }
@@ -104,7 +105,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                BankLedgerViewModel bankLedgerVm = AutoMapperConfiguration.mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id));
+                BankLedgerViewModel bankLedgerVm = Mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id));
                 if (bankLedgerVm.DebitAmount > 0)
                     bankLedgerVm.Amount = bankLedgerVm.DebitAmount;
                 else
@@ -122,7 +123,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _bankLedgerService.Update(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                _bankLedgerService.Update(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/BankLedger?accountNo=" + bankLedgerVm.AccountNo}')");
             }
@@ -172,7 +173,7 @@ namespace ERP.WebUI.Controllers
             {
                 if (bankLedgerVm.Amount > 0)
                 {
-                    BankLedger bankLedger = AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm);
+                    BankLedger bankLedger = Mapper.Map<BankLedger>(bankLedgerVm);
                     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                     bankLedgerVm.CompanyId = identity.CompanyId;
                     bankLedgerVm.BranchId = identity.BranchId;
@@ -198,7 +199,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id)));
+                return View(Mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id)));
 
             }
 
@@ -218,7 +219,7 @@ namespace ERP.WebUI.Controllers
                     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                     bankLedgerVm.CompanyId = identity.CompanyId;
                     bankLedgerVm.BranchId = identity.BranchId;
-                    _bankLedgerService.Add(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                    _bankLedgerService.Add(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                     return JavaScript(
                         $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/BankLedger/BankOpeningIndex?accountNo=" + bankLedgerVm.AccountNo}')");
                 }

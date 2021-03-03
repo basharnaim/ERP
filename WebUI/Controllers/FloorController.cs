@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<FloorViewModel>>(_floorService.GetAll()));
+                return View(Mapper.Map<IEnumerable<FloorViewModel>>(_floorService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _floorService.Add(AutoMapperConfiguration.mapper.Map<Floor>(rackvm));
+                _floorService.Add(Mapper.Map<Floor>(rackvm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/Floor"}')");
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                var rack = AutoMapperConfiguration.mapper.Map<Floor, FloorViewModel>(_floorService.GetById(id));
+                var rack = Mapper.Map<Floor, FloorViewModel>(_floorService.GetById(id));
                 return View(rack);
             }
             catch (Exception ex)
@@ -97,7 +98,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _floorService.Update(AutoMapperConfiguration.mapper.Map<Floor>(rackvm));
+                _floorService.Update(Mapper.Map<Floor>(rackvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Floor"}')");
             }
             catch (Exception ex)

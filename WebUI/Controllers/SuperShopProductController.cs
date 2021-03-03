@@ -1,4 +1,5 @@
-﻿using Library.Model.Inventory.Products;
+﻿using AutoMapper;
+using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
 using Library.ViewModel.Inventory.Products;
 using System;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ERP.WebUI.Controllers
 {
+    [Authorize]
     public class SuperShopProductController : BaseController
     {
         #region Ctor
@@ -24,10 +26,10 @@ namespace ERP.WebUI.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(productCategoryId) && !string.IsNullOrEmpty(productSubCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId, productSubCategoryId)));
                 if (!string.IsNullOrEmpty(productCategoryId))
-                    return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
+                    return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll(productCategoryId)));
+                return View(Mapper.Map<IEnumerable<ProductViewModel>>(_productService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -62,7 +64,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productService.Add(AutoMapperConfiguration.mapper.Map<Product>(productVm));
+                _productService.Add(Mapper.Map<Product>(productVm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/SuperShopProduct/?productCategoryId=" + productVm.ProductCategoryId + "&&productSubCategoryId=" + productVm.ProductSubCategoryId}')");
             }
             catch (Exception ex)
@@ -78,7 +80,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<ProductViewModel>(_productService.GetById(id)));
+                return View(Mapper.Map<ProductViewModel>(_productService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -91,7 +93,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _productService.Update(AutoMapperConfiguration.mapper.Map<Product>(productVm));
+                _productService.Update(Mapper.Map<Product>(productVm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/SuperShopProduct/?productCategoryId=" + productVm.ProductCategoryId + "&&productSubCategoryId=" + productVm.ProductSubCategoryId}')");
 
             }

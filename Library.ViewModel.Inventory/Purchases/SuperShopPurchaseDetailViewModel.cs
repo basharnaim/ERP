@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.ViewModel.Inventory.Purchases
-{
-    public class SuperShopPurchaseDetailViewModel
+{ 
+    public class SuperShopStockOutDetailViewModel
     {
         #region Scalar
         public string Id { get; set; }
@@ -23,7 +23,7 @@ namespace Library.ViewModel.Inventory.Purchases
         public bool IsUpdated { get; set; }
         public string SynchronizationType { get; set; }
         public string Description { get; set; }
-        public string GradeId { get; set; }
+        //public string GradeId { get; set; }
         public string GradeName { get; set; }
         public decimal ProductStock { get; set; }
         public string WarehouseId { get; set; }
@@ -31,6 +31,8 @@ namespace Library.ViewModel.Inventory.Purchases
         #endregion
 
         #region Navigation
+        
+        public string StockOutId { get; set; }
         public string CompanyId { get; set; }
         public string BranchId { get; set; }
         public string PurchaseId { get; set; }
@@ -50,6 +52,19 @@ namespace Library.ViewModel.Inventory.Purchases
         public decimal DeliveryQuantity { get; set; }
         public string UOMName { get; set; }
         public string SupplierName { get; set; }
+        public DateTime ExpiryDate { get; set; }
+
+        public string RAMId { get; set; }
+        public string ROMId { get; set; }
+        public string SizeId { get; set; }
+        public string ColorId { get; set; }
+        public string StyleId { get; set; }
+        public string GradeId { get; set; }
+        public string SupplierId { get; set; }
+        public string BrandId { get; set; }       
+        public string StockOutDate { get; set; }
+        public string StockOutDetailDate { get; set; }     
+        public string StockOutPrice { get; set; }
         #endregion
 
         #region Extra

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using ERP.WebUI.Controllers;
 using Library.Model.Inventory.Products;
 using Library.Service.Inventory.Products;
@@ -24,7 +25,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<GradeViewModel>>(_gradeService.GetAll()));
+                return View(Mapper.Map<IEnumerable<GradeViewModel>>(_gradeService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -69,7 +70,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _gradeService.Add(AutoMapperConfiguration.mapper.Map<Grade>(gradevm));
+                _gradeService.Add(Mapper.Map<Grade>(gradevm));
                 return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/Grade"}')");
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<GradeViewModel>(_gradeService.GetById(id)));
+                return View(Mapper.Map<GradeViewModel>(_gradeService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -101,7 +102,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _gradeService.Update(AutoMapperConfiguration.mapper.Map<Grade>(gradevm));
+                _gradeService.Update(Mapper.Map<Grade>(gradevm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/Grade"}')");
             }
             catch (Exception ex)

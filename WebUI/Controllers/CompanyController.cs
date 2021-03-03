@@ -1,4 +1,5 @@
-﻿using Library.Model.Core.Organizations;
+﻿using AutoMapper;
+using Library.Model.Core.Organizations;
 using Library.Service.Core.Organizations;
 using Library.ViewModel.Core.Organizations;
 using System;
@@ -22,8 +23,9 @@ namespace ERP.WebUI.Controllers
         public ActionResult Index()
         {
             try
-            {
-                return View(AutoMapperConfiguration.mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAll().Where(r => r.Active)));
+            {                
+                var data = Mapper.Map<IEnumerable<CompanyViewModel>>(_companyService.GetAll().Where(r => r.Active));
+                return View(data);
             }
             catch (Exception ex)
             {
@@ -53,7 +55,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
+                return View(Mapper.Map<CompanyViewModel>(_companyService.GetById(id)));
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace ERP.WebUI.Controllers
             try
             {
                 comvm.Active = true;
-                _companyService.Update(AutoMapperConfiguration.mapper.Map<Company>(comvm));
+                _companyService.Update(Mapper.Map<Company>(comvm));
                 return JavaScript($"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/Company"}')");
             }
             catch (Exception ex)

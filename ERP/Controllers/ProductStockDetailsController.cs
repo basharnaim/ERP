@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.ModelBinding;
+//using System.Web.Mvc;
 using ERP.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.Controllers
 {

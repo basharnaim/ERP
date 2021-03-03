@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace ERP.WebUI.Controllers
 {
@@ -53,23 +54,23 @@ namespace ERP.WebUI.Controllers
                 List<CustomerLedgerViewModel> customerLedger = new List<CustomerLedgerViewModel>();
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetCustomerByMobileNumberWithCompanyBranchId(phone, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
+                    customervm = Mapper.Map<CustomerViewModel>(_customerService.GetCustomerByMobileNumberWithCompanyBranchId(phone, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetCustomerByIdWithCompanyBranchId(customerId, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", customerId).ToList());
+                    customervm = Mapper.Map<CustomerViewModel>(_customerService.GetCustomerByIdWithCompanyBranchId(customerId, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", customerId).ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetCustomerByMobileNumberWithCompanyBranchId(phone, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", phone, "").ToList());
+                    customervm = Mapper.Map<CustomerViewModel>(_customerService.GetCustomerByMobileNumberWithCompanyBranchId(phone, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerId))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<CustomerViewModel>(_customerService.GetCustomerByIdWithCompanyBranchId(customerId, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", "", customerId).ToList());
+                    customervm = Mapper.Map<CustomerViewModel>(_customerService.GetCustomerByIdWithCompanyBranchId(customerId, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", "", customerId).ToList());
                 }
                 return View(new Tuple<IEnumerable<CustomerLedgerViewModel>, CustomerViewModel>(customerLedger, customervm));
             }
@@ -141,7 +142,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerLedgerService.Add(AutoMapperConfiguration.mapper.Map<CustomerLedger>(customerLedgervm));
+                _customerLedgerService.Add(Mapper.Map<CustomerLedger>(customerLedgervm));
                 CustomerLedgerViewModel vm = new CustomerLedgerViewModel();
                 return JavaScript(
                     $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/CustomerLedger?companyId=" + customerLedgervm.CompanyId + "&&branchId=" + customerLedgervm.BranchId}')");
@@ -159,7 +160,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                CustomerLedgerViewModel customerLedgervm = AutoMapperConfiguration.mapper.Map<CustomerLedgerViewModel>(_customerLedgerService.GetById(id));
+                CustomerLedgerViewModel customerLedgervm = Mapper.Map<CustomerLedgerViewModel>(_customerLedgerService.GetById(id));
                 var customer = _customerService.GetById(customerLedgervm.CustomerId);
                 customerLedgervm.CustomerName = customer.Name;
                 customerLedgervm.CustomerMobileNumber = customer.Phone1;
@@ -189,7 +190,7 @@ namespace ERP.WebUI.Controllers
         {
             try
             {
-                _customerLedgerService.Update(AutoMapperConfiguration.mapper.Map<CustomerLedgerViewModel, CustomerLedger>(customerLedgervm));
+                _customerLedgerService.Update(Mapper.Map<CustomerLedgerViewModel, CustomerLedger>(customerLedgervm));
                 CustomerLedgerViewModel vm = new CustomerLedgerViewModel();
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/CustomerLedger?companyId=" + customerLedgervm.CompanyId + "&&branchId=" + customerLedgervm.BranchId}')");
@@ -223,23 +224,23 @@ namespace ERP.WebUI.Controllers
                 List<CustomerLedgerViewModel> customerLedger = new List<CustomerLedgerViewModel>();
                 if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<List<CustomerViewModel>>(_customerService.GetAllByMobile(phone, companyId, branchId)).ToList();
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
+                    customervm = Mapper.Map<List<CustomerViewModel>>(_customerService.GetAllByMobile(phone, companyId, branchId)).ToList();
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerId) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<List<CustomerViewModel>>(_customerService.GetAllById(customerId, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", customerId).ToList());
+                    customervm = Mapper.Map<List<CustomerViewModel>>(_customerService.GetAllById(customerId, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, dfrom.ToString(), dto.ToString(), "", "", customerId).ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(phone))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<List<CustomerViewModel>>(_customerService.GetAllByMobile(phone, companyId, branchId)).ToList();
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", phone, "").ToList());
+                    customervm = Mapper.Map<List<CustomerViewModel>>(_customerService.GetAllByMobile(phone, companyId, branchId)).ToList();
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", phone, "").ToList());
                 }
                 else if (!string.IsNullOrEmpty(companyId) && !string.IsNullOrEmpty(branchId) && !string.IsNullOrEmpty(customerId))
                 {
-                    customervm = AutoMapperConfiguration.mapper.Map<List<CustomerViewModel>>(_customerService.GetAllById(customerId, companyId, branchId));
-                    customerLedger = AutoMapperConfiguration.mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", "", customerId).ToList());
+                    customervm = Mapper.Map<List<CustomerViewModel>>(_customerService.GetAllById(customerId, companyId, branchId));
+                    customerLedger = Mapper.Map<List<CustomerLedgerViewModel>>(_rawSqlService.GetAllCustomerLedger(companyId, branchId, "", "", "", "", customerId).ToList());
                 }
                 ReportDataSource rpt1 = new ReportDataSource("Customer", customervm);
                 ReportDataSource rpt2 = new ReportDataSource("CustomerLedger", customerLedger);

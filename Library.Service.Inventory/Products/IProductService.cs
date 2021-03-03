@@ -59,7 +59,7 @@ namespace Library.Service.Inventory.Products
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerable<object> Lists();
+        IEnumerable<object> Lists();        
         IEnumerable<object> GetAllPurchaseItemList();
         IEnumerable<object> GetAllPurchaseItemList(string companyId, string branchId);
         int GetAutoSequence();

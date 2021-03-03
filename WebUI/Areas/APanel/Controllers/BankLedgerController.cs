@@ -15,6 +15,8 @@ using Library.Context.Repositories;
 using Library.Service.Inventory.Accounts;
 using Library.ViewModel.Inventory.Accounts;
 using Microsoft.Reporting.WebForms;
+using AutoMapper;
+
 
 #endregion
 
@@ -54,9 +56,9 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 List<BankLedgerViewModel> bankLedgerVm = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(accountNo) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo) )
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo, dfrom.Value, dto.Value).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo, dfrom.Value, dto.Value).ToList());
                 if (!string.IsNullOrEmpty(accountNo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
                 return View(bankLedgerVm);
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 List<BankLedgerViewModel> bankLedgerVm = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(accountNo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
                 return View(bankLedgerVm);
             }
             catch (Exception ex)
@@ -106,7 +108,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (bankLedgerVm.Amount > 0)
                 {
-                    _bankLedgerService.Add(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                    _bankLedgerService.Add(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                     return JavaScript($"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/APanel/BankLedger?accountNo=" + bankLedgerVm.AccountNo}')");
                 }
                 return JavaScript($"ShowResult('{"Amount 0 is not valid value!"}','{"failure"}')");
@@ -124,7 +126,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                BankLedgerViewModel bankLedgerVm = AutoMapperConfiguration.mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id));
+                BankLedgerViewModel bankLedgerVm = Mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id));
                 if (bankLedgerVm.DebitAmount > 0)
                     bankLedgerVm.Amount = bankLedgerVm.DebitAmount;
                 else
@@ -142,7 +144,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                _bankLedgerService.Update(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                _bankLedgerService.Update(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                 return JavaScript(
                     $"ShowResult('{"Data updated successfully."}','{"success"}','{"redirect"}','{"/APanel/BankLedger?accountNo=" + bankLedgerVm.AccountNo}')");
             }
@@ -192,7 +194,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
             {
                 if (bankLedgerVm.Amount > 0)
                 {
-                    BankLedger bankLedger = AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm);
+                    BankLedger bankLedger = Mapper.Map<BankLedger>(bankLedgerVm);
                     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                     bankLedgerVm.CompanyId = identity.CompanyId;
                     bankLedgerVm.BranchId = identity.BranchId;
@@ -218,7 +220,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
         {
             try
             {
-                return View(AutoMapperConfiguration.mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id)));
+                return View(Mapper.Map<BankLedgerViewModel>(_bankLedgerService.GetById(id)));
 
             }
 
@@ -238,7 +240,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                     var identity = (LoginIdentity)Thread.CurrentPrincipal.Identity;
                     bankLedgerVm.CompanyId = identity.CompanyId;
                     bankLedgerVm.BranchId = identity.BranchId;
-                    _bankLedgerService.Add(AutoMapperConfiguration.mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
+                    _bankLedgerService.Add(Mapper.Map<BankLedger>(bankLedgerVm), bankLedgerVm.Amount);
                     return JavaScript(
                         $"ShowResult('{"Data saved successfully."}','{"success"}','{"redirect"}','{"/BankLedger/BankOpeningIndex?accountNo=" + bankLedgerVm.AccountNo}')");
                 }
@@ -272,9 +274,9 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 }
                 List<BankLedgerViewModel> bankLedgerVm = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(accountNo) && !string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo, dfrom.Value, dto.Value).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo, dfrom.Value, dto.Value).ToList());
                 if (!string.IsNullOrEmpty(accountNo))
-                    bankLedgerVm = AutoMapperConfiguration.mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
+                    bankLedgerVm = Mapper.Map<List<BankLedgerViewModel>>(_bankLedgerService.GetAll(companyId, branchId, accountNo).ToList());
                 return View(bankLedgerVm);
             }
             catch (Exception ex)
@@ -317,7 +319,7 @@ namespace ERP.WebUI.Areas.APanel.Controllers
                 IEnumerable<BankLedgerViewModel> bankLedgerList = new List<BankLedgerViewModel>();
                 if (!string.IsNullOrEmpty(companyId))
                 {
-                    bankLedgerList = AutoMapperConfiguration.mapper.Map<IEnumerable<BankLedgerViewModel>>(_rawSqlService.GetAllBankLedger(companyId, branchId,accountNo ,dateFrom, dateTo));
+                    bankLedgerList = Mapper.Map<IEnumerable<BankLedgerViewModel>>(_rawSqlService.GetAllBankLedger(companyId, branchId,accountNo ,dateFrom, dateTo));
                 }
                 ReportDataSource rpt = new ReportDataSource("BankLedger", bankLedgerList);
                 RdlcReportViewerWithDate.reportDataSource = rpt;

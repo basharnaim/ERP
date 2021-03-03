@@ -12,6 +12,9 @@
 </div>
 @using (Html.BeginForm("Create", "MobileShopSale", FormMethod.Post, new { id = "DialogForm" }))
 {
+
+
+
     @Html.HiddenFor(model => model.ActionType)
     <div class="row bg-top2">
         <div class="col-md-2">
